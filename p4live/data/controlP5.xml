@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<controlP5 colorLabel="ffffffff" colorValue="ffffffff" colorForeground="ff00698c" date="Sun Sep 11 04:26:54 CEST 2011" colorBackground="ff003652" colorActive="ff08a2cf" lock="false" filepath="data/controlp5.xml" urlpath="">
+<window height="768" name="main" background="00000000" width="1024" class="p4live.P4live">
+<tab name="global" width="40" id="-1" visible="1.0" open="1.0" label="global" moveable="0.0"/>
+<tab name="default" width="45" id="-1" visible="1.0" open="1.0" label="default" moveable="0.0">
+<group name="Control Screens" width="500" id="-1" visible="1.0" open="1.0" y="13.0" label="Control Screens" x="374.0" height="9" moveable="1.0">
+<controller name="Output_Active" id="-1" width="20" visible="1.0" type="toggle" y="77.0" label="Output_Active" x="320.0" value="0.0" height="20" moveable="1.0"/>
+<controller name="windowLine1" id="-1" width="200" visible="1.0" type="textlabel" y="79.0" label="windowLine1" x="125.0" value="0.0" height="20" moveable="1.0">
+P4live:          1024 x 768 @ 10.0 FPS</controller>
+<controller name="windowLine2" id="-1" width="200" visible="1.0" type="textlabel" y="96.0" label="windowLine2" x="140.0" value="0.0" height="20" moveable="1.0">
+Video Output: 1440 x 900 @  FPS</controller>
+</group>
+<group name="Beat Analisys" width="290" id="-1" visible="1.0" open="1.0" y="10.0" label="Beat Analisys" x="0.0" height="9" moveable="1.0">
+<controller name="kick" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="6.0" label="kick" x="6.0" value="1.0" height="100" moveable="1.0"/>
+<controller name="kickSensitivity" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10000.0" y="6.0" label="kickSensitivity" x="31.0" value="128.0" height="100" moveable="1.0"/>
+<controller name="snare" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="7.0" label="snare" x="97.0" value="1.0" height="100" moveable="1.0"/>
+<controller name="snareSensitivity" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10000.0" y="6.0" label="snareSensitivity" x="126.0" value="128.0" height="100" moveable="1.0"/>
+<controller name="hat" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="7.0" label="hat" x="202.0" value="1.0" height="100" moveable="1.0"/>
+<controller name="hatSensitivity" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10000.0" y="6.0" label="hatSensitivity" x="228.0" value="128.0" height="100" moveable="1.0"/>
+</group>
+<group name="Volume" width="80" id="-1" visible="1.0" open="1.0" y="11.0" label="Volume" x="292.0" height="9" moveable="1.0">
+<controller name="vol" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="6.0" label="vol" x="11.0" value="1.0" height="100" moveable="1.0"/>
+<controller name="volume" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10.0" y="6.0" label="volume" x="37.0" value="7.3900003" height="100" moveable="1.0"/>
+</group>
+</tab>
+</window>
+</controlP5>
+

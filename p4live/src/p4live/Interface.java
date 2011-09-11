@@ -4,6 +4,8 @@
 package p4live;
 import java.util.ArrayList;
 
+import controlP5.ControllerInterface;
+
 import processing.core.PApplet;
 
 /**
@@ -12,9 +14,9 @@ import processing.core.PApplet;
  */
 public class Interface {
 	
-	PApplet p;
-	ArrayList Controls;
-	Control c;
+	private PApplet p;
+	private ArrayList Controls;
+	private Control c;
 	
 	Interface(PApplet parent){
 		p = parent;
@@ -22,10 +24,43 @@ public class Interface {
 		Controls = new ArrayList();
 
 		buildInterface();
+		//loadInterface();
 	}
 
 	private void buildInterface(){
 		Controls.add(new ControlScreens());
+		Controls.add(new ControlBeat());
+		Controls.add(new ControlVolume());		
+	}
+	
+	public void loadInterface(){
+		c.getControlP5().setFilePath("data/controlp5.xml");
+		p.println("loading: "+c.getControlP5().filePath());
+
+		c.getControlP5().setAutoInitialization(true);
+	    c.getControlP5().load("controlP5.xml");
+	    
+
+	    for(int k = 0;k<Controls.size();k++){
+	    	((Control)Controls.get(k)).setPreferences();
+	    }
+	}
+
+	public void saveInterface(){
+	    // save the current state/setup of all 
+	    // controllers available.
+		c.getControlP5().setFilePath("data/controlp5.xml");		
+	    c.getControlP5().save();
+	}
+	
+	public void printControls(){
+		ControllerInterface[] ci;
+		//c.getControlP5().
+		ci =  c.getControlP5().getControllerList();
+		p.println("elem: "+ ci.length);
+		for (int k=0;k<ci.length;k++){
+			p.println(ci[k].stringValue());
+		}
 	}
 	
 }

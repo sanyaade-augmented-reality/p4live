@@ -6,12 +6,12 @@ import codeanticode.glgraphics.*;
 
 
 public class P4live extends PApplet {
-
+	Interface i;
 
 	
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
-		Interface i;
+		frameRate(30);
 		i = new Interface(this);
 	}
 
@@ -21,8 +21,24 @@ public class P4live extends PApplet {
 	
 	public static void main(String _args[]) {
 		PApplet.main(new String[] { p4live.P4live.class.getName() });
+		//sketchPath(), sketchFile(), savePath(), dataPath(), and createPath() 
 	}
 	
+	public void keyPressed() {
+		  if(key=='s') {
+			  i.saveInterface();
+		  }
+		  if(key=='l') {
+			  i.loadInterface();
+		  }
+		  
+		  if(key=='p') {
+			  i.printControls();
+		  }
 
+		  
+	}
+	
+	
 
 }

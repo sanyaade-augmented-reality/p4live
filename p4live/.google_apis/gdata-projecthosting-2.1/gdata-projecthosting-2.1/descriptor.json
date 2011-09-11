@@ -1,0 +1,17 @@
+{
+  "kind": "discovery#directoryItem",
+  "id": "gdata-projecthosting:2.1",
+  "name": "gdata-projecthosting",
+  "version": "2.1",
+  "title": "Project Hosting",
+  "publisher": "Google",
+  "description": "The Issue Tracker Data API allows client applications to view and update issues on Project Hosting on Google Code in the form of Google Data API feeds. Your client application can use the Issue Tracker Data API to create new issues & issue comments, request a list of issues, request issue comments for an issue, edit existing issues, and query for issues that match a particular criteria.",
+  "downloadLink": "static/gdata-projecthosting-2.1.zip",
+  "icons": {
+    "x16": "icons/projecthosting-16.png"
+  },
+  "tosLink": "http://code.google.com/terms.html",
+  "releaseDate": "2009-11-05",
+  "documentationLink": "http://code.google.com/p/support/wiki/IssueTrackerAPIJava",
+  "preferred": true
+}

@@ -11,13 +11,12 @@ import controlP5.*;
  *
  */
 public class Control {
-	static ControlP5 controlP5;
-	static PApplet p;
+	protected static ControlP5 controlP5;
+	protected static PApplet p;
+	protected ControlGroup group;
 	
-	int xPos; // X coordenate of Panel
-	int yPos; // Y coordenate of Panel
-	//int xSize;
-	//int ySize;
+	//protected int xPos; // X coordenate of Panel
+	//protected int yPos; // Y coordenate of Panel
 
 	Control(){}
 	
@@ -26,6 +25,9 @@ public class Control {
 		controlP5 = new ControlP5(p);
 	}
 	
+	public ControlP5 getControlP5(){
+		return controlP5;
+	}
 	
 	public void controlEvent(ControlEvent theEvent) {
 		  if(theEvent.isGroup()) {
@@ -34,4 +36,20 @@ public class Control {
 		    p.println("got something from a controller "+theEvent.controller().name());
 		  }
 		}  
+	
+	//borrrar
+	/*public void setGroupPreferences(){
+		//for (int k=0;k<controlP5.)
+		//group = (ControlGroup)controlP5.group("Control Screens"); // controller("Beat Analisys");
+		group.setBackgroundColor(p.color(255, 100));
+		group.setBackgroundHeight(150);
+		setPreferences();
+	}*/
+	
+	public void setPreferences(){
+		group = (ControlGroup)controlP5.group("Control Screens");
+		group.setBackgroundColor(p.color(255, 100));
+		group.setBackgroundHeight(150);
+		
+	}
 }
