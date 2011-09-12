@@ -3,16 +3,17 @@ package p4live;
 import processing.core.PApplet;
 import codeanticode.glgraphics.*;
 
-
-
 public class P4live extends PApplet {
 	Interface i;
-
+	//OutputWindow w;
 	
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 		frameRate(30);
+		
+		//solo objetos a los que haya que acceder
 		i = new Interface(this);
+		//w = new OutputWindow(this);
 	}
 
 	public void draw() {

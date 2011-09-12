@@ -30,7 +30,8 @@ public class Interface {
 	private void buildInterface(){
 		Controls.add(new ControlScreens());
 		Controls.add(new ControlBeat());
-		Controls.add(new ControlVolume());		
+		Controls.add(new ControlVolume());
+		Controls.add(new ControlFFT());
 	}
 	
 	public void loadInterface(){
@@ -42,7 +43,7 @@ public class Interface {
 	    
 
 	    for(int k = 0;k<Controls.size();k++){
-	    	((Control)Controls.get(k)).setPreferences();
+	    	((Control)Controls.get(k)).setGroupPreferences();
 	    }
 	}
 

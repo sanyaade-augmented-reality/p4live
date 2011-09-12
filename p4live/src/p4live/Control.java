@@ -14,10 +14,8 @@ public class Control {
 	protected static ControlP5 controlP5;
 	protected static PApplet p;
 	protected ControlGroup group;
+	protected String groupName="";
 	
-	//protected int xPos; // X coordenate of Panel
-	//protected int yPos; // Y coordenate of Panel
-
 	Control(){}
 	
 	Control(PApplet parent){
@@ -37,19 +35,18 @@ public class Control {
 		  }
 		}  
 	
-	//borrrar
-	/*public void setGroupPreferences(){
-		//for (int k=0;k<controlP5.)
-		//group = (ControlGroup)controlP5.group("Control Screens"); // controller("Beat Analisys");
-		group.setBackgroundColor(p.color(255, 100));
-		group.setBackgroundHeight(150);
-		setPreferences();
-	}*/
+	public void setGroupPreferences(){
+		group = (ControlGroup)controlP5.group(groupName); 
+		if(group != null){
+			group.setBackgroundColor(p.color(255, 100));
+			group.setBackgroundHeight(150);
+			setPreferences(); // for load  preferences of each instance
+		}
+	}
 	
 	public void setPreferences(){
-		group = (ControlGroup)controlP5.group("Control Screens");
+		group = (ControlGroup)controlP5.group(groupName);
 		group.setBackgroundColor(p.color(255, 100));
-		group.setBackgroundHeight(150);
-		
+		group.setBackgroundHeight(150);	
 	}
 }

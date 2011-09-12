@@ -1,19 +1,18 @@
 package p4live;
 
-import controlP5.CColor;
 import controlP5.ControlGroup;
 import controlP5.Slider;
-
 
 public class ControlBeat extends Control{
 	
 	ControlBeat(){
+		groupName = "Beat Analisys";
 		build();
 		setPreferences();
 	}	
 	
 	private void build() {		
-		group = controlP5.addGroup("Beat Analisys", 200, 100, 200);
+		group = controlP5.addGroup(groupName, 200, 100, 200);
 		
 		controlP5.addSlider("kick",0,200,188,20,100,10,100).setGroup(group);
 		controlP5.addSlider("kickSensitivity",0,200,128,20,100,10,100).setGroup(group);
@@ -25,12 +24,11 @@ public class ControlBeat extends Control{
 		controlP5.addSlider("hatSensitivity",0,200,128,20,100,10,100).setGroup(group);
 	}
 	
-	public void setPreferences(){
-		group = (ControlGroup)controlP5.group("Beat Analisys");
+	public void setPreferences(){	
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(150);
-		group.setWidth(290);
-		group.setBackgroundHeight(120);	
+		group.setWidth(260);
+		group.setBackgroundHeight(140);
 		
 		Slider kick = (Slider)controlP5.controller("kick");
 		kick.setColorForeground(p.color(255,0,0));
