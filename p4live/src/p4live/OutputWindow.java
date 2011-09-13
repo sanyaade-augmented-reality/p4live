@@ -22,7 +22,6 @@ public class OutputWindow {
 	private GLGraphicsOffScreen layerOutput;
 	private GLTextureWindow texWin;
 
-
 	private int windowX = 0;
 	private int windowY = 0;
 	private int windowWidth = -1;
