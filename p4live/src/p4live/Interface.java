@@ -4,6 +4,7 @@
 package p4live;
 import java.util.ArrayList;
 
+import controlP5.ControlEvent;
 import controlP5.ControllerInterface;
 
 import processing.core.PApplet;
@@ -14,8 +15,8 @@ import processing.core.PApplet;
  */
 public class Interface {
 	
-	private PApplet p;
-	private ArrayList Controls;
+	private static PApplet p;
+	private static ArrayList Controls;
 	private Control c;
 	
 	Interface(PApplet parent){
@@ -28,20 +29,23 @@ public class Interface {
 	}
 
 	private void buildInterface(){
-		Controls.add(new ControlScreens());
-		Controls.add(new ControlBeat());
-		Controls.add(new ControlVolume());
-		Controls.add(new ControlFFT());
+		Controls.add(new ControlScreens());//0
+		Controls.add(new ControlBeat());//1
+		Controls.add(new ControlVolume());//2
+		Controls.add(new ControlFFT());//3
+		Controls.add(new ControlMidi());//4
 	}
 	
 	public void loadInterface(){
 		c.getControlP5().setFilePath("data/controlp5.xml");
 		p.println("loading: "+c.getControlP5().filePath());
 
-		c.getControlP5().setAutoInitialization(true);
+	//	c.getControlP5().setAutoInitialization(true);
 	    c.getControlP5().load("controlP5.xml");
-	    
-
+	    setPreferences();
+	}
+	
+	public void setPreferences(){
 	    for(int k = 0;k<Controls.size();k++){
 	    	((Control)Controls.get(k)).setGroupPreferences();
 	    }
@@ -62,6 +66,15 @@ public class Interface {
 		for (int k=0;k<ci.length;k++){
 			p.println(ci[k].stringValue());
 		}
+	}
+	
+	//esta aqui porque output window esta dentro de controlscreens
+	public static void setFullScreen(boolean estado){
+		((ControlScreens)Controls.get(0)).setFullScreen(estado); 
+	}
+	
+	public static void pingMidi(){
+		((ControlMidi)Controls.get(4)).pingComunication();
 	}
 	
 }

@@ -77,20 +77,21 @@ public class OutputWindow {
 		// with new resolution
 	}
 	
-	private void enableOutput() {
+	public void enableOutput() {
 		texWin.show();
 	}
 
-	private void disableOutput() {
+	public void disableOutput() {
 		texWin.hide();
 	}
 
 	private void enableFullScreen() {
-		texWin.setOverride(true);
+		//texWin.setOverride(true);
+		//texWin.
 	}
 
 	private void disableFullScreen() {
-		texWin.setOverride(false);
+		//texWin.setOverride(false);
 	}	
 	
 	/**
@@ -126,6 +127,7 @@ public class OutputWindow {
 	 */
 	public void setWindowHeight(int windowHeight) {
 		this.windowHeight = windowHeight;
+		
 		//texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
 		//texWin.setTexture(layerOutput.getTexture());
 	}

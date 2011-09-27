@@ -1,9 +1,10 @@
 package p4live;
 
+import p4live.ControlMidi.TimedEvent;
 import controlP5.CColor;
+import controlP5.ControlBehavior;
 import controlP5.ControlGroup;
 import controlP5.Slider;
-
 
 public class ControlVolume extends Control{
 	
@@ -16,7 +17,7 @@ public class ControlVolume extends Control{
 	private void build() {		
 		group = controlP5.addGroup(groupName, 200, 100, 200);
 		controlP5.addSlider("vol",0,200,188,20,100,10,100).setGroup(group);
-		controlP5.addSlider("volume",0,200,128,20,100,10,100).setGroup(group);
+		controlP5.addSlider("Level",0,200,128,20,100,10,100).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -25,6 +26,7 @@ public class ControlVolume extends Control{
 		group.setBackgroundHeight(140);
 		
 		Slider vol = (Slider)controlP5.controller("vol");
+		vol.setBehavior(new SoundUpdate());
 		//kick.setColorForeground(p.color(255,0,0));
 		vol.setSize(20,100);
 		vol.setMin(0);
@@ -32,17 +34,23 @@ public class ControlVolume extends Control{
 		vol.setLabelVisible(false);
 		//kick.lock();
 		
-		Slider volume = (Slider)controlP5.controller("volume");
+		Slider level = (Slider)controlP5.controller("Level");
 		//kickS.setColorForeground(p.color(120,0,0));
 		//kickS.setColorActive(p.color(180,0,0));
-		//kickS.setDecimalPrecision(0);
-		volume.setMin(1);
-		volume.setMax(10);
-		
-		/*
-public float getVolume()
-    Returns the current volume. If a volume control is not available, this returns 0. Note that the volume is not the same thing as the level() of an AudioBuffer!
-setVolume	
-		 */
+		level.setDecimalPrecision(1);
+		level.setMin(1);
+		level.setMax(10);
 	}
+	
+	public float getVolume(){
+		Slider volume = (Slider)controlP5.controller("Sensitivity");
+		return in.mix.level()*volume.value();
+	}
+		
+	private class SoundUpdate extends ControlBehavior {
+		  public SoundUpdate() {  }
+		  public void update() {
+			  setValue(in.mix.level());  
+		  }
+		}
 }
