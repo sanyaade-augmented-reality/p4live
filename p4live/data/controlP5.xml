@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<controlP5 colorLabel="ffffffff" colorValue="ffffffff" colorForeground="ff00698c" date="Tue Sep 27 21:03:07 CEST 2011" colorBackground="ff003652" colorActive="ff08a2cf" lock="false" filepath="data/controlp5.xml" urlpath="">
+<controlP5 colorLabel="ffffffff" colorValue="ffffffff" colorForeground="ff00698c" date="Wed Sep 28 17:42:27 CEST 2011" colorBackground="ff003652" colorActive="ff08a2cf" lock="false" filepath="data/controlp5.xml" urlpath="">
 <window height="768" name="main" background="00000000" width="1024" class="p4live.P4live">
 <tab name="global" width="40" id="-1" visible="1.0" open="1.0" label="global" moveable="0.0"/>
 <tab name="default" width="45" id="-1" visible="1.0" open="1.0" label="default" moveable="0.0">
-<group name="Control Screens" width="500" id="-1" visible="1.0" open="1.0" y="200.0" label="Control Screens" x="400.0" height="9" moveable="1.0">
-<controller name="OutputWindow" id="-1" width="20" visible="1.0" type="toggle" y="100.0" label="OutputWindow" x="100.0" value="1.0" height="20" moveable="1.0"/>
-<controller name="Fullscreen" id="-1" width="20" visible="1.0" type="toggle" y="240.0" label="Fullscreen" x="100.0" value="0.0" height="20" moveable="1.0"/>
-<controller name="TestSketch" id="-1" width="20" visible="1.0" type="toggle" y="195.0" label="TestSketch" x="162.0" value="0.0" height="20" moveable="1.0"/>
-<controller name="windowLine1" id="-1" width="200" visible="1.0" type="textlabel" y="100.0" label="windowLine1" x="100.0" value="0.0" height="20" moveable="1.0">
+<group name="Control Screens" width="400" id="-1" visible="1.0" open="1.0" y="88.0" label="Control Screens" x="484.0" height="9" moveable="1.0">
+<controller name="OutputWindow" id="-1" width="20" visible="1.0" type="toggle" y="19.0" label="OutputWindow" x="112.0" value="1.0" height="20" moveable="1.0"/>
+<controller name="Fullscreen" id="-1" width="20" visible="1.0" type="toggle" y="36.0" label="Fullscreen" x="36.0" value="0.0" height="20" moveable="1.0"/>
+<controller name="TestSketch" id="-1" width="20" visible="1.0" type="toggle" y="28.0" label="TestSketch" x="218.0" value="0.0" height="20" moveable="1.0"/>
+<controller name="windowLine1" id="-1" width="200" visible="1.0" type="textlabel" y="80.0" label="windowLine1" x="97.0" value="0.0" height="20" moveable="1.0">
 P4live:          1024 x 768 @ 10.0 FPS</controller>
 </group>
-<group name="Beat" width="200" id="-1" visible="1.0" open="1.0" y="405.0" label="Beat" x="380.0" height="9" moveable="1.0">
-<controller name="kick" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="100.0" label="kick" x="20.0" value="0.34867844" height="100" moveable="1.0"/>
-<controller name="snare" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="100.0" label="snare" x="20.0" value="0.3138106" height="100" moveable="1.0"/>
-<controller name="hat" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="100.0" label="hat" x="20.0" value="0.38742048" height="100" moveable="1.0"/>
-<controller name="Sensitivity" id="-1" width="10" visible="1.0" min="10.0" type="slider" max="10000.0" y="100.0" label="Sensitivity" x="20.0" value="128.0" height="100" moveable="1.0"/>
+<group name="Beat" width="200" id="-1" visible="1.0" open="1.0" y="465.0" label="Beat" x="93.0" height="9" moveable="1.0">
+<controller name="kick" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="23.0" label="kick" x="63.0" value="0.025031555" height="100" moveable="1.0"/>
+<controller name="snare" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="20.0" label="snare" x="11.0" value="0.08862938" height="100" moveable="1.0"/>
+<controller name="hat" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="11.0" label="hat" x="105.0" value="1.0" height="100" moveable="1.0"/>
+<controller name="Sensitivity" id="-1" width="10" visible="1.0" min="10.0" type="slider" max="10000.0" y="28.0" label="Sensitivity" x="155.0" value="128.0" height="100" moveable="1.0"/>
 </group>
 <group name="Volume" width="80" id="-1" visible="1.0" open="1.0" y="100.0" label="Volume" x="200.0" height="9" moveable="1.0">
-<controller name="vol" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="100.0" label="vol" x="20.0" value="0.0058488394" height="100" moveable="1.0"/>
-<controller name="Level" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10.0" y="100.0" label="Level" x="20.0" value="10.0" height="100" moveable="1.0"/>
+<controller name="vol" id="-1" width="20" visible="1.0" min="0.0" type="slider" max="1.0" y="24.0" label="vol" x="49.0" value="0.028491609" height="100" moveable="1.0"/>
+<controller name="Level" id="-1" width="10" visible="1.0" min="1.0" type="slider" max="10.0" y="20.0" label="Level" x="16.0" value="10.0" height="100" moveable="1.0"/>
 </group>
-<group name="FFT Analisys" width="200" id="-1" visible="1.0" open="1.0" y="100.0" label="FFT Analisys" x="200.0" height="9" moveable="1.0"/>
-<group name="Midi" width="120" id="-1" visible="1.0" open="1.0" y="368.0" label="Midi" x="189.0" height="9" moveable="1.0">
-<controller name="Internal_Control" id="-1" width="10" visible="1.0" type="toggle" y="10.0" label="Internal_Control" x="16.0" value="0.0" height="10" moveable="1.0"/>
-<controller name="External_Sound" id="-1" width="10" visible="1.0" type="toggle" y="34.0" label="External_Sound" x="16.0" value="0.0" height="10" moveable="1.0"/>
-<controller name="Map" id="-1" width="30" visible="1.0" type="button" y="95.0" label="Map" x="14.0" value="128.0" height="20" moveable="1.0"/>
-<controller name="Load" id="-1" width="30" visible="1.0" type="button" y="62.0" label="Load" x="33.0" value="128.0" height="20" moveable="1.0"/>
-<controller name="Save" id="-1" width="30" visible="1.0" type="button" y="69.0" label="Save" x="85.0" value="128.0" height="20" moveable="1.0"/>
+<group name="FFT" width="400" id="-1" visible="1.0" open="1.0" y="513.0" label="FFT" x="607.0" height="9" moveable="1.0">
+<controller name="fftLevel" id="-1" width="10" visible="1.0" min="0.0" type="slider" max="200.0" y="21.0" label="fftLevel" x="37.0" value="128.0" height="100" moveable="1.0"/>
+</group>
+<group name="Midi" width="120" id="-1" visible="1.0" open="1.0" y="400.0" label="Midi" x="300.0" height="9" moveable="1.0">
+<controller name="Internal_Control" id="-1" width="10" visible="1.0" type="toggle" y="10.0" label="Internal_Control" x="18.0" value="0.0" height="10" moveable="1.0"/>
+<controller name="External_Sound" id="-1" width="10" visible="1.0" type="toggle" y="35.0" label="External_Sound" x="17.0" value="0.0" height="10" moveable="1.0"/>
+<controller name="Map" id="-1" width="30" visible="1.0" type="button" y="107.0" label="Map" x="13.0" value="128.0" height="20" moveable="1.0"/>
+<controller name="Load" id="-1" width="30" visible="1.0" type="button" y="81.0" label="Load" x="47.0" value="128.0" height="20" moveable="1.0"/>
+<controller name="Save" id="-1" width="30" visible="1.0" type="button" y="108.0" label="Save" x="88.0" value="128.0" height="20" moveable="1.0"/>
 </group>
 </tab>
 </window>

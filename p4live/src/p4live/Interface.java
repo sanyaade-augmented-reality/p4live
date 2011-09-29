@@ -25,14 +25,14 @@ public class Interface {
 		Controls = new ArrayList();
 
 		buildInterface();
-		//loadInterface();
+		//loadInterface(); NO
 	}
 
 	private void buildInterface(){
 		Controls.add(new ControlScreens());//0
 		Controls.add(new ControlBeat());//1
 		Controls.add(new ControlVolume());//2
-		Controls.add(new ControlFFT());//3
+		Controls.add(new ControlFFT());//3 error
 		Controls.add(new ControlMidi());//4
 	}
 	
@@ -41,7 +41,7 @@ public class Interface {
 		p.println("loading: "+c.getControlP5().filePath());
 
 	//	c.getControlP5().setAutoInitialization(true);
-	    c.getControlP5().load("controlP5.xml");
+	    c.getControlP5().load("controlp5.xml");
 	    setPreferences();
 	}
 	

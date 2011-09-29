@@ -9,6 +9,9 @@ public class ControlScreens extends Control {
 
 	ControlScreens() {
 		groupName="Control Screens";
+		defaultX = 400;
+		defaultY = 200;
+		defaultWidth = 400;
 		build();
 		setPreferences();
 		
@@ -18,7 +21,7 @@ public class ControlScreens extends Control {
 
 
 	private void build() {
-		group = controlP5.addGroup(groupName, 400, 200, 500);
+		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(150);
 
@@ -41,6 +44,12 @@ public class ControlScreens extends Control {
 		}
 	}
 
+	public void setPreferences(){
+		group = (ControlGroup)controlP5.group(groupName);
+		group.setBackgroundColor(p.color(255, 100));
+		group.setBackgroundHeight(defaultHeight);	
+		group.setWidth(defaultWidth);
+	}
 	
 	public void setFullScreen(boolean estado){
 		if (estado)

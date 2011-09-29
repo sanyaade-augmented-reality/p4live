@@ -12,8 +12,8 @@ import ddf.minim.analysis.BeatDetect;
 public class ControlBeat extends Control{
 	BeatDetect beats; 					// The BeatDetect main object
 	BeatListener bl; 					// A beat listener for the beat object
-	ControlFont font;
-	PFont pfont;
+	//ControlFont font;
+	//PFont pfont;
 	
 	ControlBeat(){
 		groupName = "Beat";
@@ -22,8 +22,8 @@ public class ControlBeat extends Control{
 		defaultX = 400;
 		defaultY = 200;
 		
-		PFont pfont = p.createFont("Times",20,true); // use true/false for smooth/no-smooth
-		font = new ControlFont(pfont);
+		//PFont pfont = p.createFont("Times",20,true); // use true/false for smooth/no-smooth
+		//font = new ControlFont(pfont);
 
 		beats = new BeatDetect(in.bufferSize(), in.sampleRate());
 		bl = new BeatListener(beats, in);

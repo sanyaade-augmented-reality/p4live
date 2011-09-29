@@ -23,8 +23,6 @@ public class Control {
 	protected int defaultX=0;
 	protected int defaultY=0;
 	
-	
-	
 	Control(){}
 	
 	Control(PApplet parent){
@@ -58,6 +56,7 @@ public class Control {
 		group = (ControlGroup)controlP5.group(groupName);
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(defaultHeight);	
+		group.setWidth(defaultWidth);
 	}
 	
 	public void stop()

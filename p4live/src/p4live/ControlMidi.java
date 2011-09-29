@@ -10,7 +10,6 @@ import themidibus.MidiBus;
 
 
 public class ControlMidi extends Control{
-
 	//DropdownList ddl1;
 	MidiBus busA;
 	//MidiBus busB;
@@ -35,7 +34,7 @@ public class ControlMidi extends Control{
 			busA = new MidiBus(p, 0, 0);
 			}
 		else
-			p.println("No MIDI inputs detected");
+			p.println("[Warning] No MIDI inputs detected");
 	}
 	
 	private void buildInterface() {		
