@@ -34,7 +34,7 @@ public class EventsCP5 extends Events{
 		//p.println("got "+value+" from a controller "+ name);
 		   Integer n = tableEvents.get(name);
 		   if (n != null) {
-		     System.out.println("action = " + n);
+		     //System.out.println("action = " + n);
 		     actions.execute(n, value);
 		   }
 	}
@@ -44,5 +44,7 @@ public class EventsCP5 extends Events{
 		tableEvents.put("Fullscreen", 1);
 		tableEvents.put("OutputWindow", 2);
 		tableEvents.put("BeatSensitivity", 3);
+		tableEvents.put("bpmVelocity", 4);
+		
 	}	
 }

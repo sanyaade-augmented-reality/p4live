@@ -33,6 +33,9 @@ public class Actions {
 	public static void backgroundMode(){}
 	public static void sendParam(){}
 	public static void sendBang(){}
+	public static void bpmVelocity(float value){
+		p4live.Interface.setBPM(value);
+	}
 
 	public static void fullscreen(float value){
 		boolean b = (value != 0);
@@ -51,6 +54,11 @@ public class Actions {
 			break;
 		case 3:
 			beatSensitivity(value);
+			break;
+		case 4:
+			bpmVelocity(value);
+			break;
+		
 		default:
 			p.println("Warning: Action unmapped");
 		}

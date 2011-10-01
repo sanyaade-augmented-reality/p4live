@@ -42,7 +42,7 @@ public class ControlBeat extends Control{
 	public void setPreferences(){	
 		group.setBackgroundColor(p.color(255, 100));
 		group.setWidth(defaultWidth);
-		group.setBackgroundHeight(140);
+		group.setBackgroundHeight(defaultHeight);
 		
 		Slider kick = (Slider)controlP5.controller("kick");
 		kick.setBehavior(new kickUpdate());

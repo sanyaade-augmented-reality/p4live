@@ -18,6 +18,12 @@ public class Interface {
 	private static PApplet p;
 	private static ArrayList Controls;
 	private Control c;
+	/*private ControlScreens cScreens;
+	private ControlBeat cBeat;
+	private ControlVolume cVolume;
+	private ControlFFT cFFT;
+	private ControlMidi cMidi;*/
+	//private ControlBPM cBPM;
 	
 	Interface(PApplet parent){
 		p = parent;
@@ -34,6 +40,7 @@ public class Interface {
 		Controls.add(new ControlVolume());//2
 		Controls.add(new ControlFFT());//3 error
 		Controls.add(new ControlMidi());//4
+		Controls.add(new ControlBPM());//5
 	}
 	
 	public void loadInterface(){
@@ -41,7 +48,8 @@ public class Interface {
 		p.println("loading: "+c.getControlP5().filePath());
 
 	//	c.getControlP5().setAutoInitialization(true);
-	    c.getControlP5().load("controlp5.xml");
+	//    c.getControlP5().load("controlp5.xml");
+	    c.getControlP5().load(p.dataPath("controlp5.xml")); 
 	    setPreferences();
 	}
 	
@@ -72,6 +80,14 @@ public class Interface {
 	public static void setFullScreen(boolean estado){
 		((ControlScreens)Controls.get(0)).setFullScreen(estado); 
 	}
+
+	public static void setBPM(float bpm){
+		ControlBPM cbpm = (ControlBPM)Controls.get(5);
+		cbpm.setBPM(bpm);
+		/*if (cbpm != null)
+			((ControlBPM)Controls.get(5)).setBPM(bpm);*/
+	}
+
 	
 	public static void pingMidi(){
 		((ControlMidi)Controls.get(4)).pingComunication();
