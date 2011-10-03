@@ -23,6 +23,9 @@ public class Actions {
 		//loadDefaultActions();
 	}
 
+	
+	
+	
 	public static void setAlpha(){}
 	public static void tapBPM(){}
 	public static void resetCam(){}
@@ -52,12 +55,15 @@ public class Actions {
 		p4live.Interface.setBPM(v);
 	}*/
 
+
 	/*public static void fullscreen(Controller c){
 		float value = c.value();
 		boolean b = (value != 0);
 		fullscreen(b);
 	}*/
 	
+	
+
 	public static void fullscreen(float value){
 		boolean b = (value != 0);
 		fullscreen(b);
@@ -68,8 +74,7 @@ public class Actions {
 	}
 		
 	public static void beatSensitivity(float value){
-		//int min = p4live.Control.controlP5.g
-		
+
 	}
 	
 	//sin normalizar
