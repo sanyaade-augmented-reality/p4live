@@ -9,6 +9,8 @@ import controlP5.Slider;
 
 public class ControlBPM extends Control{
 	
+	
+	
 	private int actualMS=1;
 	private int lastBeat=1;
 	private int nextBeat=1;
