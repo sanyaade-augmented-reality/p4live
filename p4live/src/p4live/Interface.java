@@ -81,12 +81,12 @@ public class Interface {
 		((ControlScreens)Controls.get(0)).setFullScreen(estado); 
 	}
 
-	public static void setBPM(float bpm){
+	/*public static void setBPM(float bpm){
 		ControlBPM cbpm = (ControlBPM)Controls.get(5);
 		cbpm.setBPM(bpm);
-		/*if (cbpm != null)
-			((ControlBPM)Controls.get(5)).setBPM(bpm);*/
-	}
+		if (cbpm != null)
+			((ControlBPM)Controls.get(5)).setBPM(bpm);
+	}*/
 
 	
 	public static void pingMidi(){

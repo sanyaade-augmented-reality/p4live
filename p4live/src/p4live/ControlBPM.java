@@ -41,30 +41,36 @@ public class ControlBPM extends Control{
 		//bpm.setMax(1);
 				
 		Slider bpmV = (Slider)controlP5.controller("bpmVelocity");
-		bpmV.setDecimalPrecision(0);
+		bpmV.setDecimalPrecision(1);
+		bpmV.plugTo(this);
 		//bpmV.setMax(200);
 		//bpmV.setMin(10);
 		//bpmV.setMax(200);
-		//bpmVelocity.setDefaultValue(140);
-		//bpmVelocity.setValue(140);		
-		setBPM(120);
+		//setBPM(120);
 	}
+	
+	public void bpmVelocity(float bpm){
+		actualMS = (int) ((60/bpm)*1000);
+		p.println("bpm: "+bpm + " ms: " + actualMS);
+		
+		syncBPM();
+		}
 	
 	public float getBPM(){
 		Slider bpmVelocity = (Slider)controlP5.controller("bpmVelocity");	
 		return bpmVelocity.value();
 	}
 	
-	public void setBPM(float bpm) {
+	/*public void setBPM(float bpm) {
 		//Slider bpmVelocity = (Slider)controlP5.controller("bpmVelocity");
 		//bpmVelocity.setValue(bpm);
 		//actualMS = (int) (bpm * 16.67);
 		actualMS = (int) ((60/bpm)*1000);
 		
-		p.println(actualMS);
+		p.println("bpm: "+bpm + " ms: " + actualMS);
 		
 		syncBPM();
-	}
+	}*/
 		
 	//#############
 	
@@ -110,7 +116,7 @@ public class ControlBPM extends Control{
 					//actualBeat++;
 					lastBeat = p.millis();
 					nextBeat = lastBeat + actualMS;
-					p.println("***********************Beat!");
+					//p.println("***********************Beat!");
 				}
 				//p.println("BPM: "+getBPM()+" lB: " + lastBeat + " nB: " + nextBeat + " TIME: "+actualMS +" tL:" + timeLapsed);
 		  }
