@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import controlP5.ControlEvent;
 import controlP5.Controller;
 import codeanticode.glgraphics.*;
-import themidibus.*; 
+//import themidibus.*; 
 
 import p4live.P4Constants;
 
@@ -25,7 +25,6 @@ public class P4live extends PApplet {
 		frameRate(30);
 		
 		//solo objetos a los que haya que acceder
-		//reaction = new Reaction(this);				//build first the reaction
 		events = new Events(this);
 		i = new Interface(this);					//last step build interface
 	}
@@ -61,6 +60,7 @@ public class P4live extends PApplet {
 	
 	/////////// EVENTS
 	
+	/*
 	public void controlEvent(ControlEvent theEvent) {		
 	  if(theEvent.isGroup()) {
 	    //println("got an event from group "+theEvent.group().name()+", isOpen? "+theEvent.group().isOpen());  
@@ -68,7 +68,7 @@ public class P4live extends PApplet {
 		  Controller c = theEvent.controller();
 		  events.captureP5Event(c);
 		  }
-	  }
+	  }*/
 
 	public void noteOn(int channel, int pitch, int velocity, String bus_name) {
 		i.pingMidi();

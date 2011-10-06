@@ -19,24 +19,33 @@ public class OutputWindow {
 	private GraphicsEnvironment environment;
 
 	// Creating an offscreen canvas to do some drawing on it.
-	private GLGraphicsOffScreen layerOutput;
+	private TestScreens layerOutput;
+	
 	private GLTextureWindow texWin;
 
 	private int windowX = 0;
 	private int windowY = 0;
-	private int windowWidth = -1;
-	private int windowHeight = -1;
-
+	private int windowWidth = 400;
+	private int windowHeight = 400;
+	private int screenWidth = -1;
+	private int screenHeight = -1;
+	
 	private boolean Output_Active = false;
 	private boolean Output_Fullscreen = false;
 	
 	OutputWindow(PApplet parent){
 		p = parent;
 		detectDisplays();		
-		//buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
-		setWindowWidth(400);
-		setWindowHeight(400);
-		buildTextureWindow(windowX,windowY,400,400);
+		
+		// Creating an offscreen canvas to do some drawing on it.
+		//layerOutput = new GLGraphicsOffScreen(p, w, h);
+		layerOutput = new TestScreens(p, windowWidth, windowHeight);
+		
+		layerOutput.beginDraw();
+		layerOutput.draw();
+		layerOutput.endDraw();
+		
+		buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
 	}
 	
 	private void buildTextureWindow(int x, int y, int w, int h) {
@@ -45,17 +54,14 @@ public class OutputWindow {
 		// * visible/not visible (first boolean argument)
 		// * with/out borders (second boolean argument)
 		// * resizable/fixed size (third boolean argument)
-		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	true, true);
-		
-		// Creating an offscreen canvas to do some drawing on it.
-		layerOutput = new GLGraphicsOffScreen(p, w, h);
-
+		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	false, true);
 		// Attaching the offscreen texture to the window.
-		texWin.setTexture(layerOutput.getTexture());
+		//texWin.setTexture(layerOutput.getTexture());
+		//texWin.s
 	}
 	
 	/**
-	 * Detect the number of screens and ajust the size of visual window
+	 * Detect the number of screens and adjust the size of visual window
 	 */
 	private void detectDisplays() {
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -63,15 +69,15 @@ public class OutputWindow {
 
 		if (devices.length > 1) { // we have a 2nd display/projector
 			// learn the true dimensions of the secondary display
-			windowWidth = devices[1].getDisplayMode().getWidth();
-			windowHeight = devices[1].getDisplayMode().getHeight();
+			screenWidth = devices[1].getDisplayMode().getWidth();
+			screenHeight = devices[1].getDisplayMode().getHeight();
 			windowX = windowWidth;
 			// println("-> Adjusting visual window size to "+widthVisual+" x "+heightVisual+" (size of 2ndary display)");
 			// frame.setBounds(devices[0].getDisplayMode().getWidth(), 0,
 			// widthVisual, heightVisual);
 		} else { // no 2nd screen but make it fullscreen anyway
-			windowWidth = devices[0].getDisplayMode().getWidth();
-			windowHeight = devices[0].getDisplayMode().getHeight();
+			screenWidth = devices[0].getDisplayMode().getWidth();
+			screenHeight = devices[0].getDisplayMode().getHeight();
 		}
 		// aspect = (float)(widthVisual)/(float)heightVisual; //Set aspect ratio
 		// with new resolution
@@ -85,52 +91,51 @@ public class OutputWindow {
 		texWin.hide();
 	}
 
-	private void enableFullScreen() {
-		//texWin.setOverride(true);
-		//texWin.
+	public void enableFullscreen() {
+		setWindowSize(screenWidth,screenHeight);
 	}
 
-	private void disableFullScreen() {
-		//texWin.setOverride(false);
+	public void disableFullscreen() {
+		setWindowSize(windowWidth,windowHeight);
 	}	
 	
-	/**
-	 * @return the windowWidth
-	 */
-	public int getWindowWidth() {
-		return windowWidth;
+	public void enableTest() {
+		texWin.setTexture(layerOutput.getTexture());
 	}
 
-	/**
-	 * @param windowWidth the windowWidth to set
-	 */
-	public void setWindowWidth(int windowWidth) {
-		this.windowWidth = windowWidth;
-//		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
+	public void disableTest() {
+		texWin.setTexture(null);
+		texWin.init();
+
+	}
+
+	
+	public void setWindowSize(int width, int height) {
+		this.windowWidth = width;
+		this.windowHeight = height;
+		//texWin = null;
+		texWin.setOverride(true);
+		//texWin.
+		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
 		
 		// Creating an offscreen canvas to do some drawing on it.
 		//layerOutput = new GLGraphicsOffScreen(p, windowWidth, windowHeight);
 
 		// Attaching the offscreen texture to the window.
-	//	texWin.setTexture(layerOutput.getTexture());
+		texWin.setTexture(layerOutput.getTexture());
 	}
 
+	/**
+	 * @return the windowWidth
+	 */
+	public int getWindowWidth() {
+		return windowWidth;
+	}	
+	
 	/**
 	 * @return the windowHeight
 	 */
 	public int getWindowHeight() {
 		return windowHeight;
 	}
-
-	/**
-	 * @param windowHeight the windowHeight to set
-	 */
-	public void setWindowHeight(int windowHeight) {
-		this.windowHeight = windowHeight;
-		
-		//texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
-		//texWin.setTexture(layerOutput.getTexture());
-	}
-
-
 }

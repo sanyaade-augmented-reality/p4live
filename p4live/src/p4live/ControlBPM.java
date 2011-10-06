@@ -1,20 +1,16 @@
 package p4live;
 
-import p4live.ControlMidi.TimedEvent;
-import controlP5.CColor;
+import controlP5.Button;
 import controlP5.ControlBehavior;
-import controlP5.ControlGroup;
 import controlP5.Knob;
 import controlP5.Slider;
 
 public class ControlBPM extends Control{
 	
-	
-	
 	private int actualMS=1;
 	private int lastBeat=1;
 	private int nextBeat=1;
-	private int actualBeat=1;
+	private int lastTap=0;
 
 	ControlBPM(){
 		groupName = "BPM";
@@ -30,6 +26,7 @@ public class ControlBPM extends Control{
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
 		controlP5.addKnob("bpm",0,1,140,100,160,100).setGroup(group);	
 		controlP5.addSlider("bpmVelocity",10,200,120,20,100,20,100).setGroup(group);
+		controlP5.addButton("Tap",100,100,0,20,20).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -39,88 +36,47 @@ public class ControlBPM extends Control{
 		
 		Knob bpm = (Knob)controlP5.controller("bpm");
 		bpm.setBehavior(new SoundUpdate());
-		//bpm.setMin(0);
-		//bpm.setMax(1);
 				
 		Slider bpmV = (Slider)controlP5.controller("bpmVelocity");
 		bpmV.setDecimalPrecision(1);
 		bpmV.plugTo(this);
-		//bpmV.setMax(200);
-		//bpmV.setMin(10);
-		//bpmV.setMax(200);
-		//setBPM(120);
+		
+		Button tap = (Button)controlP5.controller("Tap");
+		tap.plugTo(this);
+		bpmVelocity(120);
 	}
 	
 	public void bpmVelocity(float bpm){
 		actualMS = (int) ((60/bpm)*1000);
-		p.println("bpm: "+bpm + " ms: " + actualMS);
-		
-		syncBPM();
+		lastBeat = p.millis();
+		nextBeat = lastBeat + actualMS;
 		}
 	
 	public float getBPM(){
 		Slider bpmVelocity = (Slider)controlP5.controller("bpmVelocity");	
 		return bpmVelocity.value();
 	}
-	
-	/*public void setBPM(float bpm) {
-		//Slider bpmVelocity = (Slider)controlP5.controller("bpmVelocity");
-		//bpmVelocity.setValue(bpm);
-		//actualMS = (int) (bpm * 16.67);
-		actualMS = (int) ((60/bpm)*1000);
-		
-		p.println("bpm: "+bpm + " ms: " + actualMS);
-		
-		syncBPM();
-	}*/
-		
-	//#############
-	
-	//reset BPM
-	public void syncBPM() {
-		//nextBeat = actualMS;
-		lastBeat = p.millis();
-		nextBeat = lastBeat + actualMS;	}
-	
-	/**
-	 * Tap BPM
-	 */
-	/*public void tapBPM() {
-		int time = p.millis() - lastMillis;
-		lastMillis = p.millis();
-		float bpmAux = time * 0.06f;
-		//p.println("BPMAux: "+bpmAux);
-		setBPM(bpmAux);
-	}*/
 
-	/**
-	 * Update the level of BPM
-	 */
-	/*void updateBPM() {
-		timeLapsed = p.millis() - tapBPM;
-		beat = nextBeat - timeLapsed;
-		BPMLevel = p.map(beat, 0, actualMS, 0, 1);
-		if (beat < 0) {
-			actualBeat++;
-			nextBeat = actualMS * actualBeat;
-			p4vj.events.event(p4vj.events._BPM_);
-		}
-	}*/
+	public void Tap(int v) {
+		int time = p.millis() - lastTap;
+		lastTap = p.millis();
+		float bpmAux = 60000 / time;
+		controlP5.controller("bpmVelocity").setValue(bpmAux);
+	}
 	
 	private class SoundUpdate extends ControlBehavior {
 		  public SoundUpdate() {  }
 		  public void update() { 
-				//float timeLapsed = p.millis() - lastBeat;
-				float timeLapsed = p.millis();// - lastBeat;
-				//float beat = nextBeat - timeLapsed;
+				float timeLapsed = p.millis();
 				setValue( p.norm(timeLapsed, lastBeat, nextBeat));
 				if (timeLapsed > nextBeat) {
-					//actualBeat++;
 					lastBeat = p.millis();
 					nextBeat = lastBeat + actualMS;
-					//p.println("***********************Beat!");
+					this.controller().setColorBackground(p.color(255,0,10));
 				}
-				//p.println("BPM: "+getBPM()+" lB: " + lastBeat + " nB: " + nextBeat + " TIME: "+actualMS +" tL:" + timeLapsed);
+				else
+					this.controller().setColorBackground(p.color(128,0,30));
+				
 		  }
 		}
 }

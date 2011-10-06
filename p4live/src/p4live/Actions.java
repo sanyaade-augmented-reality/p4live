@@ -22,10 +22,7 @@ public class Actions {
 		//tableEvents  = new Hashtable<String, Integer>(); 
 		//loadDefaultActions();
 	}
-
-	
-	
-	
+		
 	public static void setAlpha(){}
 	public static void tapBPM(){}
 	public static void resetCam(){}
@@ -44,38 +41,6 @@ public class Actions {
 	public static void sendParam(){}
 	public static void sendBang(){}
 	
-	/*
-	public static void bpmVelocity(float value){
-		Slider bpmV = (Slider)p4live.Control.controlP5.controller("bpmVelocity");
-		float min = bpmV.min();
-		float max = bpmV.max();
-		
-		int v =(int) p.map(value,0,1,min,max);
-		
-		p4live.Interface.setBPM(v);
-	}*/
-
-
-	/*public static void fullscreen(Controller c){
-		float value = c.value();
-		boolean b = (value != 0);
-		fullscreen(b);
-	}*/
-	
-	
-
-	public static void fullscreen(float value){
-		boolean b = (value != 0);
-		fullscreen(b);
-	}
-	
-	public static void fullscreen(boolean b){
-		p4live.Interface.setFullScreen(b);
-	}
-		
-	public static void beatSensitivity(float value){
-
-	}
 	
 	//sin normalizar
 	/*public void execute(Controller c){
@@ -92,10 +57,10 @@ public class Actions {
 		p.println("Action: "+ id);
 		switch (id){
 		case 2:
-			fullscreen(value);
+			//fullscreen(value);
 			break;
 		case 3:
-			beatSensitivity(value);
+			//beatSensitivity(value);
 			break;
 		case 4:
 			//bpmVelocity(value);

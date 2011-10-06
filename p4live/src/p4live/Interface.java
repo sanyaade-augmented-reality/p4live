@@ -77,18 +77,10 @@ public class Interface {
 	}
 	
 	//esta aqui porque output window esta dentro de controlscreens
-	public static void setFullScreen(boolean estado){
+	/*public static void setFullScreen(boolean estado){
 		((ControlScreens)Controls.get(0)).setFullScreen(estado); 
-	}
-
-	/*public static void setBPM(float bpm){
-		ControlBPM cbpm = (ControlBPM)Controls.get(5);
-		cbpm.setBPM(bpm);
-		if (cbpm != null)
-			((ControlBPM)Controls.get(5)).setBPM(bpm);
 	}*/
 
-	
 	public static void pingMidi(){
 		((ControlMidi)Controls.get(4)).pingComunication();
 	}

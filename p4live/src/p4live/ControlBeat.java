@@ -1,30 +1,22 @@
 package p4live;
 
-import processing.core.PFont;
 import controlP5.ControlBehavior;
-import controlP5.ControlFont;
-import controlP5.ControlGroup;
 import controlP5.Slider;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioListener;
 import ddf.minim.analysis.BeatDetect;
 
 public class ControlBeat extends Control{
-	BeatDetect beats; 					// The BeatDetect main object
-	BeatListener bl; 					// A beat listener for the beat object
-	//ControlFont font;
-	//PFont pfont;
+	private BeatDetect beats; 					// The BeatDetect main object
+	private BeatListener bl; 					// A beat listener for the beat object
 	
 	ControlBeat(){
 		groupName = "Beat";
 		defaultHeight = 140;
 		defaultWidth = 200;
-		defaultX = 400;
-		defaultY = 200;
+		defaultX = 500;
+		defaultY = 300;
 		
-		//PFont pfont = p.createFont("Times",20,true); // use true/false for smooth/no-smooth
-		//font = new ControlFont(pfont);
-
 		beats = new BeatDetect(in.bufferSize(), in.sampleRate());
 		bl = new BeatListener(beats, in);
 		buildInterface();
@@ -33,10 +25,10 @@ public class ControlBeat extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("kick",0,200,188,20,100,10,100).setGroup(group);
-		controlP5.addSlider("snare",0,200,128,20,100,10,100).setGroup(group);
-		controlP5.addSlider("hat",0,200,128,20,100,10,100).setGroup(group);		
-		controlP5.addSlider("Sensitivity",0,200,128,20,100,10,100).setGroup(group);
+		controlP5.addSlider("kick",10,200,188,20,100,10,100).setGroup(group);
+		controlP5.addSlider("snare",20,200,128,20,100,10,100).setGroup(group);
+		controlP5.addSlider("hat",30,200,128,20,100,10,100).setGroup(group);		
+		controlP5.addSlider("Sensitivity",60,100,128,20,100,10,100).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -51,7 +43,6 @@ public class ControlBeat extends Control{
 		kick.setMin(0);
 		kick.setMax(1);
 		//kick.label().
-		//kick.setLabelVisible(false);
 		//kick.lock();
 		
 		Slider snare = (Slider)controlP5.controller("snare");
@@ -62,7 +53,6 @@ public class ControlBeat extends Control{
 		snare.setMax(1);
 		snare.captionLabel().style().marginLeft = 0;
 		snare.captionLabel().style().paddingLeft = 0;
-		//snare.setLabelVisible(false);
 		//snare.lock();
 
 		Slider hat = (Slider)controlP5.controller("hat");
@@ -71,15 +61,19 @@ public class ControlBeat extends Control{
 		hat.setSize(20,100);
 		hat.setMin(0);
 		hat.setMax(1);
-		//hat.setLabelVisible(false);
 		//hat.lock();
 		
 		Slider sensitivity = (Slider)controlP5.controller("Sensitivity");
 		//kickS.setColorForeground(p.color(120,0,0));
 		//kickS.setColorActive(p.color(180,0,0));
-		sensitivity.setDecimalPrecision(0);
+		sensitivity.setDecimalPrecision(1);
 		sensitivity.setMin(10);
 		sensitivity.setMax(10000);
+		sensitivity.plugTo(this);
+	}
+	
+	public void Sensitivity(int v){
+		beats.setSensitivity(v); 
 	}
 	
 	private class kickUpdate extends ControlBehavior {

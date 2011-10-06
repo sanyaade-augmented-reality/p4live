@@ -1,18 +1,16 @@
 package p4live;
 
-import controlP5.CColor;
 import controlP5.ControlBehavior;
-import controlP5.ControlGroup;
 import controlP5.DropdownList;
-import controlP5.Slider;
 import controlP5.Toggle;
 import themidibus.MidiBus;
 
 
 public class ControlMidi extends Control{
-	//DropdownList ddl1;
-	MidiBus busA;
+	private MidiBus busA;
 	//MidiBus busB;
+	private DropdownList ddl2;
+	private DropdownList ddl1;
 	
 	ControlMidi(){
 		groupName = "Midi";
@@ -39,17 +37,38 @@ public class ControlMidi extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		//ddl1 = controlP5.addDropdownList("Midi_Bus",100,100,100,120).setGroup(group);
-		controlP5.addToggle("Internal_Control", true,100, 100, 10, 10).setGroup(group);
-		controlP5.addToggle("External_Sound",false,  100,240, 10,10).setGroup(group);
+		ddl1 = controlP5.addDropdownList("Control_Channel",100,100,100,120);
+		ddl1.setGroup(group);
+		//ddl1
+		ddl2 = controlP5.addDropdownList("Sound_Channel",100,100,100,120);
+		ddl2.setGroup(group);
+		controlP5.addToggle("Control", true,100, 100, 10, 10).setGroup(group);
+		controlP5.addToggle("Sound",false,  100,240, 10,10).setGroup(group);
 		controlP5.addButton("Map",128,100,0,30,20).setGroup(group);
 		controlP5.addButton("Load",128,100,0,30,20).setGroup(group);
 		controlP5.addButton("Save",128,100,0,30,20).setGroup(group);
+		
+		  for(int i=0;i<12;i++) {
+			    ddl1.addItem("Channel "+i,i);
+			  }
+		  for(int i=0;i<12;i++) {
+			    ddl2.addItem("Channel "+i,i);
+			  }
 	}
 	
 	public void pingComunication(){
-		Toggle ping = (Toggle)controlP5.controller("Internal_Control");
+		Toggle ping = (Toggle)controlP5.controller("Control");
 		ping.changeValue(1);
+	}
+	
+	public void setPreferences(){	
+		group.setBackgroundColor(p.color(255, 100));
+		group.setBackgroundHeight(defaultHeight);	
+		group.setWidth(defaultWidth);
+		
+		Toggle t = (Toggle)controlP5.controller("Control");
+		t.setBehavior(new TimedEvent());
+		//ddl1.p
 	}
 	
 	class TimedEvent extends ControlBehavior {
@@ -64,40 +83,4 @@ public class ControlMidi extends Control{
 	    	setValue(0); reset(); }
 	  }
 	}
-/*	void customize(DropdownList ddl) {
-		  ddl.setBackgroundColor(color(190));
-		  ddl.setItemHeight(20);
-		  ddl.setBarHeight(15);
-		  ddl.captionLabel().set("pulldown");
-		  ddl.captionLabel().style().marginTop = 3;
-		  ddl.captionLabel().style().marginLeft = 3;
-		  ddl.valueLabel().style().marginTop = 3;
-		  for(int i=0;i<40;i++) {
-		    ddl.addItem("item "+i,i);
-		  }
-		  ddl.scroll(0);
-		  ddl.setColorBackground(color(60));
-		  ddl.setColorActive(color(255,128));
-		}*/
-	
-	public void setPreferences(){	
-		group.setBackgroundColor(p.color(255, 100));
-		group.setWidth(120);
-		group.setBackgroundHeight(140);
-		
-		Toggle t = (Toggle)controlP5.controller("Internal_Control");
-		t.setBehavior(new TimedEvent());
-		//DropdownList ddl1 = (DropdownList)controlP5.controller("Midi_Bus");
-	/*	Slider vol = (Slider)controlP5.controller("vol");
-		//kick.setColorForeground(p.color(255,0,0));
-		vol.setSize(20,100);
-		vol.setMin(0);
-		vol.setMax(1);
-		vol.setLabelVisible(false);
-		//kick.lock();
-*/
-	}
-	
-
-	
 }
