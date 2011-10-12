@@ -9,15 +9,16 @@ import controlP5.Slider;
 public class ControlVolume extends Control{
 	
 	ControlVolume(){
-		groupName = "Volume";
-		build();
+		groupName = "Volume";	
+		defaultY = defaultY+10;
+		buildInterface();
 		setPreferences();
 	}	
 	
-	private void build() {		
-		group = controlP5.addGroup(groupName, 200, 100, 200);
-		controlP5.addSlider("vol",0,200,188,20,100,10,100).setGroup(group);
-		controlP5.addSlider("Level",0,200,128,20,100,10,100).setGroup(group);
+	private void buildInterface() {		
+		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
+		controlP5.addSlider("vol",  0, 1,0,20,20,20,100).setGroup(group);
+		controlP5.addSlider("Level",0,10,1,50,20,10,100).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -28,9 +29,9 @@ public class ControlVolume extends Control{
 		Slider vol = (Slider)controlP5.controller("vol");
 		vol.setBehavior(new SoundUpdate());
 		//kick.setColorForeground(p.color(255,0,0));
-		vol.setSize(20,100);
-		vol.setMin(0);
-		vol.setMax(1);
+		//vol.setSize(20,100);
+		//vol.setMin(0);
+		//vol.setMax(1);
 		vol.setLabelVisible(false);
 		//kick.lock();
 		

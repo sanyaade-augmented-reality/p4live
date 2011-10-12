@@ -16,17 +16,18 @@ public class ControlBPM extends Control{
 		groupName = "BPM";
 		defaultHeight = 140;
 		defaultWidth = 200;
-		defaultX = 200;
-		defaultY = 300;
+		defaultX = 300;
+		defaultY = defaultY+10;
 		build();
 		setPreferences();
 	}	
 	
 	private void build() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addKnob("bpm",0,1,140,100,160,100).setGroup(group);	
-		controlP5.addSlider("bpmVelocity",10,200,120,20,100,20,100).setGroup(group);
-		controlP5.addButton("Tap",100,100,0,20,20).setGroup(group);
+		controlP5.addSlider("bpmVelocity",10,200,120,20,20,20,100).setGroup(group);
+		controlP5.addKnob("bpm",0,1,0,70,20,100).setGroup(group);	
+		controlP5.addButton("Sync",0,160,10,30,20).setGroup(group);
+		controlP5.addButton("Tap", 0,160,110,30,20).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -43,14 +44,22 @@ public class ControlBPM extends Control{
 		
 		Button tap = (Button)controlP5.controller("Tap");
 		tap.plugTo(this);
+		
+		Button sync = (Button)controlP5.controller("Sync");
+		sync.plugTo(this);
+		
 		bpmVelocity(120);
 	}
 	
 	public void bpmVelocity(float bpm){
 		actualMS = (int) ((60/bpm)*1000);
+		Sync();
+		}
+	
+	public void Sync(){
 		lastBeat = p.millis();
 		nextBeat = lastBeat + actualMS;
-		}
+	}
 	
 	public float getBPM(){
 		Slider bpmVelocity = (Slider)controlP5.controller("bpmVelocity");	

@@ -19,7 +19,8 @@ public class OutputWindow {
 	private GraphicsEnvironment environment;
 
 	// Creating an offscreen canvas to do some drawing on it.
-	private TestScreens layerOutput;
+	private TestScreen testSketch;
+	private BlackScreen blackScreen;
 	
 	private GLTextureWindow texWin;
 
@@ -39,11 +40,16 @@ public class OutputWindow {
 		
 		// Creating an offscreen canvas to do some drawing on it.
 		//layerOutput = new GLGraphicsOffScreen(p, w, h);
-		layerOutput = new TestScreens(p, windowWidth, windowHeight);
+		testSketch = new TestScreen(p, windowWidth, windowHeight);
+		blackScreen = new BlackScreen(p, windowWidth, windowHeight);
 		
-		layerOutput.beginDraw();
-		layerOutput.draw();
-		layerOutput.endDraw();
+		/*testSketch.beginDraw();
+		testSketch.draw();
+		testSketch.endDraw();*/
+		
+		blackScreen.beginDraw();
+		//blackScreen.draw();
+		blackScreen.endDraw();
 		
 		buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
 	}
@@ -56,8 +62,7 @@ public class OutputWindow {
 		// * resizable/fixed size (third boolean argument)
 		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	false, true);
 		// Attaching the offscreen texture to the window.
-		//texWin.setTexture(layerOutput.getTexture());
-		//texWin.s
+		texWin.setTexture(blackScreen.getTexture());
 	}
 	
 	/**
@@ -92,50 +97,61 @@ public class OutputWindow {
 	}
 
 	public void enableFullscreen() {
-		setWindowSize(screenWidth,screenHeight);
+		//setWindowSize(screenWidth,screenHeight);
+		texWin.hide();
+		texWin = null;
+		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
+		texWin.setTexture(blackScreen.getTexture());
 	}
 
 	public void disableFullscreen() {
-		setWindowSize(windowWidth,windowHeight);
+		//setWindowSize(windowWidth,windowHeight);
+		texWin.hide();
+		texWin = null;
+		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true,true);
+		texWin.setTexture(blackScreen.getTexture());
 	}	
 	
 	public void enableTest() {
-		texWin.setTexture(layerOutput.getTexture());
+		testSketch.beginDraw();
+		testSketch.draw();
+		testSketch.endDraw();
+		texWin.setTexture(testSketch.getTexture());
 	}
 
+	//Cambiar
 	public void disableTest() {
-		texWin.setTexture(null);
-		texWin.init();
-
+		texWin.setTexture(blackScreen.getTexture());
 	}
 
 	
-	public void setWindowSize(int width, int height) {
+	/*public void setWindowSize(int width, int height) {
 		this.windowWidth = width;
 		this.windowHeight = height;
-		//texWin = null;
-		texWin.setOverride(true);
-		//texWin.
+		texWin.hide();
+		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
-		
-		// Creating an offscreen canvas to do some drawing on it.
-		//layerOutput = new GLGraphicsOffScreen(p, windowWidth, windowHeight);
-
 		// Attaching the offscreen texture to the window.
-		texWin.setTexture(layerOutput.getTexture());
-	}
+		texWin.setTexture(blackScreen.getTexture());
+	}*/
 
 	/**
 	 * @return the windowWidth
 	 */
 	public int getWindowWidth() {
-		return windowWidth;
+		if (texWin!=null)
+			return texWin.getWidth();
+		else
+			return -1;
 	}	
 	
 	/**
 	 * @return the windowHeight
 	 */
 	public int getWindowHeight() {
-		return windowHeight;
+		if (texWin!=null)
+			return texWin.getHeight();
+		else
+			return -1;
 	}
 }

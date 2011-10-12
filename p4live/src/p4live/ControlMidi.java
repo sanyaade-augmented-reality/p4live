@@ -14,8 +14,8 @@ public class ControlMidi extends Control{
 	
 	ControlMidi(){
 		groupName = "Midi";
-		defaultX = 300;
-		defaultY = 400;
+		defaultX = 0;
+		defaultY = 320;
 		defaultWidth = 200;
 		startMIDI();
 		buildInterface();
@@ -37,17 +37,16 @@ public class ControlMidi extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		ddl1 = controlP5.addDropdownList("Control_Channel",100,100,100,120);
-		ddl1.setGroup(group);
-		//ddl1
-		ddl2 = controlP5.addDropdownList("Sound_Channel",100,100,100,120);
+		controlP5.addToggle("Control", false, 10, 10, 10, 10).setGroup(group);
+		controlP5.addToggle("Sound",   false, 10, 40, 10, 10).setGroup(group);
+		controlP5.addButton("Map",0, 10,70,30,20).setGroup(group);
+		controlP5.addButton("Load",0,80,70,30,20).setGroup(group);
+		controlP5.addButton("Save",0,120,70,30,20).setGroup(group);
+		ddl2 = controlP5.addDropdownList("Sound_Channel",30,50,100,120);
 		ddl2.setGroup(group);
-		controlP5.addToggle("Control", true,100, 100, 10, 10).setGroup(group);
-		controlP5.addToggle("Sound",false,  100,240, 10,10).setGroup(group);
-		controlP5.addButton("Map",128,100,0,30,20).setGroup(group);
-		controlP5.addButton("Load",128,100,0,30,20).setGroup(group);
-		controlP5.addButton("Save",128,100,0,30,20).setGroup(group);
-		
+		ddl1 = controlP5.addDropdownList("Control_Channel",30,20,100,120);
+		ddl1.setGroup(group);
+
 		  for(int i=0;i<12;i++) {
 			    ddl1.addItem("Channel "+i,i);
 			  }
@@ -68,7 +67,6 @@ public class ControlMidi extends Control{
 		
 		Toggle t = (Toggle)controlP5.controller("Control");
 		t.setBehavior(new TimedEvent());
-		//ddl1.p
 	}
 	
 	class TimedEvent extends ControlBehavior {

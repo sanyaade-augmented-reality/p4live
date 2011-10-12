@@ -14,8 +14,9 @@ public class ControlBeat extends Control{
 		groupName = "Beat";
 		defaultHeight = 140;
 		defaultWidth = 200;
-		defaultX = 500;
-		defaultY = 300;
+		defaultX = 90;
+		defaultY = defaultY+10;
+	
 		
 		beats = new BeatDetect(in.bufferSize(), in.sampleRate());
 		bl = new BeatListener(beats, in);
@@ -23,12 +24,12 @@ public class ControlBeat extends Control{
 		setPreferences();
 	}	
 	
-	private void buildInterface() {		
+	private void buildInterface() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("kick",10,200,188,20,100,10,100).setGroup(group);
-		controlP5.addSlider("snare",20,200,128,20,100,10,100).setGroup(group);
-		controlP5.addSlider("hat",30,200,128,20,100,10,100).setGroup(group);		
-		controlP5.addSlider("Sensitivity",60,100,128,20,100,10,100).setGroup(group);
+		controlP5.addSlider("kick", 0,1,0,20,20,20,100).setGroup(group);
+		controlP5.addSlider("snare",0,1,0,60,20,20,100).setGroup(group);
+		controlP5.addSlider("hat",  0,1,0,100,20,20,100).setGroup(group);		
+		controlP5.addSlider("Sensitivity",10,10000,128,150,20,10,100).setGroup(group);
 	}
 	
 	public void setPreferences(){	
@@ -39,18 +40,18 @@ public class ControlBeat extends Control{
 		Slider kick = (Slider)controlP5.controller("kick");
 		kick.setBehavior(new kickUpdate());
 		kick.setColorForeground(p.color(255,0,0));
-		kick.setSize(20,100);
-		kick.setMin(0);
-		kick.setMax(1);
+		//kick.setSize(20,100);
+		//kick.setMin(0);
+		//kick.setMax(1);
 		//kick.label().
 		//kick.lock();
 		
 		Slider snare = (Slider)controlP5.controller("snare");
 		snare.setBehavior(new snareUpdate());
 		snare.setColorForeground(p.color(0,255,0));
-		snare.setSize(20,100);
-		snare.setMin(0);
-		snare.setMax(1);
+		//snare.setSize(20,100);
+		//snare.setMin(0);
+		//snare.setMax(1);
 		snare.captionLabel().style().marginLeft = 0;
 		snare.captionLabel().style().paddingLeft = 0;
 		//snare.lock();
@@ -58,9 +59,9 @@ public class ControlBeat extends Control{
 		Slider hat = (Slider)controlP5.controller("hat");
 		hat.setBehavior(new hatUpdate());
 		hat.setColorForeground(p.color(0,0,255));
-		hat.setSize(20,100);
-		hat.setMin(0);
-		hat.setMax(1);
+		//hat.setSize(20,100);
+		//hat.setMin(0);
+		//hat.setMax(1);
 		//hat.lock();
 		
 		Slider sensitivity = (Slider)controlP5.controller("Sensitivity");

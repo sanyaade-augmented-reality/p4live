@@ -14,14 +14,14 @@ public class ControlFFT extends Control{
 	Chart fChart;
 	private float[] f;
 	private int averages = 128;
-	//public int FFTLevel = 1;
+	Slider fftLevel;
 	
 	ControlFFT(){
 		groupName="FFT";
 		defaultWidth= 400;
 		defaultHeight = 140;
-		defaultX=200;
-		defaultY=100;
+		defaultX = 0;
+		defaultY = 170;
 		fft = new FFT(in.bufferSize(), in.sampleRate());
 		fft.linAverages(averages);
 		f = new float[128];
@@ -29,12 +29,15 @@ public class ControlFFT extends Control{
 		setPreferences();
 	}	
 	
-	private void buildInterface() {		
+	private void buildInterface() {
+		//controlP5.begin(10,10);
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		//controlP5.addChart("hello",20,20,300,100);//.setGroup(group);
-		//fChart.setGroup(group);
-		controlP5.addSlider("fftLevel",0,200,128,20,100,10,100).setGroup(group);
-		//fftChart = (Chart)controlP5.controller("fftChart");
+		fChart = (Chart)controlP5.addChart("fft",20,20,300,100);
+		fChart.setGroup(group);
+		fftLevel = controlP5.addSlider("fftLevel",0,30,1,340,20,10,100);
+		//fftLevel = controlP5.addSlider("fftLevel",0,30);
+		fftLevel.setGroup(group);
+		//controlP5.end();
 	}
 	
 	
@@ -44,28 +47,24 @@ public class ControlFFT extends Control{
 		group.setBackgroundHeight(defaultHeight);
 		group.setWidth(defaultWidth);
 		
-		//Chart fftChart = (Chart)controlP5.controller("fftChart");
-		//fChart.setStrokeWeight(3);
-		//fChart.setBehavior(new fftUpdate());
+		fChart.setStrokeWeight(3);
+		fChart.setBehavior(new fftUpdate());
 		
-		//Slider fftLevel = (Slider)controlP5.controller("FFTLevel");
-		//if (fftLevel == null) p.println("NULL");
-		/*fftLevel.setDecimalPrecision(1);
-		fftLevel.setMin(1);
-		fftLevel.setMax(5);*/
+		fftLevel.setDecimalPrecision(1);
+		fftLevel.setValue(1);
+		fftLevel.setMin(0);
+		fftLevel.setMax(30);
 	}
 	
-	/*private class fftUpdate extends ControlBehavior {
+	private class fftUpdate extends ControlBehavior {
 		  public fftUpdate() { }
 		  public void update() {
-			  //Chart fftChart = (Chart)controlP5.controller("fftChart");
 			  fft.forward(in.mix);
 			  //arrayCopy
 			  for(int i=0;i<fft.avgSize();i++) {
-				    f[i] = fft.getAvg(i);//*FFTLevel;
+				    f[i] = fft.getAvg(i)*fftLevel.value();
 				  }
 			  fChart.updateData(0,f);	
-			  //p.println(FFTLevel);
 		  }
-		}*/
+		}
 }

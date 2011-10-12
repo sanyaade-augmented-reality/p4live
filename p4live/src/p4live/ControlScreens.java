@@ -10,15 +10,14 @@ public class ControlScreens extends Control {
 
 	ControlScreens() {
 		groupName="Control Screens";
-		defaultX = 400;
-		defaultY = 200;
+		defaultX = 510;
+		defaultY = defaultY+10;
 		defaultWidth = 400;
 		//Set Output window
 		ow = new OutputWindow(p); 
 		build();
 		setPreferences();
 	}
-
 
 	private void build() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);

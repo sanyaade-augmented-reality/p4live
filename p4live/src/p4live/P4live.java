@@ -17,7 +17,6 @@ public class P4live extends PApplet {
 	//static Reaction reaction;
 	private static Events events;
 	//Events events[];
-	//OutputWindow w;
 	private boolean active=false;
 	
 	public void setup() {
@@ -31,6 +30,8 @@ public class P4live extends PApplet {
 
 	public void draw() {
 		background(0);
+		//println("CONSTRUIDO: " + i.height());
+		text(mouseX + " , " + mouseY,mouseX,mouseY);
 	}
 	
 	public static void main(String _args[]) {

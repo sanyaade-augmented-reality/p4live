@@ -41,6 +41,10 @@ public class Interface {
 		Controls.add(new ControlFFT());//3 error
 		Controls.add(new ControlMidi());//4
 		Controls.add(new ControlBPM());//5
+		Controls.add(new ControlSketch("Sketch1",420,310));//6
+		Controls.add(new ControlSketch("Sketch2",622,310));//7
+		Controls.add(new ControlSketch("Sketch3",825,310));//8
+		
 	}
 	
 	public void loadInterface(){
@@ -76,10 +80,13 @@ public class Interface {
 		}
 	}
 	
-	//esta aqui porque output window esta dentro de controlscreens
-	/*public static void setFullScreen(boolean estado){
-		((ControlScreens)Controls.get(0)).setFullScreen(estado); 
-	}*/
+	public static int width(){
+		return ((ControlScreens)Controls.get(0)).ow.getWindowWidth();
+	}
+	
+	public static int height(){
+		return ((ControlScreens)Controls.get(0)).ow.getWindowHeight();
+	}
 
 	public static void pingMidi(){
 		((ControlMidi)Controls.get(4)).pingComunication();
