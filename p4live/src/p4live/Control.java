@@ -28,9 +28,9 @@ public class Control {
 	Control(PApplet parent){
 		p=parent;
 		controlP5 = new ControlP5(p);
-		controlP5.DEBUG = true;
+		//controlP5.DEBUG = true;
 		minim = new Minim(p);
-		minim.debugOn();	  
+		//minim.debugOn();	  
 		// get a line in from Minim, default bit depth is 16
 		in = minim.getLineIn(Minim.STEREO);
 	}

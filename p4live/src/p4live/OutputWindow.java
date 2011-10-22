@@ -1,5 +1,20 @@
-/**
- * 
+/*
+This file is part of P4Live :: Processing 4 Live 
+by Lot Amoros 
+http://p4live.feenelcaos.org
+
+P4VJ is free software:
+you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License.
+
+P4VJ is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 package p4live;
 
@@ -19,20 +34,20 @@ public class OutputWindow {
 	private GraphicsEnvironment environment;
 
 	// Creating an offscreen canvas to do some drawing on it.
-	private TestScreen testSketch;
-	private BlackScreen blackScreen;
-	
-	private GLTextureWindow texWin;
+	private static Sketch testSketch;
+	private static Sketch blackScreen;
+	private static GLTextureWindow texWin;
 
 	private int windowX = 0;
 	private int windowY = 0;
-	private int windowWidth = 400;
-	private int windowHeight = 400;
-	private int screenWidth = -1;
-	private int screenHeight = -1;
+	private static int windowWidth = 400;
+	private static int windowHeight = 400;
+	private static int screenWidth = -1;
+	private static int screenHeight = -1;
 	
-	private boolean Output_Active = false;
-	private boolean Output_Fullscreen = false;
+	private boolean active = false;
+	private boolean test = false;
+	private static boolean fullscreen = false;
 	
 	OutputWindow(PApplet parent){
 		p = parent;
@@ -40,15 +55,11 @@ public class OutputWindow {
 		
 		// Creating an offscreen canvas to do some drawing on it.
 		//layerOutput = new GLGraphicsOffScreen(p, w, h);
-		testSketch = new TestScreen(p, windowWidth, windowHeight);
+		testSketch = new TestScreen(p,getWidth(),getHeight());
 		blackScreen = new BlackScreen(p, windowWidth, windowHeight);
-		
-		/*testSketch.beginDraw();
-		testSketch.draw();
-		testSketch.endDraw();*/
-		
+				
 		blackScreen.beginDraw();
-		//blackScreen.draw();
+		blackScreen.draw();
 		blackScreen.endDraw();
 		
 		buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
@@ -60,7 +71,7 @@ public class OutputWindow {
 		// * visible/not visible (first boolean argument)
 		// * with/out borders (second boolean argument)
 		// * resizable/fixed size (third boolean argument)
-		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	false, true);
+		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	true, true);
 		// Attaching the offscreen texture to the window.
 		texWin.setTexture(blackScreen.getTexture());
 	}
@@ -89,30 +100,40 @@ public class OutputWindow {
 	}
 	
 	public void enableOutput() {
+		active = true;
 		texWin.show();
 	}
 
 	public void disableOutput() {
+		active = false;
 		texWin.hide();
 	}
 
 	public void enableFullscreen() {
-		//setWindowSize(screenWidth,screenHeight);
+		fullscreen = true;
 		texWin.hide();
 		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
+		blackScreen = null;
+		blackScreen = new BlackScreen(p, screenWidth, screenHeight);
 		texWin.setTexture(blackScreen.getTexture());
 	}
 
 	public void disableFullscreen() {
-		//setWindowSize(windowWidth,windowHeight);
+		fullscreen = false;
 		texWin.hide();
+		texWin.delete();
 		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true,true);
+		blackScreen = null;
+		blackScreen = new BlackScreen(p, screenWidth, screenHeight);
 		texWin.setTexture(blackScreen.getTexture());
 	}	
 	
 	public void enableTest() {
+		test = true;
+		testSketch = null;
+		testSketch = new TestScreen(p,getWidth(),getHeight());
 		testSketch.beginDraw();
 		testSketch.draw();
 		testSketch.endDraw();
@@ -121,37 +142,45 @@ public class OutputWindow {
 
 	//Cambiar
 	public void disableTest() {
+		test = false;
 		texWin.setTexture(blackScreen.getTexture());
 	}
-
-	
-	/*public void setWindowSize(int width, int height) {
-		this.windowWidth = width;
-		this.windowHeight = height;
-		texWin.hide();
-		texWin = null;
-		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true, true);
-		// Attaching the offscreen texture to the window.
-		texWin.setTexture(blackScreen.getTexture());
-	}*/
 
 	/**
 	 * @return the windowWidth
 	 */
-	public int getWindowWidth() {
-		if (texWin!=null)
-			return texWin.getWidth();
+	public static int getWidth() {
+		if (fullscreen)
+			return screenWidth;
 		else
-			return -1;
+			return windowWidth;
+		//return texWin.getWidth();
 	}	
 	
 	/**
 	 * @return the windowHeight
 	 */
-	public int getWindowHeight() {
-		if (texWin!=null)
-			return texWin.getHeight();
+	public static int getHeight() {
+		if (fullscreen)
+			return screenHeight;
 		else
-			return -1;
+			return windowHeight;
+	//return texWin.getHeight();
+	}
+	
+	public static int frameCount(){
+		return texWin.frameCount;
+	}
+	
+	public static float frameRate(){
+		return texWin.frameRate;
+	}
+
+	public void update() {
+		if (test == true){
+			testSketch.begin();
+			testSketch.draw();
+			testSketch.end();
+		}		
 	}
 }

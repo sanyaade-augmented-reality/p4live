@@ -6,17 +6,16 @@ import ddf.minim.AudioInput;
 import ddf.minim.AudioListener;
 import ddf.minim.analysis.BeatDetect;
 
-public class ControlBeat extends Control{
+class Beat extends Control{
 	private BeatDetect beats; 					// The BeatDetect main object
 	private BeatListener bl; 					// A beat listener for the beat object
 	
-	ControlBeat(){
+	Beat(){
 		groupName = "Beat";
 		defaultHeight = 140;
 		defaultWidth = 200;
-		defaultX = 90;
+		defaultX = 82;
 		defaultY = defaultY+10;
-	
 		
 		beats = new BeatDetect(in.bufferSize(), in.sampleRate());
 		bl = new BeatListener(beats, in);

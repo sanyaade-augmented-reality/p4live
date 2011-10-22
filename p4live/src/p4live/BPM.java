@@ -5,18 +5,18 @@ import controlP5.ControlBehavior;
 import controlP5.Knob;
 import controlP5.Slider;
 
-public class ControlBPM extends Control{
+public class BPM extends Control{
 	
 	private int actualMS=1;
 	private int lastBeat=1;
 	private int nextBeat=1;
 	private int lastTap=0;
 
-	ControlBPM(){
+	BPM(){
 		groupName = "BPM";
 		defaultHeight = 140;
 		defaultWidth = 200;
-		defaultX = 300;
+		defaultX = 284;
 		defaultY = defaultY+10;
 		build();
 		setPreferences();

@@ -6,16 +6,16 @@ import controlP5.Toggle;
 import themidibus.MidiBus;
 
 
-public class ControlMidi extends Control{
+public class Midi extends Control{
 	private MidiBus busA;
 	//MidiBus busB;
 	private DropdownList ddl2;
 	private DropdownList ddl1;
 	
-	ControlMidi(){
+	Midi(){
 		groupName = "Midi";
 		defaultX = 0;
-		defaultY = 320;
+		defaultY = 310;
 		defaultWidth = 200;
 		startMIDI();
 		buildInterface();

@@ -1,8 +1,25 @@
-/**
- * 
+/*
+This file is part of P4Live :: Processing 4 Live 
+by Lot Amor—s 
+http://p4live.feenelcaos.org
+
+P4VJ is free software:
+you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License.
+
+P4VJ is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 package p4live;
 import java.util.ArrayList;
+
+import codeanticode.glgraphics.GLTexture;
 
 import controlP5.ControlEvent;
 import controlP5.ControllerInterface;
@@ -17,13 +34,15 @@ public class Interface {
 	
 	private static PApplet p;
 	private static ArrayList Controls;
-	private Control c;
+	private static Control c;
+	
 	/*private ControlScreens cScreens;
 	private ControlBeat cBeat;
 	private ControlVolume cVolume;
 	private ControlFFT cFFT;
 	private ControlMidi cMidi;*/
 	//private ControlBPM cBPM;
+	//private ControlOutput;
 	
 	Interface(PApplet parent){
 		p = parent;
@@ -35,16 +54,15 @@ public class Interface {
 	}
 
 	private void buildInterface(){
-		Controls.add(new ControlScreens());//0
-		Controls.add(new ControlBeat());//1
-		Controls.add(new ControlVolume());//2
-		Controls.add(new ControlFFT());//3 error
-		Controls.add(new ControlMidi());//4
-		Controls.add(new ControlBPM());//5
-		Controls.add(new ControlSketch("Sketch1",420,310));//6
-		Controls.add(new ControlSketch("Sketch2",622,310));//7
-		Controls.add(new ControlSketch("Sketch3",825,310));//8
-		
+		Controls.add(new Output());//0
+		Controls.add(new Beat());//1
+		Controls.add(new Volume());//2
+		Controls.add(new FastFourierTransformation());//3 error
+		Controls.add(new Midi());//4
+		Controls.add(new BPM());//5
+		Controls.add(new SketchControl("Sketch1",420,310));//6
+		Controls.add(new SketchControl("Sketch2",622,310));//7
+		Controls.add(new SketchControl("Sketch3",825,310));//8
 	}
 	
 	public void loadInterface(){
@@ -79,17 +97,27 @@ public class Interface {
 			p.println(ci[k].stringValue());
 		}
 	}
-	
-	public static int width(){
-		return ((ControlScreens)Controls.get(0)).ow.getWindowWidth();
-	}
-	
-	public static int height(){
-		return ((ControlScreens)Controls.get(0)).ow.getWindowHeight();
-	}
 
-	public static void pingMidi(){
-		((ControlMidi)Controls.get(4)).pingComunication();
+	public void update(){
+		((Output)Controls.get(0)).update();
+		((SketchControl)Controls.get(6)).update();
+		((SketchControl)Controls.get(7)).update();
+		((SketchControl)Controls.get(8)).update();
 	}
 	
+	public static void pingMidi(){
+		((Midi)Controls.get(4)).pingComunication();
+	}
+	
+	public static GLTexture sketch1(){
+		return ((SketchControl)Controls.get(6)).getTexture();
+	}
+	
+	public static GLTexture sketch2(){
+		return ((SketchControl)Controls.get(7)).getTexture();
+	}
+	
+	public static GLTexture sketch3(){
+		return ((SketchControl)Controls.get(8)).getTexture();
+	}
 }

@@ -14,15 +14,18 @@ import p4live.P4Constants;
 
 public class P4live extends PApplet {
 	public static Interface i;
-	//static Reaction reaction;
 	private static Events events;
 	//Events events[];
-	private boolean active=false;
+	//private boolean active=false;
+	
+	public static void main(String _args[]) {
+		PApplet.main(new String[] { p4live.P4live.class.getName() });
+		//sketchPath(), sketchFile(), savePath(), dataPath(), and createPath() 
+	}
 	
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
-		frameRate(30);
-		
+		frameRate(30);	
 		//solo objetos a los que haya que acceder
 		events = new Events(this);
 		i = new Interface(this);					//last step build interface
@@ -30,13 +33,8 @@ public class P4live extends PApplet {
 
 	public void draw() {
 		background(0);
-		//println("CONSTRUIDO: " + i.height());
 		text(mouseX + " , " + mouseY,mouseX,mouseY);
-	}
-	
-	public static void main(String _args[]) {
-		PApplet.main(new String[] { p4live.P4live.class.getName() });
-		//sketchPath(), sketchFile(), savePath(), dataPath(), and createPath() 
+		i.update();
 	}
 	
 	public void keyPressed() {
@@ -52,24 +50,14 @@ public class P4live extends PApplet {
 		  if(key=='p') {
 			  i.setPreferences();
 		  }
-		  
+		  /*
 		  if (key == 'a'){
 			  active = true;
 			  println("active");
-		  }
+		  }*/
 	}
 	
 	/////////// EVENTS
-	
-	/*
-	public void controlEvent(ControlEvent theEvent) {		
-	  if(theEvent.isGroup()) {
-	    //println("got an event from group "+theEvent.group().name()+", isOpen? "+theEvent.group().isOpen());  
-	  } else if (theEvent.isController()){			 
-		  Controller c = theEvent.controller();
-		  events.captureP5Event(c);
-		  }
-	  }*/
 
 	public void noteOn(int channel, int pitch, int velocity, String bus_name) {
 		i.pingMidi();
