@@ -18,11 +18,16 @@ along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 package p4live;
 
+import p4control.Mixer;
+import p4sketch.BlackScreen;
+import p4sketch.Sketch;
+import p4sketch.TestScreen;
 import processing.core.PApplet;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 import codeanticode.glgraphics.GLGraphicsOffScreen;
+import codeanticode.glgraphics.GLTexture;
 import codeanticode.glgraphics.GLTextureWindow;
 
 /**
@@ -49,18 +54,14 @@ public class OutputWindow {
 	private boolean test = false;
 	private static boolean fullscreen = false;
 	
-	OutputWindow(PApplet parent){
+	public OutputWindow(PApplet parent){
 		p = parent;
 		detectDisplays();		
 		
-		// Creating an offscreen canvas to do some drawing on it.
-		//layerOutput = new GLGraphicsOffScreen(p, w, h);
+		//layerOutput = Interface.sketch(1);
+		//layerOutput = new GLTexture(p,getWidth(),getHeight());
 		testSketch = new TestScreen(p,getWidth(),getHeight());
-		blackScreen = new BlackScreen(p, windowWidth, windowHeight);
-				
-		blackScreen.beginDraw();
-		blackScreen.draw();
-		blackScreen.endDraw();
+		blackScreen = new BlackScreen(p,getWidth(),getHeight());
 		
 		buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
 	}
@@ -73,7 +74,7 @@ public class OutputWindow {
 		// * resizable/fixed size (third boolean argument)
 		texWin = new GLTextureWindow(p, "Window Output", x, y, w, h, true,	true, true);
 		// Attaching the offscreen texture to the window.
-		texWin.setTexture(blackScreen.getTexture());
+		texWin.setTexture(Mixer.layerOutput);
 	}
 	
 	/**
@@ -116,7 +117,7 @@ public class OutputWindow {
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
 		blackScreen = null;
 		blackScreen = new BlackScreen(p, screenWidth, screenHeight);
-		texWin.setTexture(blackScreen.getTexture());
+		texWin.setTexture(Mixer.layerOutput);
 	}
 
 	public void disableFullscreen() {
@@ -134,16 +135,16 @@ public class OutputWindow {
 		test = true;
 		testSketch = null;
 		testSketch = new TestScreen(p,getWidth(),getHeight());
-		testSketch.beginDraw();
+		testSketch.begin();
 		testSketch.draw();
-		testSketch.endDraw();
+		testSketch.end();
 		texWin.setTexture(testSketch.getTexture());
 	}
 
 	//Cambiar
 	public void disableTest() {
 		test = false;
-		texWin.setTexture(blackScreen.getTexture());
+		texWin.setTexture(Mixer.layerOutput);
 	}
 
 	/**
@@ -168,15 +169,26 @@ public class OutputWindow {
 	//return texWin.getHeight();
 	}
 	
-	public static int frameCount(){
-		return texWin.frameCount;
+	public static int frameCount(){//Borrar y avisar a andres
+		try{
+			return texWin.frameCount;
+		}
+		catch(Exception e){
+			return 0;
+		}
 	}
 	
 	public static float frameRate(){
-		return texWin.frameRate;
+		try{
+			return texWin.frameRate;
+		}
+		catch(Exception e){
+			return 0;
+		}
 	}
 
 	public void update() {
+		
 		if (test == true){
 			testSketch.begin();
 			testSketch.draw();

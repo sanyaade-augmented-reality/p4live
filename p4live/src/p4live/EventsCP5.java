@@ -21,7 +21,7 @@ public class EventsCP5 extends Events{
 		//loadDefaultActions();
 	}
 	
-	public void captureP5Event(Controller c) {
+	/*public void captureP5Event(Controller c) {
 		//actions.execute(c);		
 		float  value=-1;
 		if ( (c.min() == 0) && (c.max() == 0)){
@@ -38,7 +38,7 @@ public class EventsCP5 extends Events{
 		     //System.out.println("action = " + n);
 		     actions.execute(n, value);
 		   }
-	}
+	}*/
 
 	
 	// Name of all controller events

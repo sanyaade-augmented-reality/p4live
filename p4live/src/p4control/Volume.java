@@ -1,6 +1,5 @@
-package p4live;
+package p4control;
 
-import p4live.Midi.TimedEvent;
 import controlP5.CColor;
 import controlP5.ControlBehavior;
 import controlP5.ControlGroup;
@@ -8,7 +7,9 @@ import controlP5.Slider;
 
 public class Volume extends Control{
 	
-	Volume(){
+	public static float level;
+	
+	public Volume(){
 		groupName = "Volume";	
 		defaultY = defaultY+10;
 		buildInterface();
@@ -17,7 +18,7 @@ public class Volume extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("vol",  0, 1,0,20,20,20,100).setGroup(group);
+		controlP5.addSlider("level",  0, 1,0,20,20,20,100).setGroup(group);
 		controlP5.addSlider("Gain",0,10,1,50,20,10,100).setGroup(group);
 	}
 	
@@ -26,7 +27,7 @@ public class Volume extends Control{
 		group.setWidth(80);
 		group.setBackgroundHeight(140);
 		
-		Slider vol = (Slider)controlP5.controller("vol");
+		Slider vol = (Slider)controlP5.controller("level");
 		vol.setBehavior(new SoundUpdate());
 		//kick.setColorForeground(p.color(255,0,0));
 		//vol.setSize(20,100);
@@ -44,7 +45,7 @@ public class Volume extends Control{
 	}
 	
 	public float getVolume(){
-		Slider volume = (Slider)controlP5.controller("vol");
+		Slider volume = (Slider)controlP5.controller("level");
 		return volume.value();
 	}
 		

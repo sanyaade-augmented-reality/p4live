@@ -1,4 +1,4 @@
-package p4live;
+package p4control;
 
 import controlP5.Button;
 import controlP5.ControlBehavior;
@@ -12,7 +12,7 @@ public class BPM extends Control{
 	private int nextBeat=1;
 	private int lastTap=0;
 
-	BPM(){
+	public BPM(){
 		groupName = "BPM";
 		defaultHeight = 140;
 		defaultWidth = 200;

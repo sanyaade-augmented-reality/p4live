@@ -102,8 +102,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/controlP5/controlP5.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/controlP5/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/controlP5"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/controlP5/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/controlP5"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/datautils/datautils.jar">
@@ -113,38 +113,38 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/GLGraphics/GLGraphics.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/GLGraphics/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/GLGraphics"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/GLGraphics/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/GLGraphics"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/OBJLoader/OBJLoader.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/OBJLoader/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/OBJLoader"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/OBJLoader/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/OBJLoader"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/OpenCV/OpenCV.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/OpenCV"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/OpenCV/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/OpenCV"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/oscP5/oscP5.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/oscP5/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/oscP5"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/oscP5/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/oscP5"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/peasycam/PeasyCam.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/peasycam/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/peasycam"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/peasycam/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/peasycam"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/themidibus/themidibus.jar" sourcepath="/Users/lot/Documents/sketchbook/libraries/themidibus/src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/themidibus"/>
 			<attribute name="javadoc_location" value="file:/Users/lot/Documents/sketchbook/libraries/themidibus/reference/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/themidibus"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/toxiclibs_p5/toxiclibs_p5.jar">
@@ -169,5 +169,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/user/Ani/Ani.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

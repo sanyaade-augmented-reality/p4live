@@ -3,12 +3,12 @@ This file is part of P4Live :: Processing 4 Live
 by Lot Amoros 
 http://p4live.feenelcaos.org
 
-P4VJ is free software:
+P4Live is free software:
 you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License.
 
-P4VJ is distributed in the hope that it will be useful,
+P4Live is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -21,18 +21,18 @@ package p4live;
 
 import processing.core.PApplet;
 import controlP5.ControlP5;
-import controlP5.ControlP5XMLElement;
+//import controlP5.ControlP5XMLElement;
 import controlP5.Controller;
 import controlP5.Tab;
 
-class ControllerTexture extends Controller {
-
+public class ControllerTexture extends Controller {
 	private int textureWidth=0;
 	private int textureHeight=0;
 	private float aspectRatio =0;
 	private float alpha = 1;
+	private int channel= 0;
 	
-  ControllerTexture(ControlP5 theControlP5, String theName, int theX, int theY, int theWidth, int theHeight) {
+  public ControllerTexture(ControlP5 theControlP5, String theName, int theX, int theY, int theWidth, int theHeight) {
     // the super class Controller needs to be initialized with the below parameters
     super(theControlP5,  (Tab)(theControlP5.getTab("default")), theName, theX, theY, theWidth, theHeight);
     this.setCaptionLabel("Preview");
@@ -50,7 +50,7 @@ class ControllerTexture extends Controller {
   public void draw(PApplet p) {
     p.pushMatrix();
     p.pushStyle();
-    p.translate(position().x(), position().y());
+    p.translate(10, 10);
     // draw the background of the controller.	
     p.fill(0);
     p.rect(0,0,textureWidth,textureHeight);
@@ -60,12 +60,16 @@ class ControllerTexture extends Controller {
     textureHeight = (p4live.OutputWindow.getHeight() * width) / p4live.OutputWindow.getHeight();
     
     p.tint(255, alpha*255);
-    p.image(P4live.i.sketch1(),0,0,textureWidth,textureHeight);
+    p.image(Interface.textureSketch(channel),0,0,textureWidth,textureHeight);
     
     captionLabel().draw(p, 0, height + 4);
     p.popStyle();
     p.popMatrix();
-  } 
+  }
+  
+  public void setChannel(int i){
+	  channel = i;
+  }
 
   public void setValue(float theValue) {
     // setValue is usually called from within updateInternalEvents
@@ -80,9 +84,4 @@ class ControllerTexture extends Controller {
 
   }
 
-  // needs to be implemented since it is an abstract method in controlP5.Controller
-  // nothing needs to be set since this method is only relevant for saving 
-  // controller settings and only applies to (most) default Controllers.
-  public void addToXMLElement(ControlP5XMLElement theElement) {
-  }
 }

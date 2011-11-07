@@ -1,4 +1,4 @@
-package p4live;
+package p4control;
 
 import controlP5.ControlBehavior;
 import controlP5.Slider;
@@ -6,11 +6,15 @@ import ddf.minim.AudioInput;
 import ddf.minim.AudioListener;
 import ddf.minim.analysis.BeatDetect;
 
-class Beat extends Control{
+public class Beat extends Control{
 	private BeatDetect beats; 					// The BeatDetect main object
 	private BeatListener bl; 					// A beat listener for the beat object
 	
-	Beat(){
+	public static float kick;
+	public static float snare;
+	public static float hat;
+	
+	public Beat(){
 		groupName = "Beat";
 		defaultHeight = 140;
 		defaultWidth = 200;

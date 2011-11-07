@@ -1,4 +1,4 @@
-package p4live;
+package p4control;
 
 import controlP5.ControlBehavior;
 import controlP5.DropdownList;
@@ -12,11 +12,11 @@ public class Midi extends Control{
 	private DropdownList ddl2;
 	private DropdownList ddl1;
 	
-	Midi(){
+	public Midi(){
 		groupName = "Midi";
 		defaultX = 0;
 		defaultY = 310;
-		defaultWidth = 200;
+		defaultWidth = 198;
 		startMIDI();
 		buildInterface();
 		setPreferences();
@@ -42,9 +42,9 @@ public class Midi extends Control{
 		controlP5.addButton("Map",0, 10,70,30,20).setGroup(group);
 		controlP5.addButton("Load",0,80,70,30,20).setGroup(group);
 		controlP5.addButton("Save",0,120,70,30,20).setGroup(group);
-		ddl2 = controlP5.addDropdownList("Sound_Channel",30,50,100,120);
+		ddl2 = controlP5.addDropdownList("Sound_Channel",30,50,100,50);
 		ddl2.setGroup(group);
-		ddl1 = controlP5.addDropdownList("Control_Channel",30,20,100,120);
+		ddl1 = controlP5.addDropdownList("Control_Channel",30,20,100,70);
 		ddl1.setGroup(group);
 
 		  for(int i=0;i<12;i++) {
@@ -55,7 +55,7 @@ public class Midi extends Control{
 			  }
 	}
 	
-	public void pingComunication(){
+	public static void pingComunication(){
 		Toggle ping = (Toggle)controlP5.controller("Control");
 		ping.changeValue(1);
 	}

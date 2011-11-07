@@ -24,6 +24,15 @@ import codeanticode.glgraphics.GLTexture;
 import controlP5.ControlEvent;
 import controlP5.ControllerInterface;
 
+import p4control.BPM;
+import p4control.Beat;
+import p4control.Mixer;
+import p4control.Control;
+import p4control.FastFourierTransformation;
+import p4control.Midi;
+import p4control.Output;
+import p4control.SketchControl;
+import p4control.Volume;
 import processing.core.PApplet;
 
 /**
@@ -33,7 +42,8 @@ import processing.core.PApplet;
 public class Interface {
 	
 	private static PApplet p;
-	private static ArrayList Controls;
+	private static ArrayList<Control> Controls;
+	private static ArrayList<SketchControl> Channels;
 	private static Control c;
 	
 	/*private ControlScreens cScreens;
@@ -47,27 +57,36 @@ public class Interface {
 	Interface(PApplet parent){
 		p = parent;
 		c = new Control(p);
-		Controls = new ArrayList();
-
-		buildInterface();
+		Controls = new ArrayList<Control>();
+		Channels = new ArrayList<SketchControl>();
+				
 		//loadInterface(); NO
+		
+		SketchControl c1 = new SketchControl(1, 420, 310);
+		SketchControl c2 = new SketchControl(2,622,310);
+		SketchControl c3 = new SketchControl(3,825,310);
+		
+		Channels.add(0, c1);
+		Channels.add(1, c2);
+		Channels.add(2, c3);		
+		buildInterface();
 	}
 
 	private void buildInterface(){
+		Controls.add(new Mixer());//0
 		Controls.add(new Output());//0
 		Controls.add(new Beat());//1
 		Controls.add(new Volume());//2
-		Controls.add(new FastFourierTransformation());//3 error
+		Controls.add(new FastFourierTransformation());//3 
 		Controls.add(new Midi());//4
 		Controls.add(new BPM());//5
-		Controls.add(new SketchControl("Sketch1",420,310));//6
-		Controls.add(new SketchControl("Sketch2",622,310));//7
-		Controls.add(new SketchControl("Sketch3",825,310));//8
+		//Controls.add(new Blend());//6
+		
 	}
 	
 	public void loadInterface(){
-		c.getControlP5().setFilePath("data/controlp5.xml");
-		p.println("loading: "+c.getControlP5().filePath());
+		//c.getControlP5().setFilePath("data/controlp5.xml");
+		//p.println("loading: "+c.getControlP5().filePath());
 
 	//	c.getControlP5().setAutoInitialization(true);
 	//    c.getControlP5().load("controlp5.xml");
@@ -81,10 +100,12 @@ public class Interface {
 	    }
 	}
 
+/*
+ * 	    save the current state/setup of all 
+ * 	    controllers available.
+ */
 	public void saveInterface(){
-	    // save the current state/setup of all 
-	    // controllers available.
-		c.getControlP5().setFilePath("data/controlp5.xml");		
+		//c.getControlP5().setFilePath("data/controlp5.xml");		
 	    c.getControlP5().save();
 	}
 	
@@ -99,25 +120,22 @@ public class Interface {
 	}
 
 	public void update(){
-		((Output)Controls.get(0)).update();
-		((SketchControl)Controls.get(6)).update();
-		((SketchControl)Controls.get(7)).update();
-		((SketchControl)Controls.get(8)).update();
+		Output.update();
+		
+		for (int k=0;k<Channels.size();k++)
+			Channels.get(k).update();
+		
+		Mixer.update();
 	}
 	
-	public static void pingMidi(){
-		((Midi)Controls.get(4)).pingComunication();
+	public static GLTexture textureSketch(int channel){
+		if (channel == 0)
+			return Mixer.layerOutput;
+		else
+			return Channels.get(channel-1).getTexture();
 	}
-	
-	public static GLTexture sketch1(){
-		return ((SketchControl)Controls.get(6)).getTexture();
-	}
-	
-	public static GLTexture sketch2(){
-		return ((SketchControl)Controls.get(7)).getTexture();
-	}
-	
-	public static GLTexture sketch3(){
-		return ((SketchControl)Controls.get(8)).getTexture();
+
+	public static void setSketch(int channel,int sketch){
+		Channels.get(channel-1).setSketch(sketch);
 	}
 }

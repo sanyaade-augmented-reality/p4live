@@ -17,15 +17,15 @@ You should have received a copy of the GNU General Public License
 along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package p4live;
+package p4sketch;
 
+import p4live.P4live;
 import processing.core.PApplet;
-//import sketch.Sketch;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 public class Sketch extends GLGraphicsOffScreen {
 	
-	protected float[] params = new float[3];
+	protected float[] parameter = new float[3];
 
 	protected float rotX = 0.5f;
 	protected float rotY = 0.5f;
@@ -49,11 +49,13 @@ public class Sketch extends GLGraphicsOffScreen {
 
 	private int fov;
 	
+	
 	public Sketch(PApplet arg0, int arg1, int arg2) {
 		super(arg0, arg1, arg2);
-		params[0] = 0;
-		params[1] = 0;
-		params[2] = 0;
+		parameter[0] = 0;
+		parameter[1] = 0;
+		parameter[2] = 0;
+		background(0);
 	}
 	
 	/**
@@ -146,14 +148,14 @@ public class Sketch extends GLGraphicsOffScreen {
 	 * @return the params
 	 */
 	public float[] getParams() {
-		return params;
+		return parameter;
 	}
 
 	/**
 	 * @param params the params to set
 	 */
 	public void setParams(float[] params) {
-		this.params = params;
+		this.parameter = params;
 	}
 
 	/**
@@ -280,5 +282,9 @@ public class Sketch extends GLGraphicsOffScreen {
 	 */
 	public void setCameraZ(float zoomZ) {
 		this.cameraZ = zoomZ;
+	}
+
+	public void setParameter(int i, float value) {
+		parameter[i-1] = value;
 	}
 }

@@ -32,6 +32,7 @@ public class Events {
 	public String description(){ return desc;}
 
 	public void captureP5Event(Controller c) {
+		p.println("EVENT!");
 		ecp5.captureP5Event(c);
 	}
 

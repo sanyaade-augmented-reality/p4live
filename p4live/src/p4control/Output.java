@@ -16,18 +16,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
-package p4live;
+package p4control;
 
 import controlP5.ControlGroup;
 import controlP5.Textlabel;
 import controlP5.Toggle;
+import p4live.ControllerTexture;
 import p4live.OutputWindow;
 
 public class Output extends Control {
 
-	OutputWindow ow;
+	private static OutputWindow ow;
+	private ControllerTexture imageController;
 
-	Output() {
+	public Output() {
 		groupName="Output";
 		defaultX = 486;
 		defaultY = defaultY+10;
@@ -44,19 +46,17 @@ public class Output extends Control {
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(150);
 		
-		// OutputPreview(ControlP5 theControlP5, String theName, int theX, int
-		// theY, int theWidth, int theHeight) {
-		//OutputPreview op = new OutputPreview(controlP5, "Output Preview", 0,0, 400,400);
-		//op.setGroup(cs);
-		//controlP5.register(op);
+		imageController = new ControllerTexture(controlP5,groupName+"Preview",10,10,260,260);
+		imageController.setGroup(group);
+		imageController.setChannel(0);
+		controlP5.register(imageController);
 	
-		controlP5.addToggle("OutputWindow", true,10, 250, 20, 20).setGroup(group);
-		controlP5.addToggle("Fullscreen",false,75, 250, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
-		controlP5.addToggle("TestSketch",false, 133,250, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("OutputWindow", true,280, 10, 20, 20).setGroup(group);
+		controlP5.addToggle("Fullscreen",false,280, 50, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("TestSketch",false, 280,90, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
 		
-		controlP5.addTextlabel("control","P4live  Control Window: "+p.width+"px x "+p.height+"px @ "+ p.frameRate + " FPS", 209,260).setGroup(group);
-		controlP5.addTextlabel("output", "P4live  Output Window:  "+ow.getWidth()+"px x "+ow.getHeight()+"px @ "+ow.frameRate()+" FPS", 209, 270).setGroup(group);
-		
+		controlP5.addTextlabel("control","Control Window: "+p.width+"px x "+p.height+"px @ "+ p.frameRate + " FPS", 280,260).setGroup(group);
+		controlP5.addTextlabel("output", "Output Window:  "+ow.getWidth()+"px x "+ow.getHeight()+"px @ "+ow.frameRate()+" FPS", 280, 270).setGroup(group);	
 	}
 
 	public void setPreferences(){
@@ -103,7 +103,7 @@ public class Output extends Control {
 			ow.disableTest();	
 	}
 
-	public void update() {
+	public static void update() {
 		ow.update();
 	}
 }

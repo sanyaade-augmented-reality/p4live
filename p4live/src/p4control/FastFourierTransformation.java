@@ -1,4 +1,4 @@
-package p4live;
+package p4control;
 
 import controlP5.CColor;
 import controlP5.Chart;
@@ -12,10 +12,10 @@ public class FastFourierTransformation extends Control{
 	private FFT fft;
 	Chart fChart;
 	private float[] f;
-	private int averages = 128;
+	private int averages = 16;
 	Slider fftGain;
 	
-	FastFourierTransformation(){
+	public FastFourierTransformation(){
 		groupName="FFT";
 		defaultWidth= 400;
 		defaultHeight = 140;
@@ -23,7 +23,7 @@ public class FastFourierTransformation extends Control{
 		defaultY = 160;
 		fft = new FFT(in.bufferSize(), in.sampleRate());
 		fft.linAverages(averages);
-		f = new float[128];
+		f = new float[averages];
 		buildInterface();
 		setPreferences();
 	}	
@@ -45,6 +45,7 @@ public class FastFourierTransformation extends Control{
 		group.setWidth(defaultWidth);
 		
 		fChart.setStrokeWeight(3);
+		fChart.setResolution(averages);
 		fChart.setBehavior(new fftUpdate());
 		
 		fftGain.setDecimalPrecision(1);

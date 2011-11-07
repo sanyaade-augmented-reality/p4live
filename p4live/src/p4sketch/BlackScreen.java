@@ -1,4 +1,4 @@
-package p4live;
+package p4sketch;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
