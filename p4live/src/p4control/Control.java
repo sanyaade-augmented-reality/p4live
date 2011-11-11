@@ -5,6 +5,7 @@ package p4control;
 import p4live.P4live;
 import processing.core.PApplet;
 import controlP5.*;
+import controlP5.Controller;
 import ddf.minim.*;
 import de.looksgood.ani.Ani;
 
@@ -19,7 +20,6 @@ public class Control {
 	protected static ControlP5 controlP5;	
 	protected static Minim minim;
 	protected static AudioInput in;
-	protected static Ani ani;
 	
 	protected int defaultWidth=100;
 	protected int defaultHeight=100;
@@ -36,7 +36,12 @@ public class Control {
 		//minim.debugOn();	  
 		// get a line in from Minim, default bit depth is 16
 		in = minim.getLineIn(Minim.STEREO);
-		Ani.init(p);
+	}
+	
+	public static void changeController(String controller, float value){
+		Controller c = controlP5.controller(controller);
+		float v = p.map(value, 0, 1, c.getMin(), c.getMax());
+		c.setValue(v);
 	}
 	
 	public ControlP5 getControlP5(){

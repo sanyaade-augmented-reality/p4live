@@ -31,10 +31,12 @@ public class FastFourierTransformation extends Control{
 	private void buildInterface() {
 		//controlP5.begin(10,10);
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		fChart = (Chart)controlP5.addChart("fft",20,20,300,100);
+		fChart = controlP5.addChart("fft",20,20,300,100);
 		fChart.setGroup(group);
+		fChart.plugTo(this);
 		fftGain = controlP5.addSlider("fftGain",0,30,1,340,20,10,100);
 		fftGain.setGroup(group);
+		fftGain.plugTo(this);
 		//controlP5.end();
 	}
 	

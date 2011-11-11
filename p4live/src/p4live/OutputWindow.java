@@ -19,7 +19,7 @@ along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
 package p4live;
 
 import p4control.Mixer;
-import p4sketch.BlackScreen;
+import p4sketch._Select_Sketch;
 import p4sketch.Sketch;
 import p4sketch.TestScreen;
 import processing.core.PApplet;
@@ -61,7 +61,7 @@ public class OutputWindow {
 		//layerOutput = Interface.sketch(1);
 		//layerOutput = new GLTexture(p,getWidth(),getHeight());
 		testSketch = new TestScreen(p,getWidth(),getHeight());
-		blackScreen = new BlackScreen(p,getWidth(),getHeight());
+		blackScreen = new _Select_Sketch(p,getWidth(),getHeight());
 		
 		buildTextureWindow(windowX,windowY,windowWidth,windowHeight);
 	}
@@ -88,7 +88,7 @@ public class OutputWindow {
 			// learn the true dimensions of the secondary display
 			screenWidth = devices[1].getDisplayMode().getWidth();
 			screenHeight = devices[1].getDisplayMode().getHeight();
-			windowX = windowWidth;
+			windowX = devices[0].getDisplayMode().getWidth();
 			// println("-> Adjusting visual window size to "+widthVisual+" x "+heightVisual+" (size of 2ndary display)");
 			// frame.setBounds(devices[0].getDisplayMode().getWidth(), 0,
 			// widthVisual, heightVisual);
@@ -115,8 +115,8 @@ public class OutputWindow {
 		texWin.hide();
 		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
-		blackScreen = null;
-		blackScreen = new BlackScreen(p, screenWidth, screenHeight);
+		Interface.resetSketchs();
+		Mixer.resetTexture();
 		texWin.setTexture(Mixer.layerOutput);
 	}
 
@@ -125,10 +125,10 @@ public class OutputWindow {
 		texWin.hide();
 		texWin.delete();
 		texWin = null;
-		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true,true);
-		blackScreen = null;
-		blackScreen = new BlackScreen(p, screenWidth, screenHeight);
-		texWin.setTexture(blackScreen.getTexture());
+		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true,true);;
+		Interface.resetSketchs();
+		Mixer.resetTexture();
+		texWin.setTexture(Mixer.layerOutput);
 	}	
 	
 	public void enableTest() {
@@ -141,7 +141,6 @@ public class OutputWindow {
 		texWin.setTexture(testSketch.getTexture());
 	}
 
-	//Cambiar
 	public void disableTest() {
 		test = false;
 		texWin.setTexture(Mixer.layerOutput);

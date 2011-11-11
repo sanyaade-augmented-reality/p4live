@@ -1,14 +1,14 @@
 /*
-This file is part of P4Live :: Processing 4 Live 
+This file is part of P4Live :: Processing for Live 
 by Lot Amor—s 
 http://p4live.feenelcaos.org
 
-P4VJ is free software:
+P4Live is free software:
 you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License.
 
-P4VJ is distributed in the hope that it will be useful,
+P4Live is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -19,39 +19,38 @@ along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
 
 package p4sketch;
 
+import p4live.OutputWindow;
 import p4live.P4live;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 public class Sketch extends GLGraphicsOffScreen {
-	
+	PApplet p;
 	protected float[] parameter = new float[3];
 
 	protected float rotX = 0.5f;
 	protected float rotY = 0.5f;
 	protected float rotZ = 0.5f;
 
-	protected float speedX = 0.5f;
-	protected float speedY = 0.5f;
-	protected float speedZ = 0;
+	protected float speedX = 0.0f;
+	protected float speedY = 0.0f;
+	protected float speedZ = 0.0f;
 
 	protected float cameraX = 0.5f;
 	protected float cameraY = 0.5f;
 	protected float cameraZ = 0.5f;
 	
-	float cx = 0;
-	float cy = 0;
-	float cz = 0;
+	protected float cx = 0.0f;
+	protected float cy = 0.0f;
+	protected float cz = 0.0f;
 
-	float rx = 0;
-	float ry = 0;
-	float rz = 0;
+	protected int fov;
 
-	private int fov;
-	
-	
+	private float delayCamera = 2;
+		
 	public Sketch(PApplet arg0, int arg1, int arg2) {
 		super(arg0, arg1, arg2);
+		p = arg0;
 		parameter[0] = 0;
 		parameter[1] = 0;
 		parameter[2] = 0;
@@ -63,28 +62,27 @@ public class Sketch extends GLGraphicsOffScreen {
 	 */
 	public void draw(){	}
 
+	
+	//EVENTS
+	
 	/**
 	 * You need to rewrite this metod for receive events
 	 * @param event Type of event
 	 */
 	public void event(int event) { }
 	
-	
+		
 	/**
-	 * ACTIONS
+	 * You need to rewrite this metod for see MIDI NOTE ON/OFF events
+	 * @param channel The channel of the note
 	 */
+	public void noteOn(int channel, int pitch, int velocity){ }
 	
 	/**
 	 * You need to rewrite this metod for see MIDI NOTE ON/OFF events
 	 * @param channel The channel of the note
 	 */
-	public void mapNoteOn(int channel, int pitch, int velocity){ }
-	
-	/**
-	 * You need to rewrite this metod for see MIDI NOTE ON/OFF events
-	 * @param channel The channel of the note
-	 */
-	public void mapNoteOff(int channel, int pitch, int velocity){ }
+	public void noteOff(int channel, int pitch, int velocity){ }
 	
 	/**
 	 * Call this method before draw for no problems with other sketches
@@ -93,17 +91,25 @@ public class Sketch extends GLGraphicsOffScreen {
 		beginDraw();
 		pushStyle();
 		pushMatrix();
+		
 		cx = P4live.map(cameraX, 0, 1, -1000, 1000);
 		cy = P4live.map(cameraY, 0, 1, -1000, 1000);
 		cz = P4live.map(cameraZ, 0, 1, -1000, 1000);
 		translate(cx,cy,cz);
 		
-		rx = P4live.map(rotX, 0, 1, -180, 180);
+		/*rx = P4live.map(rotX, 0, 1, -180, 180);
 		ry = P4live.map(rotY, 0, 1, -180, 180);
-		rz = P4live.map(rotZ, 0, 1, -180, 180);
-		rotateX(P4live.radians(rx));
-		rotateY(P4live.radians(ry));
-		rotateZ(P4live.radians(rz));
+		rz = P4live.map(rotZ, 0, 1, -180, 180);	*/
+		
+		rotX += speedX;
+		rotY += speedY;
+		rotZ += speedZ;
+		
+		translate(OutputWindow.getWidth()/2,OutputWindow.getHeight()/2);
+		rotateX(P4live.radians(rotX));
+		rotateY(P4live.radians(rotY));
+		rotateZ(P4live.radians(rotZ));
+		translate(-OutputWindow.getWidth()/2,-OutputWindow.getHeight()/2);
 		}
 	
 	/**
@@ -120,6 +126,7 @@ public class Sketch extends GLGraphicsOffScreen {
 	 * @param value degrees
 	 */
 	public void setFov(int value){
+		beginDraw();
 		int f = P4live.constrain(value, 1, 150);
 		fov = f;
 	    float cameraZ = ((height/2.0f) / P4live.tan(PI*60.0f/360.0f));
@@ -127,7 +134,8 @@ public class Sketch extends GLGraphicsOffScreen {
 		float zNear = cameraZ/2.0f;
 	    float zFar = cameraZ*10.0f;
 		float aspect = width/height;
-		perspective(P4live.radians(fov), aspect, zNear, zFar);
+		perspective(p.radians(fov), aspect, zNear, zFar);
+		endDraw();
 	}
 
 	/**
@@ -136,12 +144,7 @@ public class Sketch extends GLGraphicsOffScreen {
 	 */
 	public void setFov(float value){
 		fov = (int) (value*150);
-	    float cameraZ = ((height/2.0f) / P4live.tan(PI*60.0f/360.0f));
-	    //float zNear = cameraZ/10.0f;//default	
-		float zNear = cameraZ/2.0f;
-	    float zFar = cameraZ*10.0f;
-		float aspect = width/height;
-		(this).perspective(P4live.radians(fov), aspect, zNear, zFar);
+		setFov(fov);
 	}
 	
 	/**
@@ -211,7 +214,7 @@ public class Sketch extends GLGraphicsOffScreen {
 	 * @param speedX the speedX to set
 	 */
 	public void setSpeedX(float speedX) {
-		this.speedX = speedX;
+		this.speedX = p4live.P4live.map(speedX, 0, 1, -5, 5);
 	}
 
 	/**
@@ -225,7 +228,7 @@ public class Sketch extends GLGraphicsOffScreen {
 	 * @param speedY the speedY to set
 	 */
 	public void setSpeedY(float speedY) {
-		this.speedY = speedY;
+		this.speedY = p4live.P4live.map(speedY, 0, 1, -5, 5);
 	}
 
 	/**
@@ -239,7 +242,7 @@ public class Sketch extends GLGraphicsOffScreen {
 	 * @param speedZ the speedZ to set
 	 */
 	public void setSpeedZ(float speedZ) {
-		this.speedZ = speedZ;
+		this.speedZ = p4live.P4live.map(speedZ, 0, 1, -5, 5);
 	}
 
 	/**
@@ -287,4 +290,12 @@ public class Sketch extends GLGraphicsOffScreen {
 	public void setParameter(int i, float value) {
 		parameter[i-1] = value;
 	}
+	
+	public void resetCamera(){
+		  P4live.ani.to(this, delayCamera, "rotX", 0f);
+		  P4live.ani.to(this, delayCamera, "rotY", 0f);
+		  P4live.ani.to(this, delayCamera, "rotZ", 0f);
+	}
+	
+	
 }

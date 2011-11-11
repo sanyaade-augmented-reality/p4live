@@ -28,7 +28,7 @@ public class Mixer extends Control{
 		BlendModes = new ArrayList<LayerBlend>();
 		opacity = new ScalarParam(1f,0.0f,0.5f,0.01f);
 		defaultX = 200;
-		defaultY = 310;
+		defaultY = 460;
 		defaultWidth = 200;
 		loadFilters();
 		buildInterface();
@@ -41,13 +41,12 @@ public class Mixer extends Control{
 	
 	private void loadFilters(){
 		p.println("* Loading blending filters...");
-
+		BlendModes.add(new LayerBlend(p,"Linear Dodge (Add)","BlendAdd.xml"));
 		  BlendModes.add(new LayerBlend(p,"Color","BlendColor.xml"));
 		  BlendModes.add(new LayerBlend(p,"Luminance","BlendLuminance.xml"));
-		  BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
-		  BlendModes.add(new LayerBlend(p,"Subtract","BlendSubtract.xml"));
-		  BlendModes.add(new LayerBlend(p,"Linear Dodge (Add)","BlendAdd.xml"));
-		  /*BlendModes.add(new LayerBlend(p,"ColorDodge","BlendColorDodge.xml"));
+		  /*BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
+		  BlendModes.add(new LayerBlend(p,"Subtract","BlendSubtract.xml"));	  
+		  BlendModes.add(new LayerBlend(p,"ColorDodge","BlendColorDodge.xml"));
 		  BlendModes.add(new LayerBlend(p,"ColorBurn","BlendColorBurn.xml"));
 		  BlendModes.add(new LayerBlend(p,"Darken","BlendDarken.xml"));
 		  BlendModes.add(new LayerBlend(p,"Lighten","BlendLighten.xml"));
@@ -102,4 +101,8 @@ public class Mixer extends Control{
 		  current.apply(); 
 	}
 	
+	public static void resetTexture(){
+		layerOutput = null;
+		layerOutput = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());
+	}
 }

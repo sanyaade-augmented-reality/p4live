@@ -1,5 +1,6 @@
 package p4control;
 
+import p4live.Events;
 import controlP5.Button;
 import controlP5.ControlBehavior;
 import controlP5.Knob;
@@ -24,10 +25,10 @@ public class BPM extends Control{
 	
 	private void build() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("bpmVelocity",10,200,120,20,20,20,100).setGroup(group);
-		controlP5.addKnob("bpm",0,1,0,70,20,100).setGroup(group);	
-		controlP5.addButton("Sync",0,160,10,30,20).setGroup(group);
-		controlP5.addButton("Tap", 0,160,110,30,20).setGroup(group);
+		controlP5.addSlider("bpmVelocity",10,200,120,20,20,20,100).setGroup(group).plugTo(this);
+		controlP5.addKnob("bpm",0,1,0,70,20,100).setGroup(group).plugTo(this);	
+		controlP5.addButton("Sync",0,160,10,30,20).setGroup(group).plugTo(this);
+		controlP5.addButton("Tap", 0,160,110,30,20).setGroup(group).plugTo(this);
 	}
 	
 	public void setPreferences(){	
@@ -40,13 +41,13 @@ public class BPM extends Control{
 				
 		Slider bpmV = (Slider)controlP5.controller("bpmVelocity");
 		bpmV.setDecimalPrecision(1);
-		bpmV.plugTo(this);
+		//bpmV.plugTo(this);
 		
 		Button tap = (Button)controlP5.controller("Tap");
-		tap.plugTo(this);
+		//tap.plugTo(this);
 		
 		Button sync = (Button)controlP5.controller("Sync");
-		sync.plugTo(this);
+		//sync.plugTo(this);
 		
 		bpmVelocity(120);
 	}
@@ -82,6 +83,7 @@ public class BPM extends Control{
 					lastBeat = p.millis();
 					nextBeat = lastBeat + actualMS;
 					this.controller().setColorBackground(p.color(255,0,10));
+					Events.beat();
 				}
 				else
 					this.controller().setColorBackground(p.color(128,0,30));

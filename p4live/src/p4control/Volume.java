@@ -18,8 +18,8 @@ public class Volume extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("level",  0, 1,0,20,20,20,100).setGroup(group);
-		controlP5.addSlider("Gain",0,10,1,50,20,10,100).setGroup(group);
+		controlP5.addSlider("level",  0, 1,0,20,20,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("Gain",0,10,1,50,20,10,100).setGroup(group).plugTo(this);
 	}
 	
 	public void setPreferences(){	

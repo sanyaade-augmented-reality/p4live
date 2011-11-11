@@ -1,5 +1,5 @@
 /*
-This file is part of P4Live :: Processing 4 Live 
+33This file is part of P4Live :: Processing 4 Live 
 by Lot Amoros 
 http://p4live.feenelcaos.org
 
@@ -39,7 +39,7 @@ import controlP5.Toggle;
 import de.looksgood.ani.Ani;
 import themidibus.MidiBus;
 
-public class SketchControl extends Control{
+public class Channel extends Control{
 	private static String sketchPath="/Users/lot/Documents/workspace/p4live/src/p4sketch";
 	private static ArrayList<String> Sketchs = new ArrayList<String>();
 	private DropdownList sketchSelector;
@@ -48,31 +48,31 @@ public class SketchControl extends Control{
 	private int channel;
 	private int delayCamera = 2;
 	
-	private float Sketch1Alpha=1;
-	private float Sketch2Alpha=1;
-	private float Sketch3Alpha=1;
+	private static float Sketch1Alpha=1;
+	private static float Sketch2Alpha=1;
+	private static float Sketch3Alpha=1;
 	
-	private float Sketch1CX=0.5f;
-	private float Sketch1CY=0.5f;
-	private float Sketch1CZ=0.5f;
-	private float Sketch2CX=0.5f;
-	private float Sketch2CY=0.5f;
-	private float Sketch2CZ=0.5f;
-	private float Sketch3CX=0.5f;
-	private float Sketch3CY=0.5f;
-	private float Sketch3CZ=0.5f;
+	private static float Sketch1CX=0.5f;
+	private static float Sketch1CY=0.5f;
+	private static float Sketch1CZ=0.5f;
+	private static float Sketch2CX=0.5f;
+	private static float Sketch2CY=0.5f;
+	private static float Sketch2CZ=0.5f;
+	private static float Sketch3CX=0.5f;
+	private static float Sketch3CY=0.5f;
+	private static float Sketch3CZ=0.5f;
 
-	private float Sketch1RX=0.5f;
-	private float Sketch1RY=0.5f;
-	private float Sketch1RZ=0.5f;
-	private float Sketch2RX=0.5f;
-	private float Sketch2RY=0.5f;
-	private float Sketch2RZ=0.5f;
-	private float Sketch3RX=0.5f;
-	private float Sketch3RY=0.5f;
-	private float Sketch3RZ=0.5f;
+	private static float Sketch1RX=0.5f;
+	private static float Sketch1RY=0.5f;
+	private static float Sketch1RZ=0.5f;
+	private static float Sketch2RX=0.5f;
+	private static float Sketch2RY=0.5f;
+	private static float Sketch2RZ=0.5f;
+	private static float Sketch3RX=0.5f;
+	private static float Sketch3RY=0.5f;
+	private static float Sketch3RZ=0.5f;
 	
-	public SketchControl(int c, int dx, int dy){
+	public Channel(int c, int dx, int dy){
 		String s;
 		channel = c;
 		s = "Sketch"+channel;
@@ -87,13 +87,13 @@ public class SketchControl extends Control{
 		
 		switch(channel){
 			case 1:
-				sketch = new TestScreen(p, OutputWindow.getWidth(), OutputWindow.getHeight());
+				setSketch("TestScreen");
 				break;
 			case 2: 	
-				sketch = new BlackScreen(p, OutputWindow.getWidth(), OutputWindow.getHeight());
+				sketch = new _Select_Sketch(p, OutputWindow.getWidth(), OutputWindow.getHeight());
 				break;
 			case 3:
-				sketch = new BlackScreen(p, OutputWindow.getWidth(), OutputWindow.getHeight());
+				sketch = new _Select_Sketch(p, OutputWindow.getWidth(), OutputWindow.getHeight());
 				break;
 		}		
 		sketch.begin();
@@ -126,7 +126,7 @@ public class SketchControl extends Control{
 		controlP5.addKnob(groupName+"RY", 0, 1, 0.5f, 50, 315, 20).setGroup(group);
 		controlP5.addKnob(groupName+"RZ", 0, 1, 0.5f, 90, 315, 20).setGroup(group);
 		
-		controlP5.addKnob(groupName+"FOV", 0, 360, 40, 10, 350, 60).setGroup(group);
+		controlP5.addKnob(groupName+"FOV", 0, 1, 40, 10, 350, 60).setGroup(group);
 		
 		controlP5.addToggle(groupName+"Pause",   false, 80, 350, 15, 15).setGroup(group);
 		controlP5.addButton(groupName+"Reset",0, 80,390,30,20).setGroup(group);
@@ -149,7 +149,6 @@ public class SketchControl extends Control{
 		group.setWidth(defaultWidth);
 		
 		sketchSelector.setId(channel*100);
-		//controlP5.group("Select_Sketch")
 		controlP5.controller(groupName+"Alpha").setId(channel*100+1);	
 		controlP5.controller(groupName+"P1").setId(channel*100+2);		
 		controlP5.controller(groupName+"P2").setId(channel*100+3);
@@ -243,6 +242,10 @@ public class SketchControl extends Control{
 		controlP5.controller(groupName+"RZ").setCaptionLabel("RZ");
 	}
 	
+	public void event(int e){
+		sketch.event(e);
+	}
+	
 	public void controlEvent(ControlEvent theEvent) {		
 		  int channel = p.floor(theEvent.controller().id() / 100);
 		  //p.println("got a control event from controller with id "+theEvent.controller().id());
@@ -263,7 +266,9 @@ public class SketchControl extends Control{
 		  case 101:
 		  case 201:
 		  case 301:			  
-			  imageController.setAlpha(theEvent.controller().value());
+			  //imageController.setAlpha(theEvent.controller().value());
+			  //setAlpha()
+			  //p.println(Sketch1Alpha + " "+Sketch2Alpha + " "+Sketch3Alpha  );
 			  break;
 		  case 102:
 		  case 202:
@@ -298,17 +303,20 @@ public class SketchControl extends Control{
 		  case 108:
 		  case 208:
 		  case 308:
-			  sketch.setRotationX(theEvent.controller().value());
+			  sketch.setSpeedX(theEvent.controller().value());
+			  //sketch.setRotationX(theEvent.controller().value());
 			  break;
 		  case 109:
 		  case 209:
 		  case 309:
-			  sketch.setRotationY(theEvent.controller().value());
+			  sketch.setSpeedY(theEvent.controller().value());
+			  //sketch.setRotationY(theEvent.controller().value());
 			  break;			  
 		  case 110:
 		  case 210:
 		  case 310:
-			  sketch.setRotationZ(theEvent.controller().value());
+			  sketch.setSpeedZ(theEvent.controller().value());
+			  //sketch.setRotationZ(theEvent.controller().value());
 			  break;
 		  case 111:
 		  case 211:
@@ -330,12 +338,18 @@ public class SketchControl extends Control{
 			  Ani.to(this, delayCamera, "Sketch"+channel+"RX", 0.5f);
 			  Ani.to(this, delayCamera, "Sketch"+channel+"RY", 0.5f);
 			  Ani.to(this, delayCamera, "Sketch"+channel+"RZ", 0.5f);
+			  sketch.resetCamera();
 			  break;
-
+		  case 114:
+		  case 214:
+		  case 314:
+			  clearSketch();
+			  break;
 		  case 115:
 		  case 215:
 		  case 315:
-			  Ani.to(this, delayCamera, "Sketch"+channel+"Alpha", 0);
+			  //Ani.to(this, delayCamera, "Sketch"+channel+"Alpha", 0);
+			  Ani a = new Ani(this, delayCamera, "Sketch"+channel+"Alpha", 0, Ani.CIRC_OUT, "onEnd:clearSketch");  
 			  break;
 		  default:
 			  p.println("Warning. Unmaped event");
@@ -369,6 +383,7 @@ public class SketchControl extends Control{
 	 */
 	public void setSketch(String sName) {
 		try {
+			sketch = null;
 			Object [] args = new Object[3];
 			args[0] = p;
 			args[1] = OutputWindow.getWidth();
@@ -376,13 +391,36 @@ public class SketchControl extends Control{
 			
 			Class c = Class.forName("p4sketch."+sName);
 			Constructor cons = c.getConstructor(PApplet.class, int.class, int.class);
-			sketch = (Sketch) cons.newInstance(args);			
+			sketch = (Sketch) cons.newInstance(args);	
 		} catch (Exception e) {
 			p.println("* Error loading sketch: " + sName + "Exception: " +e);
 			sketchSelector.setLabel("Select Skech");
 		}
 	}
+	
+	public void clearSketch(){
+		sketchSelector.setValue(0);
+	}
+	
+	public void resetSketch(){
+		int index = (int)sketchSelector.getValue();
+		setSketch(index);
+	}
 		
+	public float getAlpha(){
+		switch(channel){
+		case 1:
+			return Sketch1Alpha;
+		case 2:
+			return Sketch2Alpha;
+		case 3:
+			return Sketch3Alpha;
+		default:
+			return 0;
+		}
+		
+	}
+	
 	/**
 	 * Load all the Sketches from sketch folder 
 	 */
@@ -426,4 +464,12 @@ public class SketchControl extends Control{
 			return null;
 		}
 	}
+
+	/*public void noteOn(int channel2, int pitch, int velocity) {
+		sketch.noteOn(channel2, pitch, velocity);		
+	}
+
+	public void noteOff(int channel2, int pitch, int velocity) {
+		sketch.noteOff(channel2, pitch, velocity);
+	}*/
 }

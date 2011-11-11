@@ -1,12 +1,13 @@
 package p4control;
 
+import p4live.Events;
 import controlP5.ControlBehavior;
 import controlP5.Slider;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioListener;
 import ddf.minim.analysis.BeatDetect;
 
-public class Beat extends Control{
+public class Beats extends Control{
 	private BeatDetect beats; 					// The BeatDetect main object
 	private BeatListener bl; 					// A beat listener for the beat object
 	
@@ -14,7 +15,9 @@ public class Beat extends Control{
 	public static float snare;
 	public static float hat;
 	
-	public Beat(){
+	//private int Sensitivity;
+	
+	public Beats(){
 		groupName = "Beat";
 		defaultHeight = 140;
 		defaultWidth = 200;
@@ -29,10 +32,10 @@ public class Beat extends Control{
 	
 	private void buildInterface() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("kick", 0,1,0,20,20,20,100).setGroup(group);
-		controlP5.addSlider("snare",0,1,0,60,20,20,100).setGroup(group);
-		controlP5.addSlider("hat",  0,1,0,100,20,20,100).setGroup(group);		
-		controlP5.addSlider("Sensitivity",10,10000,128,150,20,10,100).setGroup(group);
+		controlP5.addSlider("kick", 0,1,0,20,20,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("snare",0,1,0,60,20,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("hat",  0,1,0,100,20,20,100).setGroup(group).plugTo(this);		
+		controlP5.addSlider("Sensitivity",10,10000,128,150,20,10,100).setGroup(group).plugTo(this);
 	}
 	
 	public void setPreferences(){	
@@ -73,18 +76,24 @@ public class Beat extends Control{
 		sensitivity.setDecimalPrecision(1);
 		sensitivity.setMin(10);
 		sensitivity.setMax(10000);
-		sensitivity.plugTo(this);
 	}
 	
-	public void Sensitivity(int v){
+	public void setSensitivity(float v){
+		int s=(int)p.map(v,0,1,10,10000);
+		Sensitivity(s);
+	}
+	
+	private void Sensitivity(int v){
 		beats.setSensitivity(v); 
 	}
 	
 	private class kickUpdate extends ControlBehavior {
 		  public kickUpdate() {  }
 		  public void update() {
-			  if(beats.isKick())
+			  if(beats.isKick()){
 				  setValue(1);
+				  Events.kick();
+			  }
 			  else
 				  setValue(p.constrain((float) (value * 0.9), 0, 1));
 		  }
@@ -93,8 +102,10 @@ public class Beat extends Control{
 	private class snareUpdate extends ControlBehavior {
 		  public snareUpdate() {  }
 		  public void update() {
-			  if(beats.isSnare())
+			  if(beats.isSnare()){
 				  setValue(1);
+				  Events.snare();
+			  }
 			  else
 				  setValue(p.constrain((float) (value * 0.9), 0, 1));
 		  }
@@ -102,8 +113,10 @@ public class Beat extends Control{
 	private class hatUpdate extends ControlBehavior {
 		  public hatUpdate() {  }
 		  public void update() {
-			  if(beats.isHat())
+			  if(beats.isHat()){
 				  setValue(1);
+				  Events.hat();
+			  }
 			  else
 				  setValue(p.constrain((float) (value * 0.9), 0, 1));
 		  }

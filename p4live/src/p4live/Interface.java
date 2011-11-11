@@ -25,14 +25,15 @@ import controlP5.ControlEvent;
 import controlP5.ControllerInterface;
 
 import p4control.BPM;
-import p4control.Beat;
+import p4control.Beats;
 import p4control.Mixer;
 import p4control.Control;
 import p4control.FastFourierTransformation;
 import p4control.Midi;
 import p4control.Output;
-import p4control.SketchControl;
+import p4control.Channel;
 import p4control.Volume;
+import p4control.Wave;
 import processing.core.PApplet;
 
 /**
@@ -43,7 +44,7 @@ public class Interface {
 	
 	private static PApplet p;
 	private static ArrayList<Control> Controls;
-	private static ArrayList<SketchControl> Channels;
+	private static ArrayList<Channel> Channels;
 	private static Control c;
 	
 	/*private ControlScreens cScreens;
@@ -58,13 +59,13 @@ public class Interface {
 		p = parent;
 		c = new Control(p);
 		Controls = new ArrayList<Control>();
-		Channels = new ArrayList<SketchControl>();
+		Channels = new ArrayList<Channel>();
 				
 		//loadInterface(); NO
 		
-		SketchControl c1 = new SketchControl(1, 420, 310);
-		SketchControl c2 = new SketchControl(2,622,310);
-		SketchControl c3 = new SketchControl(3,825,310);
+		Channel c1 = new Channel(1, 420, 310);
+		Channel c2 = new Channel(2,622,310);
+		Channel c3 = new Channel(3,825,310);
 		
 		Channels.add(0, c1);
 		Channels.add(1, c2);
@@ -74,14 +75,13 @@ public class Interface {
 
 	private void buildInterface(){
 		Controls.add(new Mixer());//0
-		Controls.add(new Output());//0
-		Controls.add(new Beat());//1
-		Controls.add(new Volume());//2
-		Controls.add(new FastFourierTransformation());//3 
-		Controls.add(new Midi());//4
-		Controls.add(new BPM());//5
-		//Controls.add(new Blend());//6
-		
+		Controls.add(new Output());//1
+		Controls.add(new Beats());//2
+		Controls.add(new Volume());//3
+		Controls.add(new FastFourierTransformation());//4
+		Controls.add(new Midi());//5
+		Controls.add(new BPM());//6
+		Controls.add(new Wave());//6		
 	}
 	
 	public void loadInterface(){
@@ -128,13 +128,37 @@ public class Interface {
 		Mixer.update();
 	}
 	
+	/*public static void noteOn(int channel, int pitch, int velocity){
+		for (int k=0;k<Channels.size();k++)
+			Channels.get(k).noteOn(channel,pitch,velocity);
+	}
+	public static void noteOff(int channel, int pitch, int velocity){
+		for (int k=0;k<Channels.size();k++)
+			Channels.get(k).noteOff(channel,pitch,velocity);
+	}*/
+
+	
+	public static void event(int e){
+		for (int k=0;k<Channels.size();k++)
+			Channels.get(k).event(e);
+	}
+	
 	public static GLTexture textureSketch(int channel){
 		if (channel == 0)
 			return Mixer.layerOutput;
-		else
-			return Channels.get(channel-1).getTexture();
+		else{
+			int alpha = (int) (Channels.get(channel-1).getAlpha() *255);
+			GLTexture tex= Channels.get(channel-1).getTexture();
+			tex.paint(0, 255-alpha);
+			return tex;
+		}
 	}
 
+	public static void resetSketchs(){
+		for (int k=0;k<Channels.size();k++)
+			Channels.get(k).resetSketch();
+	}
+	
 	public static void setSketch(int channel,int sketch){
 		Channels.get(channel-1).setSketch(sketch);
 	}

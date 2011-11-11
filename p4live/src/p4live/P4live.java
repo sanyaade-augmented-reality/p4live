@@ -24,6 +24,7 @@ import processing.core.PApplet;
 import controlP5.ControlEvent;
 import controlP5.Controller;
 import codeanticode.glgraphics.*;
+import de.looksgood.ani.Ani;
  
 //import P4Sketchs.
 
@@ -33,6 +34,7 @@ import p4live.P4Constants;
 
 
 public class P4live extends PApplet {
+	public static Ani ani;
 	public static Interface i;
 	private static Events events;
 	public static String p4Folder;
@@ -51,7 +53,7 @@ public class P4live extends PApplet {
 		//solo objetos a los que haya que acceder
 		events = new Events(this);
 		i = new Interface(this);					//last step build interface
-		
+		ani.init(this);
 	}
 
 	public void draw() {
@@ -83,19 +85,17 @@ public class P4live extends PApplet {
 	/////////// EVENTS
 
 	public void noteOn(int channel, int pitch, int velocity, String bus_name) {
-		//i.pingMidi();
-		Midi.pingComunication();
-		events.captureMidiEvent(channel,pitch,velocity,bus_name);
+		Midi.pingControl();
+		//events.captureMidiEvent(channel,pitch,velocity,bus_name);
+		EventsMidi.noteOn(channel, pitch, velocity, bus_name);
 	}
 
-	void noteOff(int channel, int pitch, int velocity, String bus_name) {
-		Midi.pingComunication();
-		events.captureMidiEvent(channel,pitch,velocity,bus_name);
+	public void noteOff(int channel, int pitch, int velocity, String bus_name) {
+		EventsMidi.noteOff(channel, pitch, velocity, bus_name);
 	}
 
 	public void controllerChange(int channel, int number, int value, String bus_name) {
-		Midi.pingComunication();
-		events.captureMidiEvent(channel,number,value,bus_name);
+		EventsMidi.controllerChange(channel,number,value,bus_name);
 	}
 
 	public void controlEvent(ControlEvent theEvent) {
@@ -104,20 +104,30 @@ public class P4live extends PApplet {
 			case 1:
 				Mixer.setCurrentFilter((int)theEvent.group().getValue());
 				break;
+			case 2:
+				EventsMidi.setControlChannel((int)theEvent.group().getValue());
+				break;
+			case 3:
+				EventsMidi.setSoundChannel((int)theEvent.group().getValue());
+				break;							
 			case 100:
-				i.setSketch(1, (int)theEvent.group().getValue());
+				Interface.setSketch(1, (int)theEvent.group().getValue());
 				break;
 			case 200:
-				i.setSketch(2, (int)theEvent.group().getValue());
+				Interface.setSketch(2, (int)theEvent.group().getValue());
 				break;
 			case 300:
-				i.setSketch(3, (int)theEvent.group().getValue());
+				Interface.setSketch(3, (int)theEvent.group().getValue());
 				break;
 			}			
 		    // check if the Event was triggered from a ControlGroup
 		    //println(theEvent.group().getValue()+" from "+theEvent.group());
-		  } /*else if(theEvent.isController()) {
-		    println("* Warning: controller not mapped: " + theEvent.controller().name());
-		  }*/
+		  } else if (Midi.isMaping()){ 			  
+			  if(theEvent.isController()) {
+				  if (theEvent.controller().isMousePressed())
+					  EventsMidi.setControllerMap(theEvent.controller().name());
+				  //println("* Warning: controller not mapped: " + theEvent.controller().name());
+		  }
 		}
+	}
 }

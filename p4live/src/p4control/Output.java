@@ -37,11 +37,11 @@ public class Output extends Control {
 		defaultHeight = 290;
 		//Set Output window
 		ow = new OutputWindow(p); 
-		build();
+		buildInterface();
 		setPreferences();
 	}
 
-	private void build() {
+	private void buildInterface() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(150);
@@ -51,9 +51,9 @@ public class Output extends Control {
 		imageController.setChannel(0);
 		controlP5.register(imageController);
 	
-		controlP5.addToggle("OutputWindow", true,280, 10, 20, 20).setGroup(group);
-		controlP5.addToggle("Fullscreen",false,280, 50, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
-		controlP5.addToggle("TestSketch",false, 280,90, 20,20).setGroup(group);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("OutputWindow", true,280, 10, 20, 20).setGroup(group).plugTo(this);
+		controlP5.addToggle("Fullscreen",false,280, 50, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("TestSketch",false, 280,90, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
 		
 		controlP5.addTextlabel("control","Control Window: "+p.width+"px x "+p.height+"px @ "+ p.frameRate + " FPS", 280,260).setGroup(group);
 		controlP5.addTextlabel("output", "Output Window:  "+ow.getWidth()+"px x "+ow.getHeight()+"px @ "+ow.frameRate()+" FPS", 280, 270).setGroup(group);	
@@ -64,9 +64,9 @@ public class Output extends Control {
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(defaultHeight);	
 		group.setWidth(defaultWidth);	
-		controlP5.controller("OutputWindow").plugTo(this);
+		/*controlP5.controller("OutputWindow").plugTo(this);
 		controlP5.controller("Fullscreen").plugTo(this);
-		controlP5.controller("TestSketch").plugTo(this);
+		controlP5.controller("TestSketch").plugTo(this);*/
 		
 		((Textlabel)controlP5.controller("control")).setWidth(defaultWidth);
 		((Textlabel)controlP5.controller("output")).setWidth(defaultWidth);

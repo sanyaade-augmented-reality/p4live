@@ -1,6 +1,6 @@
 package p4sketch;
 
-import p4control.Beat;
+import p4control.Beats;
 import p4control.Volume;
 import p4live.OutputWindow;
 import p4live.P4live;
@@ -44,12 +44,12 @@ public void draw() {
   waveY.push();
   for(int y = 0; y < DIM; y += STEP) {
     float valueY = waveY.update();
-    float colY = valueY * 128 * Beat.hat + 128;
+    float colY = valueY * 128 * Beats.hat + 128;
     waveX.push();
     beginShape(TRIANGLE_STRIP);
     for(int x = 0; x < DIM; x += STEP) {
       float valueX = waveX.update();
-      float colX = valueX * 200 * Beat.kick + 55;
+      float colX = valueX * 200 * Beats.kick + 55;
       fill(colX, Volume.level*128, colPrevY);
       vertex(x - D2, y - STEP - D2, (valueX + prevY) * AMP);
       fill(colX, Volume.level*128, colY);

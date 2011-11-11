@@ -57,9 +57,9 @@ public class ControllerTexture extends Controller {
     //aspectRatio = p4live.OutputWindow.getWidth() / p4live.OutputWindow.getHeight();
     
     textureWidth = width;
-    textureHeight = (p4live.OutputWindow.getHeight() * width) / p4live.OutputWindow.getHeight();
+    textureHeight = (OutputWindow.getHeight() * textureWidth) / OutputWindow.getWidth();
     
-    p.tint(255, alpha*255);
+    //p.tint(255, alpha*255);
     p.image(Interface.textureSketch(channel),0,0,textureWidth,textureHeight);
     
     captionLabel().draw(p, 0, height + 4);
