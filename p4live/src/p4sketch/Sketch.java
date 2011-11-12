@@ -25,7 +25,7 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 public class Sketch extends GLGraphicsOffScreen {
-	PApplet p;
+	protected PApplet p;
 	protected float[] parameter = new float[3];
 
 	protected float rotX = 0.5f;
@@ -45,12 +45,15 @@ public class Sketch extends GLGraphicsOffScreen {
 	protected float cz = 0.0f;
 
 	protected int fov;
+	protected boolean fovChanged=false;
 
 	private float delayCamera = 2;
 		
 	public Sketch(PApplet arg0, int arg1, int arg2) {
 		super(arg0, arg1, arg2);
 		p = arg0;
+		hint(ENABLE_OPENGL_4X_SMOOTH);
+		hint(DISABLE_OPENGL_2X_SMOOTH);
 		parameter[0] = 0;
 		parameter[1] = 0;
 		parameter[2] = 0;
@@ -91,7 +94,9 @@ public class Sketch extends GLGraphicsOffScreen {
 		beginDraw();
 		pushStyle();
 		pushMatrix();
-		
+		if (fovChanged)
+			setFov(fov);
+			
 		cx = P4live.map(cameraX, 0, 1, -1000, 1000);
 		cy = P4live.map(cameraY, 0, 1, -1000, 1000);
 		cz = P4live.map(cameraZ, 0, 1, -1000, 1000);
@@ -122,11 +127,10 @@ public class Sketch extends GLGraphicsOffScreen {
 	}	
 	
 	/**
-	 * Change fov 1 to 150 degrees
+	 * Change fov 1 to 150 degrees. Call only inside draw
 	 * @param value degrees
 	 */
 	public void setFov(int value){
-		beginDraw();
 		int f = P4live.constrain(value, 1, 150);
 		fov = f;
 	    float cameraZ = ((height/2.0f) / P4live.tan(PI*60.0f/360.0f));
@@ -135,7 +139,6 @@ public class Sketch extends GLGraphicsOffScreen {
 	    float zFar = cameraZ*10.0f;
 		float aspect = width/height;
 		perspective(p.radians(fov), aspect, zNear, zFar);
-		endDraw();
 	}
 
 	/**
@@ -144,7 +147,12 @@ public class Sketch extends GLGraphicsOffScreen {
 	 */
 	public void setFov(float value){
 		fov = (int) (value*150);
-		setFov(fov);
+		changeFov(fov);
+	}
+	
+	public void changeFov(int f){
+		fovChanged = true;
+		fov = f;
 	}
 	
 	/**

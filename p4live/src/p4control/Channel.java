@@ -322,6 +322,7 @@ public class Channel extends Control{
 		  case 211:
 		  case 311:	  
 			  sketch.setFov(theEvent.controller().value());
+			  //sketch.changeFov(theEvent.controller().value());
 			  break;
 		  case 112:
 		  case 212:
@@ -465,11 +466,21 @@ public class Channel extends Control{
 		}
 	}
 
-	/*public void noteOn(int channel2, int pitch, int velocity) {
-		sketch.noteOn(channel2, pitch, velocity);		
+	public void noteOn(int channel2, int pitch, int velocity) {
+		try{
+		sketch.noteOn(channel2, pitch, velocity);
+		}
+		catch(Exception e){
+			p.println(e);
+		}
 	}
 
 	public void noteOff(int channel2, int pitch, int velocity) {
+		try{
 		sketch.noteOff(channel2, pitch, velocity);
-	}*/
+		}
+		catch (Exception e){
+			p.println(e);
+		}
+	}
 }

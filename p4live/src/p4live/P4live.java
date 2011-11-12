@@ -33,6 +33,19 @@ import p4control.Mixer;
 import p4live.P4Constants;
 
 
+/*
+//The amount of memory allocated so far (usually the -Xms setting)
+long allocated = Runtime.getRuntime().totalMemory();
+
+//Free memory out of the amount allocated (value above minus used)
+long free = Runtime.getRuntime().freeMemory();
+
+//The maximum amount of memory that can eventually be consumed
+//by this application. This is the value set by the Preferences
+//dialog box to increase the memory settings for an application.
+long maximum = Runtime.getRuntime().maxMemory();
+*/
+
 public class P4live extends PApplet {
 	public static Ani ani;
 	public static Interface i;
@@ -49,6 +62,7 @@ public class P4live extends PApplet {
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 		frameRate(30);	
+		smooth();
 		p4Folder = "/Users/lot/Documents/workspace/p4live";
 		//solo objetos a los que haya que acceder
 		events = new Events(this);
@@ -62,7 +76,35 @@ public class P4live extends PApplet {
 		i.update();
 	}
 	
+	public void keyReleased() {
+		switch(key){
+		case 'b':
+				noteOff(P4Constants.BOMBO,10,10,"");
+				break;		
+		case 'v':
+			noteOff(P4Constants.CHARLES,10,10,"");
+			break;	
+		case 'c':
+			noteOff(P4Constants.CAJA,10,10,"");
+			break;		
+		}
+	}
 	public void keyPressed() {
+		switch(key){
+		case 'b':
+			noteOn(P4Constants.BOMBO,10,10,"");
+			break;		
+	case 'v':
+		noteOn(P4Constants.CHARLES,10,10,"");
+		break;	
+	case 'c':
+		noteOn(P4Constants.CAJA,10,10,"");
+		break;		
+		}
+
+		
+		
+		/*
 		  if(key=='s') {
 			  i.saveInterface();
 		  }
@@ -74,7 +116,7 @@ public class P4live extends PApplet {
 		  }
 		  if(key=='p') {
 			  i.setPreferences();
-		  }
+		  }*/
 		  /*
 		  if (key == 'a'){
 			  active = true;

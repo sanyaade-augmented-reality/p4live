@@ -1,16 +1,22 @@
 package p4live;
 
 public class NoteState{
-	public int channel;
-	public int velocity;
-	public int pitch;
-	public boolean state;
-//	int pos;
+	public int channel;//=0;
+	public int velocity;//=0;
+	public int pitch;//=0;
+	public boolean state;// = false;
+
+	/*NoteState(int channel,int velocity,int pitch){
+		this.channel = channel;
+		this.velocity = velocity;
+		this.pitch = pitch;
+//		this.state = true;
+	}*/
 
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		/*if (this == obj) {
 			return true;
-		}
+		}*/
 
 		if (obj instanceof NoteState) {
 			NoteState n = (NoteState) obj;				

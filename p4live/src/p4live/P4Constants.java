@@ -10,11 +10,6 @@ import java.awt.event.KeyEvent;
  *
  */
 public interface P4Constants {
-
-	public final static int KICK =  0;
-	public final static int SNARE = 1;
-	public final static int HAT =   2;
-	public final static int BEAT =   3;
 	
 	public final static int BOMBO =       1;
 	public final static int CAJA =        2;
@@ -30,6 +25,11 @@ public interface P4Constants {
 	public final static int RIFF2 =      12;
 	public final static int RIFF3 =      13;
 	public final static int SOUNDS =     14;
+
+	public final static int KICK =  15;
+	public final static int SNARE = 16;
+	public final static int HAT =   17;
+	public final static int BEAT =   18;	
 	
 	/*
 	public final static String eventMethod = "controlEvent";

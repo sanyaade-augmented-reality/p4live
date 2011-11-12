@@ -2,6 +2,7 @@ package p4sketch;
 
 import processing.core.*;
 import p4live.OutputWindow;
+import p4control.Beats;
 import p4control.Volume;
 import p4live.*;
 
@@ -9,9 +10,7 @@ public class CiudadCubo extends Sketch {
 	static int GRIDSIZE;
 	int POINTNUM;
 	int nCubos;
-	boolean center = true;
-	int posX,realX;
-	int posY,realY;
+	int cubeSize = 50;
 
 	public Gridpoint[] g ;
 	Gridpoint realcube;
@@ -19,10 +18,6 @@ public class CiudadCubo extends Sketch {
 	public CiudadCubo(PApplet arg0, int arg1 ,int arg2) {
 		super(arg0,arg1,arg2);
 		
-		   posX = OutputWindow.getWidth()/2;
-		   posY = OutputWindow.getHeight()/2;
-		   realX = OutputWindow.getWidth()/2;
-		   realY = OutputWindow.getHeight()/2;
 		   
 			GRIDSIZE = 5;
 			POINTNUM = 1000;
@@ -35,53 +30,29 @@ public class CiudadCubo extends Sketch {
 			for (int i = 0; i < POINTNUM; i++) {
 				int x = (int) p.random((OutputWindow.getWidth()) / GRIDSIZE) * GRIDSIZE;
 				int y = (int) p.random((OutputWindow.getHeight()) / GRIDSIZE) * GRIDSIZE;
-				//int x = (int)realcube.x;
-				//int y = (int)realcube.y;				
-				
+			
 				int dir = (int) p.random(2);
 				float vel = p.random(-3, 3);
 				g[i] = new Gridpoint(x, y, dir, vel);
 			}
 		
 	}
-	
-
 	   
 	public void event(int tipo) {
 		switch (tipo){
-		case 1:
-		case 2:
-		case 3:	
+		case P4Constants.KICK:
+		case P4Constants.SNARE:
+		case P4Constants.HAT:
 			if (nCubos < POINTNUM) {
 				g[nCubos].type = tipo;
 				nCubos++;
 			}
 			break;
-		case 0:
-
-				setCenter(OutputWindow.getWidth()/2, OutputWindow.getHeight()/2);
-				
-			center = !center;
-			break;
 		}
 	}
 
-	private void setCenter(int x, int y) {
-		posX = x;
-		posY = y;
-	}
-
 	public void draw() {
-		
-		realX += (int) ((posX - realX) * .1);
-		realY += (int) ((posY - realY) * .1);
-		
-		translate(realX, realY);
-		
-		/*rotateX(p4vj.rotX);
-		rotateY(p4vj.rotY);
-		rotateZ(p4vj.rotZ);*/
-		//translate(-p4vj.xCube,-p4vj.yCube,p4vj.zoomZ);
+		background(0);
 		
 		rectMode(CENTER);
 		strokeWeight(3);
@@ -91,7 +62,7 @@ public class CiudadCubo extends Sketch {
 			g[i].update();
 			g[i].draw();
 		}
-		//realcube.draw();
+
 	}
 
 	public class Gridpoint {
@@ -146,31 +117,23 @@ public class CiudadCubo extends Sketch {
 				translate(x, y, 0);
 				//box(p4vj.wCube);
 			break;
-				/*default:
 				case 1:
 					fill(0,128);
-					stroke(color(255));
 					translate(x, y, z);
-					//box(p4vj.wCube/3+p4vj.sound.kickLevel*100);
+					box(cubeSize+Beats.kick*100);
 					break;
 				case 2:
-					fill(128,128*alpha01);
-					stroke(color(255,alpha255));
-					translate(x, y, z+p4vj.sound.snareLevel*vel*100);
-					box(p4vj.wCube/3+p4vj.sound.snareLevel*100);
+					fill(128,128);
+					translate(x, y, z+Beats.snare*vel*100);
+					box(cubeSize+Beats.snare*100);
 					break;
 				case 3:
-					fill(200,128*alpha01);
-					stroke(color(0),alpha255);
-					translate(x, y, z+p4vj.sound.hatLevel*vel*150);
-					box(p4vj.wCube/3+p4vj.sound.hatLevel*100);
-					break;*/
+					fill(200,128);
+					stroke(color(0));
+					translate(x, y, z+Beats.hat*vel*150);
+					box(cubeSize+Beats.hat*100);
+					break;
 			}
-			//fill(type);
-			//rect(x, y, (vel * 5) + P4VJ.sound.volume * 100, (vel * 5) + P4VJ.sound.volume * 100);
-
-			//translate(x, y);
-			//box((vel * 5) + p4vj.sound.volume * 100 );
 
 			popMatrix();
 	

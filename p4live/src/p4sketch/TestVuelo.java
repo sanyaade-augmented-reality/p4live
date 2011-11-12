@@ -30,67 +30,67 @@ public class TestVuelo extends Sketch {
 				int col = (int) p.map(v, 0, 127, 0, 255);
 				int pitch = EventsMidi.midiState.get(i).pitch;
 				
-				p.fill(255);
-				p.stroke(255);
-				p.textSize(20);
+				fill(255);
+				stroke(255);
+				textSize(20);
 				switch(can){	
 				case P4Constants.BOMBO:
-//					p.println("BOMBO ON");
-					p.text("BOMBO", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					//p.println("BOMBO ON");
+					text("BOMBO", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.CAJA:
-	//				p.println("CAJA ON");
-					p.text("CAJA", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					//p.println("CAJA ON");
+					text("CAJA", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.CHARLES:
 					p.text("CHARLES", 30, 30+can*20);
 					p.ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.PERCUSION1:
-					p.text("PER1", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("PER1", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.PERCUSION2:
-					p.text("PER2", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("PER2", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.PERCUSION3:
-					p.text("PER3", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("PER3", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.BAJO1:
-					p.text("BAJO1", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("BAJO1", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.BAJO2:
-					p.text("BAJO2", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("BAJO2", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;				
 				case P4Constants.ACOMPA1:
-					p.text("ACOMPA1", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("ACOMPA1", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;				
 				case P4Constants.ACOMPA2:
-					p.text("ACOMPA2", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("ACOMPA2", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;				
 				case P4Constants.RIFF1:
-					p.text("RIFF1", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("RIFF1", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.RIFF2:
-					p.text("RIFF2", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("RIFF2", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;
 				case P4Constants.RIFF3:
-					p.text("RIFF3", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("RIFF3", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;				
 				case P4Constants.SOUNDS:
-					p.text("SOUNDS", 30, 30+can*20);
-					p.ellipse(50+pitch*10, can*20, 20, 20);
+					text("SOUNDS", 30, 30+can*20);
+					ellipse(50+pitch*10, can*20, 20, 20);
 				break;			
 				default:
 					p.println("* Warning Note ON unmpaped");

@@ -18,7 +18,7 @@ public class Beats extends Control{
 	//private int Sensitivity;
 	
 	public Beats(){
-		groupName = "Beat";
+		groupName = "Beats";
 		defaultHeight = 140;
 		defaultWidth = 200;
 		defaultX = 82;

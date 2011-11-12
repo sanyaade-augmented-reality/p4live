@@ -128,14 +128,14 @@ public class Interface {
 		Mixer.update();
 	}
 	
-	/*public static void noteOn(int channel, int pitch, int velocity){
+	public static void noteOn(int channel, int pitch, int velocity){
 		for (int k=0;k<Channels.size();k++)
 			Channels.get(k).noteOn(channel,pitch,velocity);
 	}
 	public static void noteOff(int channel, int pitch, int velocity){
 		for (int k=0;k<Channels.size();k++)
 			Channels.get(k).noteOff(channel,pitch,velocity);
-	}*/
+	}
 
 	
 	public static void event(int e){

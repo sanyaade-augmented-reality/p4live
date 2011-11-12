@@ -85,11 +85,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/audioutils"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/audioutils/gluegen-rt.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/audioutils"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/audioutils/joal.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/audioutils"/>
