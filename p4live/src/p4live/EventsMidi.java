@@ -64,14 +64,13 @@ public class EventsMidi extends Events{
 	}
 	
 	public static void noteOn(int channel, int pitch, int velocity, String bus_name){	
-		//actions.execute(number, value);
 		Interface.noteOn(channel, pitch, velocity);
 		
 		NoteState note = new NoteState();
 		note.channel = channel;
 		note.pitch = pitch;
 		note.velocity = velocity;
-		//note.state = true;
+		note.state = true;
 
 		int index = midiState.indexOf(note);
 
@@ -99,6 +98,9 @@ public class EventsMidi extends Events{
 		}
 	}
 
+	public static void resetState(){
+		midiState = new ArrayList<NoteState>();
+	}
 	public static void setControllerMap(String controller){
 		controllerMap = controller;
 		if (controlMap != -1){

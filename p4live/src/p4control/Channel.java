@@ -88,6 +88,7 @@ public class Channel extends Control{
 		switch(channel){
 			case 1:
 				setSketch("TestScreen");
+				//sketch = new _Select_Sketch(p, OutputWindow.getWidth(), OutputWindow.getHeight());
 				break;
 			case 2: 	
 				sketch = new _Select_Sketch(p, OutputWindow.getWidth(), OutputWindow.getHeight());
@@ -394,8 +395,9 @@ public class Channel extends Control{
 			Constructor cons = c.getConstructor(PApplet.class, int.class, int.class);
 			sketch = (Sketch) cons.newInstance(args);	
 		} catch (Exception e) {
-			p.println("* Error loading sketch: " + sName + "Exception: " +e);
-			sketchSelector.setLabel("Select Skech");
+			p.println("* Error loading sketch: " + sName );
+			p.println("Exception: " +e);
+			//sketchSelector.setLabel("Select Skech");
 		}
 	}
 	

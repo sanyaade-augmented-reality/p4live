@@ -31,6 +31,10 @@ public class BPM extends Control{
 		controlP5.addButton("Tap", 0,160,110,30,20).setGroup(group).plugTo(this);
 	}
 	
+	public static float beat(){
+		return controlP5.controller("bpm").getValue();
+	}
+	
 	public void setPreferences(){	
 		group.setBackgroundColor(p.color(255, 100));
 		group.setWidth(defaultWidth);

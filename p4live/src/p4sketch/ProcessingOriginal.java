@@ -1,5 +1,14 @@
 package p4sketch;
 
+import java.util.ArrayList;
+
+import p4control.Beats;
+import p4control.Volume;
+import p4live.EventsMidi;
+import p4live.NoteState;
+import p4live.OutputWindow;
+import p4live.P4Constants;
+import p4sketch.BolasCaen.Ball;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
@@ -11,120 +20,122 @@ public class ProcessingOriginal extends Sketch {
 	  */  
 
 	  // Set number of circles
-	  int count = 20;
+	  private int count = 20;
 	  // Set maximum and minimum circle size
-	  int maxSize = 100;
-	  int minSize = 20;
-	  // Build float array to store circle properties
-	  float[][] e = new float[count][5];
+	  private int maxSize = 50;
+	  private int minSize = 5;
+	  private NoteState n;
+	  	  
+	  private ArrayList<Ball> noteBalls = new ArrayList();
 	  // Set size of dot in circle center
-	  float ds=2;
-	  // Selected mode switch
-	  int sel = 0;
-	  // Set drag switch to false
+	 // int ds = 2;
 	
 	public ProcessingOriginal(PApplet arg0, int arg1 ,int arg2) {
-		super(arg0,arg1,arg2);
-		
+		super(arg0,arg1,arg2);	
+		noteBalls = new ArrayList<Ball>();
 	    strokeWeight(1);
-	    // Initiate array with random values for circles
-	    for(int j=0;j< count;j++){
-	      e[j][0]=p.random(width); // X 
-	      e[j][1]=p.random(height); // Y
-	      e[j][2]=p.random(minSize,maxSize); // Radius        
-	      e[j][3]=p.random(-.5f,.5f); // X Speed
-	      e[j][4]=p.random(-.5f,.5f); // Y Speed    
-	    }
+
 	}
 
+	public void noteOn(int channel, int pitch, int velocity){
+		NoteState note = new NoteState();
+		note.channel = channel;
+		note.pitch = pitch;
+		note.velocity = velocity;
 
+		int index = EventsMidi.midiState.indexOf(note);
 
-	  boolean dragging=false;
-	  // If use drags mouse...
-	  void mouseDragged(){
-	    // Set drag switch to true
-	    dragging=true;
-	    
-	  }
-	  // If user releases mouse...
-	  void mouseReleased(){
-	    // ..user is no-longer dragging
-	    dragging=false;
-	  }
+		if (index == -1){
+		      float x=p.random(OutputWindow.getWidth()); // X 
+		      float y=p.random(OutputWindow.getHeight()); // Y
+		      float radius=channel*30; // Radius        
+		      float speedX=p.random(-.5f,.5f); // X Speed
+		      float speedY=p.random(-.5f,.5f); // Y Speed 
+		      int color = p.color(64,128,187,100);
+		      Ball b = new Ball(x,y, speedX,speedY,radius,color);
+		      noteBalls.add(b);	
+		}		
+	}
+	
+	private void drawState() {
+		for (int i=0;i<EventsMidi.midiState.size();i++){
+			if(EventsMidi.midiState.get(i).state){
+				Ball b = noteBalls.get(i);      
+				b.draw();
+				
+			    fill(0,0,0,255);
+			    // and set line color to turquoise.
+			    stroke(64,128,128,255);
+			    
+				for (int k=0;k<EventsMidi.midiState.size();k++){
+					if(EventsMidi.midiState.get(k).state){
+				    	Ball b2 = noteBalls.get(k);
+					    // If the circles are close...
+					    if( p.dist(b.x,b.y,b2.x,b2.y) < b.radius*5){
+					        // Stroke a line from current circle to adjacent circle
+					        line(b.x,b.y,b2.x,b2.y);
+					     }
+					}
+				}
+			}
+		}
+	}
 
-	  // Begin main draw loop (called 25 times per second)
 	  public void draw(){
-	    // Fill background black
 	    background(0);
-	    // Begin looping through circle array
-	    for (int j=0;j< count;j++){
-	    // Disable shape stroke/border
-	    noStroke();
-	    // Cache diameter and radius of current circle
-	    float radi=e[j][2];
-	    float diam=radi/2;
-	    // If the cursor is within 2x the radius of current circle...
-	 /*   if( dist(e[j][0],e[j][1],mouseX,mouseY) < radi ){
-	    // Change fill color to green.
-	    fill(64,187,128,100);
-	    // Remember user has circle "selected"  
-	    sel=1;
-	    // If user has mouse down and is moving...
-	    if (dragging){
-	      // Move circle to circle position
-	      e[j][0]=mouseX;
-	      e[j][1]=mouseY;
-	      }
-	    } 
-	    
-	    
-	    else {*/
-	      // Keep fill color blue
-	      fill(64,128,187,100);
-	      // User has nothing "selected"
-	      sel=0;
-	   // }
-	    // Draw circle
-	    ellipse(e[j][0],e[j][1],radi,radi);
-	    // Move circle
-	    e[j][0]+=e[j][3];
-	    e[j][1]+=e[j][4];
-	     
-
-	    /* Wrap edges of canvas so circles leave the top
-	    and re-enter the bottom, etc... */ 
-	    if( e[j][0] < -diam      ){ e[j][0] = width+diam;  } 
-	    if( e[j][0] > width+diam ){ e[j][0] = -diam;       }
-	    if( e[j][1] < 0-diam     ){ e[j][1] = height+diam; }
-	    if( e[j][1] > height+diam){ e[j][1] = -diam;       }
-
-	    // If current circle is selected...
-	    if (sel==1) {
-	      // Set fill color of center dot to white..
-	      fill(255,255,255,255);
-	      // ..and set stroke color of line to green.
-	      stroke(128,255,0,100);      
-	    } else {            
-	      // otherwise set center dot color to black.. 
-	      fill(0,0,0,255);
-	      // and set line color to turquoise.
-	      stroke(64,128,128,255);      
-	    }
-
-	    // Loop through all circles
-	    for(int k=0;k< count;k++){
-	      // If the circles are close...
-	      if( p.dist(e[j][0],e[j][1],e[k][0],e[k][1]) < radi){
-	        // Stroke a line from current circle to adjacent circle
-	        line(e[j][0],e[j][1],e[k][0],e[k][1]);
-	      }
-	    }
-	    // Turn off stroke/border
-	    noStroke();      
-	    // Draw dot in center of circle
-	    rect(e[j][0]-ds,e[j][1]-ds,ds*2,ds*2);
-	    }
+	    drawState();
 	  }
 	
-	
+		class Ball {		  
+			  float x;
+			  float y;
+			  float speedX;
+			  float speedY;			  
+			  float gravity;
+			  float radius;
+			  int color;
+			  
+			  Ball(float tempX, float tempY,float sx,float sy, float tempW, int c) {
+			    x = tempX;
+			    y = tempY;
+			    speedX = sx;
+			    speedY = sy;
+			    radius = tempW;
+			    //gravity = 0.1f;
+			    color = c;
+			  }
+			  
+			   public void move() {
+				   x+=speedX;
+				   y+=speedY;
+				   
+				   int diam = (int) (radius/2);
+				    /* Wrap edges of canvas so circles leave the top
+				    and re-enter the bottom, etc... */ 
+				    if( x < -diam      ){ x = OutputWindow.getWidth()+diam;  } 
+				    if( x > OutputWindow.getWidth()+diam ){ x = -diam;       }
+				    if( y < 0-diam     ){ y = OutputWindow.getHeight()+diam; }
+				    if( y > OutputWindow.getHeight()+diam){ y = -diam;       }
+			  }
+			  			  
+			  void draw() {
+			    // Display the circle			    
+				pushMatrix();
+				translate(0,0,-radius/10);
+			
+			    fill(color);
+			    stroke(0);
+			    ellipse(x,y,radius,radius);
+
+				translate(0,0,1);
+				noStroke();
+				fill(0,0,0,255);
+				float ds = Volume.level*5; 
+				rect(x-ds,y-ds,ds*2,ds*2);
+
+			    popMatrix();
+			    move();
+			  }
+			}  
+
 }

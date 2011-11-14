@@ -76,10 +76,10 @@ public class Midi extends Control{
 		controlSelector.setGroup(group);
 		controlSelector.setId(2);
 
-		  for(int i=0;i<12;i++) {
+		  for(int i=0;i<16;i++) {
 			    controlSelector.addItem("Channel "+i,i);
 			  }
-		  for(int i=0;i<12;i++) {
+		  for(int i=0;i<16;i++) {
 			    soundSelector.addItem("Channel "+i,i);
 			  }
 	}
@@ -120,7 +120,10 @@ public class Midi extends Control{
 		control.setBehavior(new TimedEvent());
 
 		Toggle sound = (Toggle)controlP5.controller("Sound");
-		sound.setBehavior(new TimedEvent());		
+		sound.setBehavior(new TimedEvent());
+		
+		controlSelector.setValue(0);
+		Load();
 	}
 	
 	class TimedEvent extends ControlBehavior {

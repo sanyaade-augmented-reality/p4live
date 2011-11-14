@@ -18,7 +18,6 @@ along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package p4sketch;
-
 import p4live.OutputWindow;
 import p4live.P4live;
 import processing.core.PApplet;
@@ -52,12 +51,23 @@ public class Sketch extends GLGraphicsOffScreen {
 	public Sketch(PApplet arg0, int arg1, int arg2) {
 		super(arg0, arg1, arg2);
 		p = arg0;
-		hint(ENABLE_OPENGL_4X_SMOOTH);
-		hint(DISABLE_OPENGL_2X_SMOOTH);
+		width= arg1;
+		height = arg2;
 		parameter[0] = 0;
 		parameter[1] = 0;
 		parameter[2] = 0;
+		beginDraw();
+		//hint(ENABLE_OPENGL_4X_SMOOTH);
+		//hint(DISABLE_OPENGL_2X_SMOOTH);
 		background(0);
+		endDraw();
+	}
+	
+	public float getParameter(int p){
+		if (p>0 && p<3)
+			return parameter[p];
+		else
+			return -1;
 	}
 	
 	/**
@@ -297,7 +307,14 @@ public class Sketch extends GLGraphicsOffScreen {
 
 	public void setParameter(int i, float value) {
 		parameter[i-1] = value;
+		parameterChanged(i);
 	}
+	
+	/**
+	 * overwrite this method for listen parameter events
+	 * @param i the parameter changed
+	 */
+	public void parameterChanged(int i){}
 	
 	public void resetCamera(){
 		  P4live.ani.to(this, delayCamera, "rotX", 0f);

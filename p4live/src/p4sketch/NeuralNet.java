@@ -18,7 +18,7 @@ public class NeuralNet extends Sketch {
 	    for(int i = 0;i<n.length;i++)
 	        n[i].makeSynapse();
 	 
-	    rectMode(CENTER);
+	  //  rectMode(CENTER);
 	 
 	        for(int i = 0;i<n[0].s.length;i++)
 	    n[0].makeSignal(i);
@@ -83,13 +83,13 @@ public void draw(){
   //  background(0,10);
     pushStyle();
     //fill(11,1);
-    fill(0,60);
+    fill(0,80);
     
    /* stroke(0,190);
     strokeWeight(20);*/
     pushMatrix();
-    translate(0,0,-10);
-    
+    //translate(0,0,-10); 
+    noStroke();
     rect(0,0,OutputWindow.getWidth(),OutputWindow.getHeight());//queda mejor sin
     popMatrix();
     popStyle();

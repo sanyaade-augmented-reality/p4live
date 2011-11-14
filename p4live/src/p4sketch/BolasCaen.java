@@ -25,6 +25,7 @@ ArrayList balls;
 		
 		  // Create an empty ArrayList
 		  balls = new ArrayList();
+		  
 	}
 	
 	public void draw(){
@@ -51,7 +52,7 @@ ArrayList balls;
 		switch(channel){	
 		case P4Constants.BOMBO:
 			color = color(50,pitch,pitch);
-			color = color(234,43,43);			
+			color = color(234,43,43);
 			//color = E51515;
 			//color inside = #CC6600;
 			balls.add(new Ball(p.random(width), p.random(height), channel*10,color));

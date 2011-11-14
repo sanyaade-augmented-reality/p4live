@@ -63,6 +63,8 @@ public class P4live extends PApplet {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 		frameRate(30);	
 		smooth();
+		//hint(ENABLE_OPENGL_4X_SMOOTH);
+		//hint(DISABLE_OPENGL_2X_SMOOTH);
 		p4Folder = "/Users/lot/Documents/workspace/p4live";
 		//solo objetos a los que haya que acceder
 		events = new Events(this);
