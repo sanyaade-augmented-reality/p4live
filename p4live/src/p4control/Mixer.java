@@ -44,7 +44,7 @@ public class Mixer extends Control{
 		BlendModes.add(new LayerBlend(p,"Linear Dodge (Add)","BlendAdd.xml"));
 		  BlendModes.add(new LayerBlend(p,"Color","BlendColor.xml"));
 		  BlendModes.add(new LayerBlend(p,"Luminance","BlendLuminance.xml"));
-		  /*BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
+		  BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
 		  BlendModes.add(new LayerBlend(p,"Subtract","BlendSubtract.xml"));	  
 		  BlendModes.add(new LayerBlend(p,"ColorDodge","BlendColorDodge.xml"));
 		  BlendModes.add(new LayerBlend(p,"ColorBurn","BlendColorBurn.xml"));
@@ -58,7 +58,7 @@ public class Mixer extends Control{
 		  BlendModes.add(new LayerBlend(p,"HardLight","BlendHardLight.xml"));
 		  BlendModes.add(new LayerBlend(p,"SoftLight","BlendSoftLight.xml"));
 		  BlendModes.add(new LayerBlend(p,"Normal (Unpremultiplied, Photo Mask)","BlendUnmultiplied.xml"));
-		  BlendModes.add(new LayerBlend(p,"Normal (Premultiplied, CG Alpha)","BlendPremultiplied.xml"));*/
+		  BlendModes.add(new LayerBlend(p,"Normal (Premultiplied, CG Alpha)","BlendPremultiplied.xml"));
 
 		  if (BlendModes.size()==0)
 			  p.println("[Warning] No blending filters loaded");
