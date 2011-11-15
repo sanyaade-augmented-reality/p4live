@@ -14,7 +14,7 @@ public class LayerBlend {
 
 	public LayerBlend(PApplet Parent, String Name, String XmlFile) {
 		name = Name;
-		String folder = p4live.P4live.p4Folder+"/src/p4blend/";
+		String folder = Parent.sketchPath +"/src/p4blend/";
 		filter = new GLTextureFilter(Parent, folder+XmlFile);
 	}
 

@@ -40,7 +40,6 @@ import de.looksgood.ani.Ani;
 import themidibus.MidiBus;
 
 public class Channel extends Control{
-	private static String sketchPath="/Users/lot/Documents/workspace/p4live/src/p4sketch";
 	private static ArrayList<String> Sketchs = new ArrayList<String>();
 	private DropdownList sketchSelector;
 	private Sketch sketch;
@@ -430,13 +429,13 @@ public class Channel extends Control{
 	void loadVisuals() {
 		p.println();
 		p.println("Available Sketches in:");
-		p.println(sketchPath);
+		p.println(p.sketchPath);
 		p.println("------------------------");
 		// String[] filenames = listFileNames(sketchPath);
 
 		String name = "";
 
-		File[] files = listFiles(sketchPath);
+		File[] files = listFiles(p.sketchPath+"/src/p4sketch");
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
 			name = f.getName();

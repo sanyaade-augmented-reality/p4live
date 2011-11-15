@@ -50,9 +50,6 @@ public class P4live extends PApplet {
 	public static Ani ani;
 	public static Interface i;
 	private static Events events;
-	public static String p4Folder;
-	//Events events[];
-	//private boolean active=false;
 	
 	public static void main(String _args[]) {
 		PApplet.main(new String[] { p4live.P4live.class.getName() });
@@ -65,8 +62,6 @@ public class P4live extends PApplet {
 		smooth();
 		//hint(ENABLE_OPENGL_4X_SMOOTH);
 		//hint(DISABLE_OPENGL_2X_SMOOTH);
-		p4Folder = "/Users/lot/Documents/workspace/p4live";
-		//solo objetos a los que haya que acceder
 		events = new Events(this);
 		i = new Interface(this);					//last step build interface
 		ani.init(this);
@@ -80,28 +75,28 @@ public class P4live extends PApplet {
 	
 	public void keyReleased() {
 		switch(key){
-		case 'b':
-				noteOff(P4Constants.BOMBO,10,10,"");
+			case 'b':
+					noteOff(P4Constants.BOMBO,10,10,"");
+					break;		
+			case 'v':
+				noteOff(P4Constants.CHARLES,10,10,"");
+				break;	
+			case 'c':
+				noteOff(P4Constants.CAJA,10,10,"");
 				break;		
-		case 'v':
-			noteOff(P4Constants.CHARLES,10,10,"");
-			break;	
-		case 'c':
-			noteOff(P4Constants.CAJA,10,10,"");
-			break;		
 		}
 	}
 	public void keyPressed() {
 		switch(key){
-		case 'b':
-			noteOn(P4Constants.BOMBO,10,10,"");
-			break;		
-	case 'v':
-		noteOn(P4Constants.CHARLES,10,10,"");
-		break;	
-	case 'c':
-		noteOn(P4Constants.CAJA,10,10,"");
-		break;		
+			case 'b':
+				noteOn(P4Constants.BOMBO,10,10,"");
+				break;		
+			case 'v':
+				noteOn(P4Constants.CHARLES,10,10,"");
+				break;	
+			case 'c':
+				noteOn(P4Constants.CAJA,10,10,"");
+				break;		
 		}
 
 		
