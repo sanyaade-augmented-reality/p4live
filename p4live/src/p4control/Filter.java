@@ -6,6 +6,7 @@ import codeanticode.glgraphics.GLTexture;
 
 import p4blend.LayerBlend;
 import p4blend.ScalarParam;
+import p4live.Interface;
 import p4live.OutputWindow;
 
 import controlP5.ControlBehavior;
@@ -36,7 +37,7 @@ public class Filter extends Control{
 		current = BlendModes.get(0);
 		layerOutput = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());
 		current.filter.setParameterValue("Opacity",opacity.value);
-		current.apply();
+		current.apply(Interface.textureSketch(1),Interface.textureSketch(2),layerOutput);
 	}	
 	
 	private void loadFilters(){
@@ -98,7 +99,7 @@ public class Filter extends Control{
 	}
 	
 	public static void update(){
-		  current.apply(); 
+		  current.apply(Interface.textureSketch(1),Interface.textureSketch(2),layerOutput); 
 	}
 	
 	public static void resetTexture(){

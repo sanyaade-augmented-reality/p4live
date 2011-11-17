@@ -18,6 +18,18 @@ along with P4Live.  If not, see <http://www.gnu.org/licenses/>.
  */
 package p4live;
 
+//import java.util.logging.Logger;
+//import com.jdotsoft.jarloader.JarClassLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.CodeSource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import processing.core.PApplet;
 
 //Import Libraries
@@ -31,6 +43,7 @@ import de.looksgood.ani.Ani;
 import p4control.Midi;
 import p4control.Mixer;
 import p4live.P4Constants;
+import p4sketch.Sketch;
 
 
 /*
@@ -50,10 +63,13 @@ public class P4live extends PApplet {
 	public static Ani ani;
 	public static Interface i;
 	private static Events events;
+	//static Logger logger = Logger.getLogger(P4live.class.getName());
 	
 	public static void main(String _args[]) {
 		PApplet.main(new String[] { p4live.P4live.class.getName() });
 		//sketchPath(), sketchFile(), savePath(), dataPath(), and createPath() 
+		//logger.info(System.getProperty("java.library.path"));
+		//System.loadLibrary("jogl");
 	}
 	
 	public void setup() {
@@ -76,13 +92,13 @@ public class P4live extends PApplet {
 	public void keyReleased() {
 		switch(key){
 			case 'b':
-					noteOff(P4Constants.BOMBO,10,10,"");
-					break;		
+				noteOff(P4Constants.BOMBO,10,10,"");
+				break;		
 			case 'v':
-				noteOff(P4Constants.CHARLES,10,10,"");
+				noteOff(P4Constants.CHARLES,20,20,"");
 				break;	
 			case 'c':
-				noteOff(P4Constants.CAJA,10,10,"");
+				noteOff(P4Constants.CAJA,30,30,"");
 				break;		
 		}
 	}
@@ -92,10 +108,10 @@ public class P4live extends PApplet {
 				noteOn(P4Constants.BOMBO,10,10,"");
 				break;		
 			case 'v':
-				noteOn(P4Constants.CHARLES,10,10,"");
+				noteOn(P4Constants.CHARLES,20,20,"");
 				break;	
 			case 'c':
-				noteOn(P4Constants.CAJA,10,10,"");
+				noteOn(P4Constants.CAJA,30,30,"");
 				break;		
 		}
 

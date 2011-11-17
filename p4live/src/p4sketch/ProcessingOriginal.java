@@ -34,9 +34,18 @@ public class ProcessingOriginal extends Sketch {
 		super(arg0,arg1,arg2);	
 		noteBalls = new ArrayList<Ball>();
 	    strokeWeight(1);
-
+	    EventsMidi.resetState();
 	}
 
+	/*private void loadMidiState(){
+		for (int i=0;i<EventsMidi.midiState.size();i++){
+			int channel = EventsMidi.midiState.get(i).channel;
+			int pitch = EventsMidi.midiState.get(i).pitch;
+			int velocity = EventsMidi.midiState.get(i).velocity;
+			noteOn( channel, pitch,  velocity);
+		}
+	}*/
+	
 	public void noteOn(int channel, int pitch, int velocity){
 		NoteState note = new NoteState();
 		note.channel = channel;
@@ -60,6 +69,7 @@ public class ProcessingOriginal extends Sketch {
 	private void drawState() {
 		for (int i=0;i<EventsMidi.midiState.size();i++){
 			if(EventsMidi.midiState.get(i).state){
+				if (noteBalls.size()>i){
 				Ball b = noteBalls.get(i);      
 				b.draw();
 				
@@ -76,6 +86,7 @@ public class ProcessingOriginal extends Sketch {
 					        line(b.x,b.y,b2.x,b2.y);
 					     }
 					}
+				}
 				}
 			}
 		}

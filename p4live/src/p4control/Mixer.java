@@ -6,6 +6,7 @@ import codeanticode.glgraphics.GLTexture;
 
 import p4blend.LayerBlend;
 import p4blend.ScalarParam;
+import p4live.Interface;
 import p4live.OutputWindow;
 
 import controlP5.ControlBehavior;
@@ -22,6 +23,8 @@ public class Mixer extends Control{
 	private static LayerBlend current;
 	private ScalarParam opacity;
 	public static GLTexture layerOutput;
+	public static GLTexture layerInter;
+	
 	
 	public Mixer(){
 		groupName = "Mixer";
@@ -33,32 +36,37 @@ public class Mixer extends Control{
 		loadFilters();
 		buildInterface();
 		setPreferences();
-		current = BlendModes.get(0);
 		layerOutput = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());
+		layerInter = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());		
+		if (BlendModes.size()>0){
+		current = BlendModes.get(0);
 		current.filter.setParameterValue("Opacity",opacity.value);
-		current.apply();
+		current.apply(Interface.textureSketch(2),Interface.textureSketch(3),layerInter);		
+		current.apply(Interface.textureSketch(1),layerInter,layerOutput);
+		}
 	}	
 	
 	private void loadFilters(){
 		p.println("* Loading blending filters...");
-		BlendModes.add(new LayerBlend(p,"Linear Dodge (Add)","BlendAdd.xml"));
-		  BlendModes.add(new LayerBlend(p,"Color","BlendColor.xml"));
-		  BlendModes.add(new LayerBlend(p,"Luminance","BlendLuminance.xml"));
-		  BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
-		  BlendModes.add(new LayerBlend(p,"Subtract","BlendSubtract.xml"));	  
-		  BlendModes.add(new LayerBlend(p,"ColorDodge","BlendColorDodge.xml"));
-		  BlendModes.add(new LayerBlend(p,"ColorBurn","BlendColorBurn.xml"));
-		  BlendModes.add(new LayerBlend(p,"Darken","BlendDarken.xml"));
-		  BlendModes.add(new LayerBlend(p,"Lighten","BlendLighten.xml"));
-		  BlendModes.add(new LayerBlend(p,"Difference","BlendDifference.xml"));
-		  BlendModes.add(new LayerBlend(p,"InverseDifference","BlendInverseDifference.xml"));
-		  BlendModes.add(new LayerBlend(p,"Exclusion","BlendExclusion.xml"));
-		  BlendModes.add(new LayerBlend(p,"Overlay","BlendOverlay.xml"));
-		  BlendModes.add(new LayerBlend(p,"Screen","BlendScreen.xml"));
-		  BlendModes.add(new LayerBlend(p,"HardLight","BlendHardLight.xml"));
-		  BlendModes.add(new LayerBlend(p,"SoftLight","BlendSoftLight.xml"));
-		  BlendModes.add(new LayerBlend(p,"Normal (Unpremultiplied, Photo Mask)","BlendUnmultiplied.xml"));
-		  BlendModes.add(new LayerBlend(p,"Normal (Premultiplied, CG Alpha)","BlendPremultiplied.xml"));
+		
+			BlendModes.add(new LayerBlend(p,"Linear Dodge (Add)","BlendAdd.xml"));
+			  BlendModes.add(new LayerBlend(p,"Color","BlendColor.xml"));
+			  BlendModes.add(new LayerBlend(p,"Luminance","BlendLuminance.xml"));
+			  BlendModes.add(new LayerBlend(p,"Multiply","BlendMultiply.xml"));
+			  BlendModes.add(new LayerBlend(p,"Subtract","BlendSubtract.xml"));	  
+			  BlendModes.add(new LayerBlend(p,"ColorDodge","BlendColorDodge.xml"));
+			  BlendModes.add(new LayerBlend(p,"ColorBurn","BlendColorBurn.xml"));
+			  BlendModes.add(new LayerBlend(p,"Darken","BlendDarken.xml"));
+			  BlendModes.add(new LayerBlend(p,"Lighten","BlendLighten.xml"));
+			  BlendModes.add(new LayerBlend(p,"Difference","BlendDifference.xml"));
+			  BlendModes.add(new LayerBlend(p,"InverseDifference","BlendInverseDifference.xml"));
+			  BlendModes.add(new LayerBlend(p,"Exclusion","BlendExclusion.xml"));
+			  BlendModes.add(new LayerBlend(p,"Overlay","BlendOverlay.xml"));
+			  BlendModes.add(new LayerBlend(p,"Screen","BlendScreen.xml"));
+			  BlendModes.add(new LayerBlend(p,"HardLight","BlendHardLight.xml"));
+			  BlendModes.add(new LayerBlend(p,"SoftLight","BlendSoftLight.xml"));
+			  BlendModes.add(new LayerBlend(p,"Normal (Unpremultiplied, Photo Mask)","BlendUnmultiplied.xml"));
+			  BlendModes.add(new LayerBlend(p,"Normal (Premultiplied, CG Alpha)","BlendPremultiplied.xml"));
 
 		  if (BlendModes.size()==0)
 			  p.println("[Warning] No blending filters loaded");
@@ -98,11 +106,15 @@ public class Mixer extends Control{
 	}
 	
 	public static void update(){
-		  current.apply(); 
+		current.apply(Interface.textureSketch(2),Interface.textureSketch(3),layerInter);		
+		current.apply(Interface.textureSketch(1),layerInter,layerOutput);
 	}
 	
-	public static void resetTexture(){
+	public static void resetTextures(){
 		layerOutput = null;
 		layerOutput = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());
+		layerInter = null;
+		layerInter = new GLTexture(p,OutputWindow.getWidth(),OutputWindow.getHeight());
+		
 	}
 }

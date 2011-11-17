@@ -2,32 +2,32 @@ package p4sketch;
 
 import java.util.ArrayList;
 
+import p4control.Volume;
 import p4live.EventsMidi;
 import p4live.NoteState;
 import p4live.OutputWindow;
 import p4live.P4Constants;
 import processing.core.PApplet;
+import processing.core.PImage;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
-public class BolasCaen extends Sketch {	
-	
+public class Gotas extends Sketch {	
+
 ArrayList balls;
-	
-	public BolasCaen(PApplet arg0, int arg1 ,int arg2) {
+PImage img;	
+	public Gotas(PApplet arg0, int arg1 ,int arg2) {
 		super(arg0,arg1,arg2);
-		p = arg0;
+		img = p.loadImage("gota.png");
 		lights();
 		parameter[0] = 0;
 		parameter[1] = 0;
 		parameter[2] = 0;	
 		  // Create an empty ArrayList
-		  balls = new ArrayList();	  
+		  balls = new ArrayList();		  
 	}
 	
 	public void draw(){
 		background(0);
-		text("Bye bye Morgan",50,50);
-
 		 for (int i = balls.size()-1; i >= 0; i--) { 
 			    // An ArrayList doesn't know what it is storing so we have to cast the object coming out
 			    Ball ball = (Ball) balls.get(i);
@@ -36,15 +36,17 @@ ArrayList balls;
 			    if (ball.finished()) {
 			      // Items can be deleted with remove()
 			      balls.remove(i);
-			    }		    
+			    }			    
 			  }  
 		
 	}
 	
 	public void noteOn(int channel, int pitch, int velocity){
-		int color;
+		int color = color(channel*10,channel*20,0);
+		int x = (int) p.map(pitch, 0, 128, 0, OutputWindow.getWidth());			
+		balls.add(new Ball(x, 10, 10,color));
+		/*switch(channel){	
 		
-		switch(channel){	
 		case P4Constants.BOMBO:
 			color = color(50,pitch,pitch);
 			color = color(234,43,43);
@@ -114,7 +116,7 @@ ArrayList balls;
 		default:
 			p.println("* Warning Note ON unmpaped");
 			break;
-	}
+	}*/
 	}
 	
 	// Simple bouncing ball class
@@ -136,31 +138,27 @@ ArrayList balls;
 	    w = p.map(tempW, 1, 15, 10, 50);
 	    
 	    speed = 0;
-	    //gravity = 0.1f;
-	    gravity = p.map(tempW, 1, 15, 0.3f, 0.1f);
-	    gravity = parameter[0];
+	    gravity = 0.1f;
+	    //gravity = p.map(tempW, 1, 15, 0.3f, 0.1f);
+	    //gravity = parameter[0];
 	    color = c;
 	  }
 	  
 	    void move() {
 	    // Add gravity to speed
+	    gravity = Volume.level;	
 	    speed = speed + gravity;
 	    // Add speed to y location
 	    y = y + speed;
 	    // If square reaches the bottom
 	    // Reverse speed
-	    if (y > height) {
-	      // Dampening
-	      speed = speed * -0.8f;
-	      y = height;
-	    }
 	  }
 	  
 	  boolean finished() {
 	    // Balls fade out
 	    life--;
 	   // life = life -10;
-	    if (life < 0) {
+	    if (y > OutputWindow.getWidth() && life<0) {
 	      return true;
 	    } else {
 	      return false;
@@ -169,12 +167,13 @@ ArrayList balls;
 	  
 	  void display() {
 	    // Display the circle
-	    fill(color,life);
-	    stroke(0,life);
+	    //fill(color,life);
+	    //stroke(0,life);
 		pushMatrix();
 		translate(0,0,w);
-
-	    ellipse(x,y,w,w);
+		tint(color,200);
+		image(img,x,y);
+	    //ellipse(x,y,w,w);
 
 	    popMatrix();
 	  }

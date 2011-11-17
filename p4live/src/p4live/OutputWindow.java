@@ -116,7 +116,7 @@ public class OutputWindow {
 		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
 		Interface.resetSketchs();
-		Mixer.resetTexture();
+		Mixer.resetTextures();
 		EventsMidi.resetState();
 		texWin.setTexture(Mixer.layerOutput);
 	}
@@ -128,7 +128,7 @@ public class OutputWindow {
 		texWin = null;
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, windowWidth, windowHeight, true,	true,true);;
 		Interface.resetSketchs();
-		Mixer.resetTexture();
+		Mixer.resetTextures();
 		texWin.setTexture(Mixer.layerOutput);
 	}	
 	

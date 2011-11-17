@@ -23,8 +23,14 @@ import p4live.OutputWindow;
 import p4sketch.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import codeanticode.glgraphics.GLTexture;
 import processing.core.PApplet;
@@ -426,16 +432,49 @@ public class Channel extends Control{
 	/**
 	 * Load all the Sketches from sketch folder 
 	 */
-	void loadVisuals() {
+	void loadVisuals() {		
+		String p4sketchPath= p.sketchPath+"/src/p4sketch";
 		p.println();
 		p.println("Available Sketches in:");
-		p.println(p.sketchPath);
+		p.println(p4sketchPath);
 		p.println("------------------------");
 		// String[] filenames = listFileNames(sketchPath);
+		
+		/*CodeSource src = Sketch.class.getProtectionDomain().getCodeSource();
+		List<String> list = new ArrayList<String>();
+		if( src != null ) {
+		    URL jar = src.getLocation();
+			    ZipInputStream zip = null;
+			try {
+				zip = new ZipInputStream( jar.openStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    ZipEntry ze = null;
+
+		    try {
+				while( ( ze = zip.getNextEntry() ) != null ) {
+				    String entryName = ze.getName();
+					if( entryName.startsWith("p4sketch")) {
+				        list.add( entryName  );
+				        entryName.replace(".class", "");
+				        Sketchs.add(entryName);
+				    }
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		 }
+		 p.println( "list:");		
+		 p.println( list.toArray( new String[ list.size() ] ));*/
+
 
 		String name = "";
 
-		File[] files = listFiles(p.sketchPath+"/src/p4sketch");
+		File[] files = listFiles(p4sketchPath);
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
 			name = f.getName();
@@ -445,6 +484,7 @@ public class Channel extends Control{
 				Sketchs.add(name);
 			}
 		}
+		
 		p.println();
 		String msj = "* Loaded " + Sketchs.size() + " sketchs.";
 		p.println(msj);
