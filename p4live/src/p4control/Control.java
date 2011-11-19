@@ -36,6 +36,7 @@ public class Control {
 		//minim.debugOn();	  
 		// get a line in from Minim, default bit depth is 16
 		in = minim.getLineIn(Minim.STEREO);
+		
 	}
 	
 	public static void changeController(String controller, float value){

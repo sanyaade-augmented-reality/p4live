@@ -9,16 +9,16 @@ import p4live.P4Constants;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
-public class TestVuelo extends Sketch {	
+public class TestMidi extends Sketch {	
 	
-	public TestVuelo(PApplet arg0, int arg1 ,int arg2) {
+	public TestMidi(PApplet arg0, int arg1 ,int arg2) {
 		super(arg0,arg1,arg2);
 		p = arg0;
 	}
 	
 	public void draw(){
 		background(0);
-		text("Test Vuelo",30,30);
+		text("Test Midi",30,30);
 		drawState();
 	}
 	

@@ -12,7 +12,7 @@ public class Wave extends Control{
 	private Chart leftWave;
 	private Chart rightWave;
 	
-	private float[] f;
+	private static float[] f;
 	private int bufferSize = in.bufferSize();
 	private Slider waveGain;
 	
@@ -62,6 +62,10 @@ public class Wave extends Control{
 		waveGain.setMax(30);*/
 	}
 	
+	public static float[] getWave(){
+		return f;
+	}
+	
 	private class leftUpdate extends ControlBehavior {
 		  public leftUpdate() { }
 		  public void update() {
@@ -82,4 +86,5 @@ public class Wave extends Control{
 			  rightWave.updateData(0,f);	
 		  }
 		}
+	
 }

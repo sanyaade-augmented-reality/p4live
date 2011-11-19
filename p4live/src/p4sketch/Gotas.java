@@ -17,7 +17,7 @@ ArrayList balls;
 PImage img;	
 	public Gotas(PApplet arg0, int arg1 ,int arg2) {
 		super(arg0,arg1,arg2);
-		img = p.loadImage("gota.png");
+		img = p.loadImage(p.dataPath("Gotas/gota.png"));
 		lights();
 		parameter[0] = 0;
 		parameter[1] = 0;

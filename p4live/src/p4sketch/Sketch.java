@@ -25,6 +25,7 @@ import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 public class Sketch extends GLGraphicsOffScreen {
 	protected PApplet p;
+	protected String name;
 	protected float[] parameter = new float[3];
 
 	protected float rotX = 0.5f;
@@ -50,6 +51,7 @@ public class Sketch extends GLGraphicsOffScreen {
 		
 	public Sketch(PApplet arg0, int arg1, int arg2) {
 		super(arg0, arg1, arg2);
+		
 		p = arg0;
 		width= arg1;
 		height = arg2;

@@ -20,9 +20,9 @@ public class LayerBlend {
 
 	public LayerBlend(PApplet Parent, String Name, String XmlFile) {
 		name = Name;
-		String folder = Parent.sketchPath+"/data/";
+		String folder = Parent.dataPath("GLFilters/");
+		
 		//String folder = Parent.sketchPath +"/P4live.app/Contents/Resources/Java/p4blend/";
-
 		//CodeSource src = Sketch.class.getProtectionDomain().getCodeSource();
 		//URL jar = src.getLocation();
 		//file:/Users/lot/Documents/workspace/p4live/application.macosx/P4live.app/Contents/Resources/Java/P4live.jar
@@ -35,7 +35,6 @@ public class LayerBlend {
 			Parent.println("* Warning: blending filter not found.");
 			//e.printStackTrace();
 		}
-		//filter = new GLTextureFilter(Parent, jar);
 	}
 
 	public void apply(GLTexture in1, GLTexture in2, GLTexture out) {

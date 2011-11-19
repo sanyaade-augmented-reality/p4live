@@ -249,7 +249,7 @@ public class Channel extends Control{
 	}
 	
 	public void event(int e){
-		sketch.event(e);
+		//sketch.event(e);
 	}
 	
 	public void controlEvent(ControlEvent theEvent) {		
@@ -401,7 +401,9 @@ public class Channel extends Control{
 			sketch = (Sketch) cons.newInstance(args);	
 		} catch (Exception e) {
 			p.println("* Error loading sketch: " + sName );
-			p.println("Exception: " +e);
+			p.println("Exception: " + e);
+			e.printStackTrace();
+			
 			//sketchSelector.setLabel("Select Skech");
 		}
 	}

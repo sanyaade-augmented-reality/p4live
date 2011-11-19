@@ -162,6 +162,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="p4live/lib/user/volumeutils"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/user/objimport/objimport.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/user/Ani/Ani.jar"/>
