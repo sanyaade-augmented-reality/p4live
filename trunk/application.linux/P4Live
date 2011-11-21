@@ -1,4 +1,0 @@
-#!/bin/sh
-
-APPDIR=$(dirname "$0")
-java  -Djava.library.path="$APPDIR" -cp "lib/P4Live.jar"p4live.P4Live
