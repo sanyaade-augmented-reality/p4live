@@ -24,7 +24,7 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 public class Sketch extends GLGraphicsOffScreen {
-	protected PApplet p;
+	public PApplet p;
 	protected String name;
 	protected float[] parameter = new float[3];
 

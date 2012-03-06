@@ -59,7 +59,9 @@ long free = Runtime.getRuntime().freeMemory();
 long maximum = Runtime.getRuntime().maxMemory();
 */
 
-public class P4live extends PApplet {
+
+
+public class P4live extends PApplet {	
 	public static Ani ani;
 	public static Interface i;
 	private static Events events;
@@ -81,7 +83,6 @@ public class P4live extends PApplet {
 		ani.init(this);
 		events = new Events(this);
 		i = new Interface(this);					//last step build interface
-		
 	}
 
 	public void draw() {
@@ -115,8 +116,6 @@ public class P4live extends PApplet {
 				noteOn(P4Constants.CAJA,30,30,"");
 				break;		
 		}
-
-		
 		
 		/*
 		  if(key=='s') {

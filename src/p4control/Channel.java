@@ -21,6 +21,7 @@ package p4control;
 import p4live.ClassPathUpdater;
 import p4live.ControllerTexture;
 import p4live.OutputWindow;
+import p4live.P4live;
 import p4sketch.*;
 
 import java.io.File;
@@ -30,9 +31,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+//import java.util.List;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipInputStream;
+
+import org.codehaus.janino.JavaSourceClassLoader;
 
 import codeanticode.glgraphics.GLTexture;
 import processing.core.PApplet;
@@ -48,6 +51,8 @@ import de.looksgood.ani.Ani;
 import themidibus.MidiBus;
 
 public class Channel extends Control{
+	String p4sketchPath= p.sketchPath+"/data/";
+	ClassLoader sketchLoader;
 	private static ArrayList<String> Sketchs = new ArrayList<String>();
 	private DropdownList sketchSelector;
 	private Sketch sketch;
@@ -369,6 +374,16 @@ public class Channel extends Control{
 			Sketch1RY=0.5f;
 			Sketch1RZ=0.5f;
 			break;
+		case 2:			
+			Sketch2RX=0.5f;
+			Sketch2RY=0.5f;
+			Sketch2RZ=0.5f;
+			break;
+		case 3:			
+			Sketch3RX=0.5f;
+			Sketch3RY=0.5f;
+			Sketch3RZ=0.5f;
+			break;	
 		}
 	}
 	
@@ -406,8 +421,44 @@ public class Channel extends Control{
 	 * @param sName Name of the Sketch
 	 */
 	public void setSketch(String sName) {
-		try {
+		//new way
+		Object o;
+	    try {
+	    	//sketchLoader.
+			Class s = sketchLoader.loadClass("p4sketch."+sName);
+			Class[] argsClass = new Class[] {PApplet.class, int.class, int.class};
+			Object[] args = new Object[] {p, OutputWindow.getWidth(), OutputWindow.getHeight()};
+			Constructor c = s.getConstructor(argsClass);
+			o = c.newInstance(args);
+			sketch = ((Sketch) o); 
 			reset();
+			sketch.resetCamera();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//old way
+	    /*
+		try {
 			sketch = null;
 			Object [] args = new Object[3];
 			args[0] = p;
@@ -417,13 +468,14 @@ public class Channel extends Control{
 			Class c = Class.forName("p4sketch."+sName);
 			Constructor cons = c.getConstructor(PApplet.class, int.class, int.class);
 			sketch = (Sketch) cons.newInstance(args);
-			
+			reset();
+			sketch.resetCamera();
 		} catch (Exception e) {
 			p.println("* Error loading sketch: " + sName );
 			p.println("Exception: " + e);
 			e.printStackTrace();		
-			//sketchSelector.setLabel("Select Skech");
-		}
+			//sketchSelector.setLabel("Select Sketch");
+		}*/
 	}
 	
 	public void clearSketch(){
@@ -445,73 +497,29 @@ public class Channel extends Control{
 			return Sketch3Alpha;
 		default:
 			return 0;
-		}
-		
+		}		
 	}
 	
 	/**
 	 * Load all the Sketches from sketch folder 
 	 */
 	void loadVisuals() {		
-		String p4sketchPath= p.sketchPath+"/src/p4sketch";
-		//String p4sketchPath= p.dataPath("sketchs/");
-		/*try {
-			ClassPathUpdater.add(p.dataPath("sketchs/"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
-		p.println();
-		p.println("Available Sketches in:");
-		p.println(p4sketchPath);
-		p.println("------------------------");
-		// String[] filenames = listFileNames(sketchPath);
+		//p.dataPath(where)
+		//p.sketchFile(where)
 		
-		/*CodeSource src = Sketch.class.getProtectionDomain().getCodeSource();
-		List<String> list = new ArrayList<String>();
-		if( src != null ) {
-		    URL jar = src.getLocation();
-			    ZipInputStream zip = null;
-			try {
-				zip = new ZipInputStream( jar.openStream());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    ZipEntry ze = null;
-
-		    try {
-				while( ( ze = zip.getNextEntry() ) != null ) {
-				    String entryName = ze.getName();
-					if( entryName.startsWith("p4sketch")) {
-				        list.add( entryName  );
-				        entryName.replace(".class", "");
-				        Sketchs.add(entryName);
-				    }
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		 }
-		 p.println( "list:");		
-		 p.println( list.toArray( new String[ list.size() ] ));*/
-
+		 sketchLoader = new JavaSourceClassLoader(
+			    this.getClass().getClassLoader(),  // parentClassLoader
+			    new File[] { new File(p4sketchPath) }, // optionalSourcePath
+			    (String) null
+			);
+		
+		String pkg="p4sketch/"; 
+		p.println();
+		p.println("Available Sketches in: " + p4sketchPath+pkg);
+		p.println("------------------------");
 
 		String name = "";
-
-		File[] files = listFiles(p4sketchPath);
+		File[] files = listFiles(p4sketchPath+pkg);
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
 			name = f.getName();

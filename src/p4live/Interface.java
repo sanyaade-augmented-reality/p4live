@@ -162,9 +162,7 @@ public class Interface {
 			
 			return tex;
 		}
-	}
-	
-	
+	}	
 
 	public static void resetSketchs(){
 		for (int k=0;k<Channels.size();k++)

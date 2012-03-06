@@ -161,7 +161,7 @@ public class EventsMidi extends Events{
         try {
             p.println("* Saving midi mapping...");
            
-            FileOutputStream fileOut = new FileOutputStream("midimapping.p4live");
+            FileOutputStream fileOut = new FileOutputStream(p.dataPath("midimapping.p4live"));
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
             out.writeObject(tableControl);
@@ -181,7 +181,7 @@ public class EventsMidi extends Events{
         	tableControl.clear();
             p.println("* Loading midi mapping...");
            
-            FileInputStream fileIn = new FileInputStream("midimapping.p4live");
+            FileInputStream fileIn = new FileInputStream(p.dataPath("midimapping.p4live"));
             ObjectInputStream in = new ObjectInputStream(fileIn);
 
             tableControl = (Hashtable)in.readObject();

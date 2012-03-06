@@ -9,7 +9,7 @@ import controlP5.Slider;
 import ddf.minim.analysis.FFT;
 
 public class FastFourierTransformation extends Control{
-	private FFT fft;
+	public static FFT fft;
 	Chart fChart;
 	public static float[] f;
 	private int averages = 16;
