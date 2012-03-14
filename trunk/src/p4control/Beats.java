@@ -14,14 +14,12 @@ public class Beats extends Control{
 	public static float kick;
 	public static float snare;
 	public static float hat;
-	
-	//private int Sensitivity;
-	
+		
 	public Beats(){
 		groupName = "Beats";
-		defaultHeight = 140;
-		defaultWidth = 200;
-		defaultX = 82;
+		defaultHeight = 130;
+		defaultWidth = 150;
+		defaultX = 72;
 		defaultY = defaultY+10;
 		
 		beats = new BeatDetect(in.bufferSize(), in.sampleRate());
@@ -32,10 +30,10 @@ public class Beats extends Control{
 	
 	private void buildInterface() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("kick", 0,1,0,20,20,20,100).setGroup(group).plugTo(this);
-		controlP5.addSlider("snare",0,1,0,60,20,20,100).setGroup(group).plugTo(this);
-		controlP5.addSlider("hat",  0,1,0,100,20,20,100).setGroup(group).plugTo(this);		
-		controlP5.addSlider("Sensitivity",10,10000,128,150,20,10,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("kick", 0,1,0,10,10,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("snare",0,1,0,40,10,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("hat",  0,1,0,70,10,20,100).setGroup(group).plugTo(this);		
+		controlP5.addSlider("Sensitivity",10,10000,128,110,10,10,100).setGroup(group).plugTo(this);
 	}
 	
 	public void setPreferences(){	
@@ -46,36 +44,23 @@ public class Beats extends Control{
 		Slider kick = (Slider)controlP5.controller("kick");
 		kick.setBehavior(new kickUpdate());
 		kick.setColorForeground(p.color(255,0,0));
-		//kick.setSize(20,100);
-		//kick.setMin(0);
-		//kick.setMax(1);
-		//kick.label().
-		//kick.lock();
+		kick.valueLabel().style().padding(-2, 0, 0, -22);
 		
 		Slider snare = (Slider)controlP5.controller("snare");
 		snare.setBehavior(new snareUpdate());
 		snare.setColorForeground(p.color(0,255,0));
-		//snare.setSize(20,100);
-		//snare.setMin(0);
-		//snare.setMax(1);
-		snare.captionLabel().style().marginLeft = 0;
-		snare.captionLabel().style().paddingLeft = 0;
-		//snare.lock();
+		snare.valueLabel().style().padding(-2, 0, 0, -22);
 
 		Slider hat = (Slider)controlP5.controller("hat");
 		hat.setBehavior(new hatUpdate());
 		hat.setColorForeground(p.color(0,0,255));
-		//hat.setSize(20,100);
-		//hat.setMin(0);
-		//hat.setMax(1);
-		//hat.lock();
+		hat.valueLabel().style().padding(-2, 0, 0, -22);
 		
 		Slider sensitivity = (Slider)controlP5.controller("Sensitivity");
-		//kickS.setColorForeground(p.color(120,0,0));
-		//kickS.setColorActive(p.color(180,0,0));
 		sensitivity.setDecimalPrecision(1);
 		sensitivity.setMin(10);
 		sensitivity.setMax(10000);
+		sensitivity.captionLabel().style().setPaddingLeft(-15);
 	}
 	
 	public void setSensitivity(float v){

@@ -15,9 +15,9 @@ public class BPM extends Control{
 
 	public BPM(){
 		groupName = "BPM";
-		defaultHeight = 140;
-		defaultWidth = 200;
-		defaultX = 284;
+		defaultHeight = 130;
+		defaultWidth = 136;
+		defaultX = 224;
 		defaultY = defaultY+10;
 		build();
 		setPreferences();
@@ -25,10 +25,10 @@ public class BPM extends Control{
 	
 	private void build() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("bpmVelocity",10,200,120,20,20,20,100).setGroup(group).plugTo(this);
-		controlP5.addKnob("bpm",0,1,0,70,20,100).setGroup(group).plugTo(this);	
-		controlP5.addButton("Sync",0,160,10,30,20).setGroup(group).plugTo(this);
-		controlP5.addButton("Tap", 0,160,110,30,20).setGroup(group).plugTo(this);
+		controlP5.addSlider("bpmVelocity",10,200,120,10,10,20,100).setGroup(group).plugTo(this);
+		controlP5.addKnob("bpm",0,1,0,40,10,80).setGroup(group).plugTo(this);	
+		controlP5.addButton("Sync",0,68,105,30,20).setGroup(group).plugTo(this);
+		controlP5.addButton("Tap", 0,101,105,30,20).setGroup(group).plugTo(this);
 	}
 	
 	public static float beat(){
@@ -45,6 +45,7 @@ public class BPM extends Control{
 				
 		Slider bpmV = (Slider)controlP5.controller("bpmVelocity");
 		bpmV.setDecimalPrecision(1);
+		bpmV.valueLabel().style().padding(-2, 0, 0, -22);
 		//bpmV.plugTo(this);
 		
 		Button tap = (Button)controlP5.controller("Tap");

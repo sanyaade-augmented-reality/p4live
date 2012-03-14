@@ -46,7 +46,7 @@ public class OutputWindow {
 	private int windowX = 0;
 	private int windowY = 0;
 	private static int windowWidth = 400;
-	private static int windowHeight = 400;
+	private static int windowHeight = 250;
 	private static int screenWidth = -1;
 	private static int screenHeight = -1;
 	
@@ -114,8 +114,10 @@ public class OutputWindow {
 		fullscreen = true;
 		texWin.hide();
 		texWin = null;
+		p.println("s12");
 		texWin = new GLTextureWindow(p, "Window Output", windowX, windowY, screenWidth, screenHeight, true,	false,false);
 		Interface.resetSketchs();
+		p.println("s3");
 		Mixer.resetTextures();
 		EventsMidi.resetState();
 		texWin.setTexture(Mixer.layerOutput);

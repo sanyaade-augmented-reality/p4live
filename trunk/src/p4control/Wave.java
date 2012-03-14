@@ -18,10 +18,10 @@ public class Wave extends Control{
 	
 	public Wave(){
 		groupName="Wave";
-		defaultWidth= 400;
-		defaultHeight = 140;
+		defaultWidth= 360;
+		defaultHeight = 130;
 		defaultX = 0;
-		defaultY = 310;
+		defaultY = 290;
 		f = new float[bufferSize];
 		buildInterface();
 		setPreferences();
@@ -30,15 +30,15 @@ public class Wave extends Control{
 	private void buildInterface() {
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
 
-		rightWave = controlP5.addChart("rightWave",20,70,300,50);
+		rightWave = controlP5.addChart("rightWave",10,70,300,50);
 		rightWave.setGroup(group);
 		rightWave.plugTo(this);
 		
-		leftWave = controlP5.addChart("leftWave",20,20,300,50);
+		leftWave = controlP5.addChart("leftWave",10,10,300,50);
 		leftWave.setGroup(group);
 		leftWave.plugTo(this);
 		
-		waveGain = controlP5.addSlider("waveGain",0,300,10,340,20,10,100);
+		waveGain = controlP5.addSlider("waveGain",0,300,10,320,10,10,100);
 		waveGain.setDecimalPrecision(1);
 		waveGain.setGroup(group);
 		waveGain.plugTo(this);

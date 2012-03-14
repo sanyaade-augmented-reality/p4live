@@ -52,9 +52,10 @@ import themidibus.MidiBus;
 
 public class Channel extends Control{
 	String p4sketchPath= p.sketchPath+"/data/";
-	ClassLoader sketchLoader;
+	private ClassLoader sketchLoader;
 	private static ArrayList<String> Sketchs = new ArrayList<String>();
 	private DropdownList sketchSelector;
+	private DropdownList filterSelector;
 	private Sketch sketch;
 	private ControllerTexture imageController;
 	private int channel;
@@ -93,9 +94,10 @@ public class Channel extends Control{
 		defaultY = dy;
 		defaultWidth = 200;
 		defaultHeight= 460;
+		loadVisuals();
 		
 		if (channel == 1)
-			loadVisuals();
+			showVisuals();
 		
 		switch(channel){
 			case 1:
@@ -112,7 +114,7 @@ public class Channel extends Control{
 		sketch.begin();
 		sketch.draw();
 		sketch.end();
-		imageController = new ControllerTexture(controlP5,groupName+"Preview",10,10,180,180);
+		imageController = new ControllerTexture(controlP5,groupName+"Preview",10,10,180,115);
 		imageController.setChannel(channel);
 		controlP5.register(imageController);
 		buildInterface();
@@ -146,14 +148,23 @@ public class Channel extends Control{
 		controlP5.addButton(groupName+"Close",   0, 10, 430,40,20).setGroup(group);
 		controlP5.addButton(groupName+"OutClose",0, 60, 430,50,20).setGroup(group);
 		
-		sketchSelector = controlP5.addDropdownList(groupName+"Select_Sketch",55,204,130,250);
-		
+		sketchSelector = controlP5.addDropdownList(groupName+"Select_Sketch",55,138,130,320);	
 		sketchSelector.setGroup(group);
 		sketchSelector.setLabel("Select Sketch");
 		
-		  for(int i=0;i<Sketchs.size();i++) {
+		for(int i=0;i<Sketchs.size();i++) {
 			    sketchSelector.addItem(Sketchs.get(i),i);
 			  }
+		
+		filterSelector = controlP5.addDropdownList(groupName+"Select_Filter",55,150,130,320);	
+		filterSelector.setGroup(group);
+		filterSelector.setLabel("Select Filter");
+		
+		  /*for(int i=0;i<Sketchs.size();i++) {
+			    sketchSelector.addItem(Sketchs.get(i),i);
+			  }*/
+  
+		  
 	}
 	
 	public void setPreferences(){	
@@ -419,40 +430,40 @@ public class Channel extends Control{
 	 * Sets a sketch in this channel
 	 * 
 	 * @param sName Name of the Sketch
+	 * @return 
 	 */
 	public void setSketch(String sName) {
-		//new way
 		Object o;
 	    try {
-	    	//sketchLoader.
-			Class s = sketchLoader.loadClass("p4sketch."+sName);
-			Class[] argsClass = new Class[] {PApplet.class, int.class, int.class};
+	    	Class s = sketchLoader.loadClass("p4sketch."+sName);
+			Class[] argsClass = new Class[] {PApplet.class, int.class, int.class};	
 			Object[] args = new Object[] {p, OutputWindow.getWidth(), OutputWindow.getHeight()};
 			Constructor c = s.getConstructor(argsClass);
 			o = c.newInstance(args);
 			sketch = ((Sketch) o); 
 			reset();
 			sketch.resetCamera();
+			//Terminal.addText("* Loaded Sketch: " + sName );
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			Terminal.addText(e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -480,6 +491,7 @@ public class Channel extends Control{
 	
 	public void clearSketch(){
 		sketchSelector.setValue(0);
+		Terminal.addText("* Unloaded sketch in channel: " + channel);
 	}
 	
 	public void resetSketch(){
@@ -505,14 +517,15 @@ public class Channel extends Control{
 	 */
 	void loadVisuals() {		
 		//p.dataPath(where)
-		//p.sketchFile(where)
-		
+		//p.sketchFile(where)		
 		 sketchLoader = new JavaSourceClassLoader(
 			    this.getClass().getClassLoader(),  // parentClassLoader
 			    new File[] { new File(p4sketchPath) }, // optionalSourcePath
 			    (String) null
 			);
-		
+	}
+	
+	void showVisuals(){
 		String pkg="p4sketch/"; 
 		p.println();
 		p.println("Available Sketches in: " + p4sketchPath+pkg);

@@ -30,9 +30,9 @@ public class Mixer extends Control{
 		groupName = "Mixer";
 		BlendModes = new ArrayList<LayerBlend>();
 		opacity = new ScalarParam(1f,0.0f,0.5f,0.01f);
-		defaultX = 200;
-		defaultY = 460;
-		defaultWidth = 200;
+		defaultX = 170;
+		defaultY = 430;
+		defaultWidth = 190;
 		loadFilters();
 		buildInterface();
 		setPreferences();
@@ -77,12 +77,12 @@ public class Mixer extends Control{
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
 		//controlP5.addButton("Map",0, 10,70,30,20).setGroup(group);
-		mixFactor = controlP5.addSlider("mixFactor",0,1,1,165,10,10,76);
+		mixFactor = controlP5.addSlider("mixFactor",0,1,1,145,10,10,76);
 		mixFactor.setGroup(group);
 		mixFactor.plugTo(this);
 		//controlP5.addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH)
 
-		blendSelector = controlP5.addDropdownList("Blend_Mix",20,20,120,70);
+		blendSelector = controlP5.addDropdownList("Blend_Mix",10,20,120,80);
 		blendSelector.setGroup(group);
 		blendSelector.setId(1);
 

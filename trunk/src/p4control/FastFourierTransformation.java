@@ -17,10 +17,10 @@ public class FastFourierTransformation extends Control{
 	
 	public FastFourierTransformation(){
 		groupName="FFT";
-		defaultWidth= 400;
-		defaultHeight = 140;
+		defaultWidth= 360;
+		defaultHeight = 130;
 		defaultX = 0;
-		defaultY = 160;
+		defaultY = 150;
 		fft = new FFT(in.bufferSize(), in.sampleRate());
 		fft.linAverages(averages);
 		f = new float[averages];
@@ -31,10 +31,10 @@ public class FastFourierTransformation extends Control{
 	private void buildInterface() {
 		//controlP5.begin(10,10);
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		fChart = controlP5.addChart("fft",20,20,300,100);
+		fChart = controlP5.addChart("fft",10,10,300,100);
 		fChart.setGroup(group);
 		fChart.plugTo(this);
-		fftGain = controlP5.addSlider("fftGain",0,30,1,340,20,10,100);
+		fftGain = controlP5.addSlider("fftGain",0,30,1,320,10,10,100);
 		fftGain.setGroup(group);
 		fftGain.plugTo(this);
 		//controlP5.end();

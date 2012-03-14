@@ -21,7 +21,7 @@ public class Control {
 	protected static Minim minim;
 	protected static AudioInput in;
 	
-	protected int defaultWidth=100;
+	protected int defaultWidth=80;
 	protected int defaultHeight=100;
 	protected int defaultX=0;
 	protected int defaultY=0;
@@ -36,7 +36,6 @@ public class Control {
 		//minim.debugOn();	  
 		// get a line in from Minim, default bit depth is 16
 		in = minim.getLineIn(Minim.STEREO);
-		
 	}
 	
 	public static void changeController(String controller, float value){
@@ -74,7 +73,6 @@ public class Control {
 	  // always close Minim audio classes when you are done with them
 	  in.close();
 	  minim.stop();
-	  
 	  p.stop();
 	}
 	

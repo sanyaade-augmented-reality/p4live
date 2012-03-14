@@ -18,14 +18,14 @@ public class Volume extends Control{
 	
 	private void buildInterface() {		
 		group = controlP5.addGroup(groupName, defaultX, defaultY, defaultWidth);
-		controlP5.addSlider("level",  0, 1,0,20,20,20,100).setGroup(group).plugTo(this);
-		controlP5.addSlider("Gain",0,10,1,50,20,10,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("level",  0, 1,0,10,10,20,100).setGroup(group).plugTo(this);
+		controlP5.addSlider("Gain",0,10,1,40,10,10,100).setGroup(group).plugTo(this);
 	}
 	
 	public void setPreferences(){	
 		group.setBackgroundColor(p.color(255, 100));
-		group.setWidth(80);
-		group.setBackgroundHeight(140);
+		group.setWidth(70);
+		group.setBackgroundHeight(130);
 		
 		Slider vol = (Slider)controlP5.controller("level");
 		vol.setBehavior(new SoundUpdate());
@@ -34,6 +34,7 @@ public class Volume extends Control{
 		//vol.setMin(0);
 		//vol.setMax(1);
 		vol.setLabelVisible(false);
+		//vol.captionLabel().setVisible(true);
 		//kick.lock();
 		
 		Slider gain = (Slider)controlP5.controller("Gain");

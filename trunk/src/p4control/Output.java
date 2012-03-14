@@ -31,9 +31,9 @@ public class Output extends Control {
 
 	public Output() {
 		groupName="Output";
-		defaultX = 486;
+		defaultX = 362;
 		defaultY = defaultY+10;
-		defaultWidth = 540;
+		defaultWidth = 603;
 		defaultHeight = 290;
 		//Set Output window
 		ow = new OutputWindow(p); 
@@ -46,17 +46,17 @@ public class Output extends Control {
 		group.setBackgroundColor(p.color(255, 100));
 		group.setBackgroundHeight(150);
 		
-		imageController = new ControllerTexture(controlP5,groupName+"Preview",10,10,260,260);
+		imageController = new ControllerTexture(controlP5,groupName+"Preview",10,10,420,260);
 		imageController.setGroup(group);
 		imageController.setChannel(0);
 		controlP5.register(imageController);
 	
-		controlP5.addToggle("OutputWindow", true,280, 10, 20, 20).setGroup(group).plugTo(this);
-		controlP5.addToggle("Fullscreen",false,280, 50, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
-		controlP5.addToggle("TestSketch",false, 280,90, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("OutputWindow", true,440, 10, 20, 20).setGroup(group).plugTo(this);
+		controlP5.addToggle("Fullscreen",false,440, 50, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
+		controlP5.addToggle("TestSketch",false, 440,90, 20,20).setGroup(group).plugTo(this);//setMode(controlP5.SWITCH)
 		
-		controlP5.addTextlabel("control","Control Window: "+p.width+"px x "+p.height+"px @ "+ p.frameRate + " FPS", 280,260).setGroup(group);
-		controlP5.addTextlabel("output", "Output Window:  "+ow.getWidth()+"px x "+ow.getHeight()+"px @ "+ow.frameRate()+" FPS", 280, 270).setGroup(group);	
+		//controlP5.addTextlabel("control","Control Window: "+p.width+"px x "+p.height+"px @ "+ p.frameRate + " FPS", 280,260).setGroup(group);
+		//controlP5.addTextlabel("output", "Output Window:  "+ow.getWidth()+"px x "+ow.getHeight()+"px @ "+ow.frameRate()+" FPS", 280, 270).setGroup(group);	
 	}
 
 	public void setPreferences(){
@@ -68,8 +68,8 @@ public class Output extends Control {
 		controlP5.controller("Fullscreen").plugTo(this);
 		controlP5.controller("TestSketch").plugTo(this);*/
 		
-		((Textlabel)controlP5.controller("control")).setWidth(defaultWidth);
-		((Textlabel)controlP5.controller("output")).setWidth(defaultWidth);
+		//((Textlabel)controlP5.controller("control")).setWidth(defaultWidth);
+		//((Textlabel)controlP5.controller("output")).setWidth(defaultWidth);
 	}
 	
 	public void OutputWindow(int value){
@@ -81,9 +81,11 @@ public class Output extends Control {
 	}
 	
 	public void Fullscreen(int value){
+		p.println("s");
 		boolean b = (value != 0);
 		if (b){
 			ow.enableFullscreen();
+			p.println("s2");
 			controlP5.controller("TestSketch").setValue(0);
 		}
 		else{
@@ -93,6 +95,7 @@ public class Output extends Control {
 		String s = "Output window:          "+ow.getWidth()+" x "+ow.getHeight()+" @ "+" FPS";
 		
 		((Textlabel)controlP5.controller("output")).setValue(s);
+		p.println("e");
 	}
 	
 	public void TestSketch(int value){

@@ -18,8 +18,8 @@ public class Midi extends Control{
 	public Midi(){
 		groupName = "Midi";
 		defaultX = 0;
-		defaultY = 460;
-		defaultWidth = 198;
+		defaultY = 430;
+		defaultWidth = 168;
 		startMIDI();
 		buildInterface();
 		setPreferences();
