@@ -32,6 +32,7 @@ import p4control.FastFourierTransformation;
 import p4control.Midi;
 import p4control.Output;
 import p4control.Channel;
+import p4control.Terminal;
 import p4control.Volume;
 import p4control.Wave;
 import processing.core.PApplet;
@@ -60,12 +61,10 @@ public class Interface {
 		c = new Control(p);
 		Controls = new ArrayList<Control>();
 		Channels = new ArrayList<Channel>();
-				
-		//loadInterface(); NO
-		
-		Channel c1 = new Channel(1, 420, 310);
-		Channel c2 = new Channel(2,622,310);
-		Channel c3 = new Channel(3,825,310);
+						
+		Channel c1 = new Channel(1, 362, 310);
+		Channel c2 = new Channel(2,564,310);
+		Channel c3 = new Channel(3,766,310);
 		
 		Channels.add(0, c1);
 		Channels.add(1, c2);
@@ -81,7 +80,8 @@ public class Interface {
 		Controls.add(new FastFourierTransformation());//4
 		Controls.add(new Midi());//5
 		Controls.add(new BPM());//6
-		Controls.add(new Wave());//6		
+		Controls.add(new Wave());//7
+		Controls.add(new Terminal());//8		
 	}
 	
 	public void loadInterface(){
@@ -119,7 +119,7 @@ public class Interface {
 		}
 	}
 
-	public void update(){
+	public static void update(){
 		Output.update();
 		
 		for (int k=0;k<Channels.size();k++)
@@ -136,7 +136,6 @@ public class Interface {
 		for (int k=0;k<Channels.size();k++)
 			Channels.get(k).noteOff(channel,pitch,velocity);
 	}
-
 	
 	public static void event(int e){
 		for (int k=0;k<Channels.size();k++)
@@ -165,8 +164,10 @@ public class Interface {
 	}	
 
 	public static void resetSketchs(){
-		for (int k=0;k<Channels.size();k++)
+		for (int k=0;k<Channels.size()-2;k++){
+			p.println("Reset channel: "+k);
 			Channels.get(k).resetSketch();
+		}
 	}
 	
 	public static void setSketch(int channel,int sketch){

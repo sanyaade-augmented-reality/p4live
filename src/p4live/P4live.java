@@ -75,7 +75,7 @@ public class P4live extends PApplet {
 	}
 	
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(967, 768, GLConstants.GLGRAPHICS);
 		frameRate(30);	
 		smooth();
 		//hint(ENABLE_OPENGL_4X_SMOOTH);
@@ -88,7 +88,7 @@ public class P4live extends PApplet {
 	public void draw() {
 		background(0);
 		text(mouseX + " , " + mouseY,mouseX,mouseY);
-		i.update();
+		Interface.update();
 	}
 	
 	public void keyReleased() {
@@ -114,7 +114,12 @@ public class P4live extends PApplet {
 				break;	
 			case 'c':
 				noteOn(P4Constants.CAJA,30,30,"");
-				break;		
+				break;
+				
+			case 'q':
+				Interface.setSketch(2, 3);
+				println("q");
+				break;
 		}
 		
 		/*

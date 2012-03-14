@@ -29,7 +29,7 @@ public class Filter extends Control{
 		BlendModes = new ArrayList<LayerBlend>();
 		opacity = new ScalarParam(1f,0.0f,0.5f,0.01f);
 		defaultX = 200;
-		defaultY = 460;
+		defaultY = 430;
 		defaultWidth = 200;
 		loadFilters();
 		buildInterface();

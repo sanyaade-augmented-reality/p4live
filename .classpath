@@ -153,6 +153,9 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="/Users/lot/Documents/workspace/p4live/lib/user/physics/physics.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/lot/Documents/workspace/p4live/lib/user/geomerative/geomerative.jar"/>
+	<classpathentry kind="lib" path="lib/user/diewald_fluid/diewald_fluid.jar"/>
+	<classpathentry kind="lib" path="lib/user/janino/commons-compiler.jar"/>
+	<classpathentry kind="lib" path="lib/user/janino/janino.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/Users/lot/Documents/workspace/p4live/lib/user/Ani/Ani.jar"/>
 	<classpathentry kind="output" path="bin"/>
